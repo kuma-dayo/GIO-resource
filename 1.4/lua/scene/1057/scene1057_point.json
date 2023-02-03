@@ -1,0 +1,47 @@
+{
+  "radius": 10.0,
+  "points": {
+    "1": {
+      "type": "NORMAL",
+      "$type": "PersonalSceneJumpPoint",
+      "gadgetId": 70010002,
+      "pos": {
+        "x": -0.0005639791,
+        "y": 0.3185284,
+        "z": 24.08019
+      },
+      "rot": {
+        "x": 0.0,
+        "y": 180.21,
+        "z": 0.0
+      },
+      "areaId": 0,
+      "unlocked": true,
+      "cutsceneList": [],
+      "groupLimit": false,
+      "tranSceneId": 3,
+      "titleTextID": "UI_SCENE_ENTRY_EXIT_QUNYUGE",
+      "triggerSize": {
+        "x": 2.0,
+        "y": 2.0,
+        "z": 2.0
+      },
+      "open_time": 0.0,
+      "close_time": 24.0,
+      "tranPos": {
+        "x": -833.3378,
+        "y": 465.8782,
+        "z": 448.539
+      },
+      "tranRot": {
+        "x": 0.0,
+        "y": 126.3,
+        "z": 0.0
+      }
+    }
+  },
+  "areas": {},
+  "forces": {},
+  "entities": {},
+  "doors": {}
+}

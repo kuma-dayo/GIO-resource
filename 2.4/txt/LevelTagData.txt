@@ -1,0 +1,3 @@
+ID	LevelTagName	增加的SceneTag	移除的SceneTag	LevelTag变动修改环境生效Scene	LevelTag变动冻结环境时间
+1	2_4_Day		120	5	8
+2	2_4_Night	120		5	20

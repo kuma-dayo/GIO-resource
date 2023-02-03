@@ -1,0 +1,1 @@
+附加值ID	groupId列表	宝箱gadgetId

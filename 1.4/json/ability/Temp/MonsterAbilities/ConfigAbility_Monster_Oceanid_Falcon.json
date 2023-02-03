@@ -1,0 +1,150 @@
+[
+////////////////////////////////////////////////////////////////
+//
+//  ElementState
+//
+////////////////////////////////////////////////////////////////
+{
+	"Default":
+	{
+		"$type": "ConfigAbility",
+		"abilityName": "Monster_Oceanid_Falcon_ElementState",
+		"onAdded":
+		[
+			{
+				"$type":"ApplyModifier",
+				"modifierName":"UNIQUE_ElementState",
+			},
+			{
+				"$type" : "AttachAbilityStateResistance",
+				"resistanceBuffDebuffs": ["Struggle", "ElementWet"],
+			},
+			{
+				"$type":"AttachEffect",
+				"effectPattern": "Eff_Monster_Oceanid_Falcon_Eye",
+			},
+		],
+		"modifiers":
+		{
+			"UNIQUE_ElementState":
+			{
+				"isUnique": true,
+				"elementType": "Water",
+				"elementDurability": 100,
+				"isElementDurabilityMutable": false,
+			},
+		},
+	},
+},
+////////////////////////////////////////////////////////////////
+//
+//  Dive
+//
+////////////////////////////////////////////////////////////////
+{
+	"Default":
+	{
+		"$type": "ConfigAbility",
+		"abilityName": "Monster_Oceanid_Falcon_Dive",
+		"abilityMixins" :
+		[
+			{
+				"$type" : "AttachToNormalizedTimeMixin",
+				"stateID" : "Dive",
+				"normalizeStart" : 0.375,
+				"normalizeEnd" : 0.75,
+				"modifierName" : "DiveState",
+			},
+			{
+				"$type": "SteerAttackMixin",
+				"steerStateIDs": ["Dive"],
+				"startNormalizedTime": 0.0,
+				"endNormalizedTime": 0.32,
+				"angularSpeed": 180,
+				"attackTrigger" : "",
+				"attackDistance" : 1.5,
+			},
+		],
+		"modifiers":
+		{
+			"DiveState" :
+			{
+				"onAdded" :
+				[
+					{
+						"$type" : "EnablePushColliderName",
+						"pushColliderNames" : ["PushCollider"],
+						"setEnable" : false,
+					},
+				],
+				"onRemoved" :
+				[
+					{
+						"$type" : "EnablePushColliderName",
+						"pushColliderNames" : ["PushCollider"],
+						"setEnable" : true,
+					},
+				],
+			},
+		},
+	},
+},
+////////////////////////////////////////////////////////////////
+//
+//  Steer
+//
+////////////////////////////////////////////////////////////////
+{
+	"Default":
+	{
+		"$type": "ConfigAbility",
+		"abilityName": "Monster_Oceanid_Falcon_Steer",
+		"abilityMixins":
+		[
+			{
+				"$type": "SteerAttackMixin",
+				"steerStateIDs": ["NormalIdle"],
+				"startNormalizedTime": 0.0,
+				"endNormalizedTime": 1.0,
+				"angularSpeed": 180,
+				"attackTrigger" : "",
+				"attackDistance" : 1.5,
+			},
+		],
+	},
+},
+////////////////////////////////////////////////////////////////
+//
+//  Die
+//
+////////////////////////////////////////////////////////////////
+{
+	"Default":
+	{
+		"$type": "ConfigAbility",
+		"abilityName": "Monster_Oceanid_Falcon_Die",
+		"onAbilityStart":
+		[
+			{
+				"$type":"FireEffect",
+				"effectPattern": "Eff_Monster_Oceanid_AnimalDie",
+				"born": 
+				{
+					"$type": "ConfigBornByAttachPoint",
+					"attachPointName" : "RootNode",
+					"offset": 
+					{
+						"x": 0.0,
+						"y": 0.0,
+						"z": 0.0,
+					},
+					"direction":
+					{
+						"$type": "ConfigDirectionByEntity",
+					}
+				},
+			},
+		],
+	},
+},
+]

@@ -1,0 +1,25 @@
+{
+  "MichiaeMatsuri": 
+  {
+    "$type": "ConfigRegionalPlayMichiaeMatsuri",
+    "playType": "MichiaeMatsuri",
+    "bindScene": 7,
+    "offeringID": 4,  //绑定的供奉ID
+    "maxDarkPressureValue": 100,
+    "abilityGroupNameList": ["DynamicAbility_MichiaeMatsuri_Pressure"],
+    "isTeam": true,
+    "darkPressureSGV":"SGV_MichiaeMatsuri_DarkPressure",
+    "crystalEnergySGV": "SGV_MichiaeMatsuri_CrystalEnergy",
+    "crystalLevelSGV": "SGV_MichiaeMatsuri_CrystalLevel",
+    "varList": 
+    [
+      {
+         "varType": "MichiaeMatsuriDarkPressure"
+      }, 
+      {
+         "varType": "MichiaeMatsuriCrystalEnergy",
+         "initValue": 300,
+      }
+    ]
+  }
+}

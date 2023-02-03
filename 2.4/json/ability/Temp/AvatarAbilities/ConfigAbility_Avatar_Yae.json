@@ -1,0 +1,3514 @@
+
+[
+  //
+  //    稻妻-成女-雷-法器 八重神子 技能配置
+  // 
+  // 	by JYY
+  // 
+  //    Index
+  //
+  //*************************  普通攻击  *********************************
+  //  重击 ：Avatar_Yae_ExtraAttack
+  //  重击发射子弹：Avatar_Yae_ExtraAttack_TriggerBullet
+  //  重击子弹：Avatar_Yae_ExtraAttack_Bullet_Material
+  //*************************  元素战技  *********************************
+  //  元素战技按键逻辑：Avatar_Yae_ElementalArt_Charge
+  //  元素战技地面施法：Avatar_Yae_ElementalArt
+  //  元素战技空中施法：Avatar_Yae_ElementalArt_Air
+  //  狐狸塔的表现、升级及伤害逻辑：Avatar_Yae_ElementalArt_FoxTower_Material
+
+  //*************************  元素爆发  *********************************
+  //  元素爆发镜头及无敌 ：Avatar_Yae_ElementalBurst_CameraController
+  //  清除塔的逻辑：Avatar_Yae_ElementalBurst_Clear_Tower
+  //  雷暴创生物：Avatar_Yae_ElementalBurst_TowerExplosion_Material
+  //*************************  技能升级  *********************************
+
+  //*************************  天赋命之座新增 ability  *******************
+  //  突破1：占坑，要减抗，具体效果待定（要不2.5 的BOSS高雷抗没法打了）
+  //
+  //
+////////////////////////////////////////////////////////////////
+//
+//  ExtraAttack
+//
+////////////////////////////////////////////////////////////////
+	{
+		"Default":
+		{
+			"$type": "ConfigAbility",
+			"abilityName": "Avatar_Yae_ExtraAttack",
+			"abilityMixins":
+			[
+				{
+					"$type": "ButtonHoldChargeMixin",
+					"skillID": 10581,
+					"chargeTime": 0.1,
+					"secondChargeTime": 0.1,
+					"OnBeginUncharged":
+					[
+						{
+							"$type": "SetAnimatorTrigger",
+							"triggerID": "DoSkill",
+							"predicates":
+							[
+								{
+									"$type" : "ByAnimatorInt",
+									"value" : 0,
+									"parameter" : "ComboCount",
+									"logic" : "Equal",
+								},
+							],
+						},
+						{
+							"$type": "SetAnimatorInt",
+							"intID": "SkillID",
+							"value": 99,
+							"predicates":
+							[
+								{
+									"$type" : "ByAnimatorInt",
+									"value" : 0,
+									"parameter" : "ComboCount",
+									"logic" : "Equal",
+								},
+							],
+						},
+						{
+							"$type": "SetAnimatorBool",
+							"boolID": "IsCharging",
+							"value": false,
+						},
+					],
+					"OnReleaseUncharged":
+					[
+						{
+							"$type": "SetAnimatorTrigger",
+							"triggerID": "DoSkill",
+						},
+						{
+							"$type": "SetAnimatorInt",
+							"intID": "SkillID",
+							"value": 1,
+						},
+					],
+					"OnBeginCharged":
+					[
+						{
+							"$type": "SetAnimatorBool",
+							"boolID": "IsCharging",
+							"value": true,
+						},
+					],
+					"OnReleaseCharged":
+					[
+						{
+							"$type": "SetAnimatorBool",
+							"boolID": "IsCharging",
+							"value": false,
+						},
+						{
+							"$type": "SetAnimatorTrigger",
+							"triggerID": "DoSkill",
+						},
+						{
+							"$type": "SetAnimatorInt",
+							"intID": "SkillID",
+							"value": 1,
+						},
+					],
+					"OnBeginSecondCharged":
+					[
+						{
+							"$type": "SetAnimatorTrigger",
+							"triggerID": "DoSkill",
+						},
+						{
+							"$type": "SetAnimatorInt",
+							"intID": "SkillID",
+							"value": 6,
+							"predicates":
+							[
+								{
+									"$type": "ByLocalAvatarStamina",
+									//故意少判了一点点体力，为了顾及一部分网络延迟
+									"stamina": "%ExtraAttack_Catalyst_Stamina_Cost+%Flexible_Stamina",
+									"logic": "GreaterOrEqual",
+								},
+							],
+						},
+						{
+							"$type": "SetAnimatorInt",
+							"intID": "SkillID",
+							"value": 1,
+							"predicates":
+							[
+								{
+									"$type": "ByLocalAvatarStamina",
+									"stamina": "%ExtraAttack_Catalyst_Stamina_Cost+%Flexible_Stamina",
+									"logic": "Lesser",
+								},
+							],
+						},
+						{
+							"$type": "SetAnimatorBool",
+							"boolID": "IsCharging",
+							"value": false,
+						},
+					],
+					"chargeStateIDs": ["Attack01","Attack02","Attack03","ExtraAttack_BS","ExtraAttack_Charge","ExtraAttack","ExtraAttack_AS"],
+				},
+				{
+					"$type": "AttachToStateIDMixin",
+					"stateIDs": ["ExtraAttack_Charge"],
+					"modifierName": "ExtraAttack_StaminaCost",
+				},
+			],
+			"modifiers":
+			{
+				"ExtraAttack_StaminaCost":
+				{
+					// "duration": 0.2,
+					"onAdded":
+					[
+						{
+							"$type" : "AvatarSkillStart",
+							"skillID" : 10003,
+							"costStaminaRatio":"%ExtraAttack_Catalyst_Stamina_Cost",
+						},
+					],
+				},
+			},
+			"abilitySpecials":
+			{
+				"ExtraAttack_Catalyst_Stamina_Cost": 0,
+				"Flexible_Stamina":-2,
+			},
+		},
+	},
+// 重击发射子弹的ability
+	{
+		"Default":
+		{
+			"$type": "ConfigAbility",
+			"abilityName": "Avatar_Yae_ExtraAttack_TriggerBullet",
+			"onAbilityStart":
+			[
+				{
+					"$type": "TriggerBullet",
+					"bulletID": 41058004,
+					"born":
+					{
+						"$type": "ConfigBornBySelf",//先放到固定点，等动作确认了在改位置
+						"offset":
+						{
+							"x": 0.0,
+							"y": 0.0,
+							"z": 1.5,
+						},
+						"direction":
+						{
+							"$type": "ConfigDirectionByEntity",
+						},
+					},
+				},
+			],
+			"modifiers":
+			{
+			},
+			"abilitySpecials":
+			{
+
+			},
+		},
+	},
+
+//重击子弹伤害逻辑
+	{
+		"Default":
+		{
+			"$type": "ConfigAbility",
+			"abilityName": "Avatar_Yae_ExtraAttack_Bullet_Material",
+			"onAdded":
+			[
+				{
+					"$type":"ApplyModifier",
+					"modifierName":"Yae_ExtraAttack_Bullet_DamageHandler",
+				},
+			],
+			"onAbilityStart":
+			[
+			],
+			"modifiers":
+			{
+				"Yae_ExtraAttack_Bullet_DamageHandler":
+				{
+					"duration":0.7,
+					"onAdded":
+					[
+						{
+							"$type": "FireSubEmitterEffect",
+							"effectPattern": "Eff_Avatar_Lady_Bow_Sara_AttackWave_Thunderfall",
+							"born":
+							{
+								"$type": "ConfigBornBySelf",
+								"onGround": true,
+							},
+						},
+						{
+							"$type": "TriggerAudio",
+							"responder": "Caster",
+							"operation":
+							{
+								"$type": "ConfigAudioEventOp",
+								"operation":
+								{
+									"text": "Play_sfx_char_sara_bow_elementalBurst_thunderFall_wave",
+								},
+							},
+						},
+						{
+							"$type": "TriggerAttackEvent",
+							"targetType": "Enemy",
+							"attackEvent": 
+							{
+								"attackPattern": 
+								{
+									"$type": "ConfigAttackCircle",
+									"triggerType": "TriggerNoRepeat",
+									"fanAngle": 360.0,
+									"radius": 3.0,
+									"radiusRatio": 0.0,
+									"height": 3,
+									"born":
+									{
+										"$type": "ConfigBornBySelf",
+										"offset":
+										{
+											"x" : 0.0,
+											"y" : 0.0,
+											"z" : 0.0,
+										},
+									},
+								},
+								"attackInfo": 
+								{
+									"attenuationTag": "Elemental_Burst",
+									"canBeModifiedBy": "OriginOwner",
+									"attackTag": "Elemental_Burst",
+									"attackProperty": 
+									{
+										"damagePercentage": "%ExtraAttack_Damage",
+										"strikeType": "Default",
+										"elementType": "Electric",
+										"elementDurability": 25,
+										"enBreak": 20,
+									},
+									"hitPattern": 
+									{
+										"onHitEffectName": "default",
+					          			"hitImpulseType":"LV2",
+										"reboundRatio": 0,
+										"hitHaltTime": 0.0,
+										"hitHaltTimeScale": 0.01,
+										"muteHitText": false,
+									},
+									"canHitHead": false,
+								},
+							},
+						},
+					],
+					"thinkInterval":0.15,
+					"onThinkInterval":
+					[
+						{
+							"$type": "FireSubEmitterEffect",
+							"effectPattern": "Eff_Avatar_Lady_Bow_Sara_AttackWave_Thunderfall",
+							"born":
+							{
+								"$type": "ConfigBornBySelf",
+								"onGround": true,
+							},
+						},
+						{
+							"$type": "TriggerAudio",
+							"responder": "Caster",
+							"operation":
+							{
+								"$type": "ConfigAudioEventOp",
+								"operation":
+								{
+									"text": "Play_sfx_char_sara_bow_elementalBurst_thunderFall_wave",
+								},
+							},
+						},
+						{
+							"$type": "AddGlobalValue",
+							"key": "_AttackWave_AttackCount",
+							"value": 1,
+							"useLimitRange": true,
+							"maxValue": 5,
+							"minValue": 0,
+						},
+						{
+							"$type":"FireEffect",
+							"effectPattern":"Eff_Avatar_Lady_Bow_Sara_AttackWave_Thunderfall_End",
+							"predicates":
+							[
+								{
+									"$type": "ByTargetGlobalValue",
+									"key": "_AttackWave_AttackCount",
+									"value": 4,
+									"compareType": "MoreThanAndEqual",
+								},
+							],
+						},
+						{
+							"$type": "TriggerAttackEvent",
+							"targetType": "Enemy",
+							"attackEvent": 
+							{
+								"attackPattern": 
+								{
+									"$type": "ConfigAttackCircle",
+									"triggerType": "TriggerNoRepeat",
+									"fanAngle": 360.0,
+									"radius": 3.0,
+									"radiusRatio": 0.0,
+									"height": 3,
+									"born":
+									{
+										"$type": "ConfigBornBySelf",
+										"offset":
+										{
+											"x" : 0.0,
+											"y" : 0.0,
+											"z" : 0.0,
+										},
+									},
+								},
+								"attackInfo": 
+								{
+									"attenuationTag": "Elemental_Burst",
+									"canBeModifiedBy": "OriginOwner",
+									"attackTag": "Elemental_Burst",
+									"attackProperty": 
+									{
+										"damagePercentage": "%ExtraAttack_Damage",
+										"strikeType": "Default",
+										"elementType": "Electric",
+										"elementDurability": 25,
+										"enBreak": 20,
+									},
+									"hitPattern": 
+									{
+										"onHitEffectName": "default",
+					          			"hitImpulseType":"LV2",
+										"reboundRatio": 0,
+										"hitHaltTime": 0.0,
+										"hitHaltTimeScale": 0.01,
+										"muteHitText": false,
+									},
+									"canHitHead": false,
+								},
+							},
+						},
+					],
+				},
+			},
+			"abilitySpecials":
+			{
+				"ExtraAttack_Damage":1,//先临时给个值，后面需要清零
+			},
+		},
+	},
+
+////////////////////////////////////////////////////////////////
+//
+//  NormalAttack
+//
+////////////////////////////////////////////////////////////////
+	{
+		"Default":
+		{
+			"$type": "ConfigAbility",
+			"abilityName": "Avatar_Yae_Attack01",
+			"onAbilityStart":
+			[
+				{
+					"$type": "CreateGadget",
+					"gadgetID": 41058001,
+					"campID": 1001,
+					"campTargetType": "Enemy",
+					"born":
+					{
+						"$type": "ConfigBornBySelf",
+						"offset" :
+						{
+							"x": 0.0,
+							"y": 1.5,
+							"z": 1.5,
+						},
+					},
+				},
+			],
+			"modifiers":
+			{
+			},
+			"abilitySpecials":
+			{
+
+			},
+		},
+	},
+
+	{
+		"Default":
+		{
+			"$type": "ConfigAbility",
+			"abilityName": "Avatar_Yae_Attack02",
+			"onAbilityStart":
+			[
+				{
+					"$type": "CreateGadget",
+					"gadgetID": 41058002,
+					"campID": 1001,
+					"campTargetType": "Enemy",
+					"born":
+					{
+						"$type": "ConfigBornBySelf",
+						"offset" :
+						{
+							"x": 0.0,
+							"y": 1.5,
+							"z": 1.5,
+						},
+					},
+				},
+			],
+			"modifiers":
+			{
+			},
+			"abilitySpecials":
+			{
+
+			},
+		},
+	},
+
+	{
+		"Default":
+		{
+			"$type": "ConfigAbility",
+			"abilityName": "Avatar_Yae_Attack03",
+			"onAbilityStart":
+			[
+				// {
+				// 	"$type": "TriggerBullet",
+				// 	"bulletID": 41058003,
+				// 	"born":
+				// 	{
+				// 		"$type": "ConfigBornBySelf",//先放到固定点，等动作确认了在改位置
+				// 		"offset":
+				// 		{
+				// 			"x": 0.0,
+				// 			"y": 1.2,
+				// 			"z": 0.8,
+				// 		},
+				// 		"direction":
+				// 		{
+				// 			"$type": "ConfigDirectionByEntity",
+				// 		},
+				// 	},
+				// },
+				{
+					"$type": "CreateGadget",
+					"gadgetID": 41058003,
+					"campID": 1001,
+					"campTargetType": "Enemy",
+					"born":
+					{
+						"$type": "ConfigBornBySelf",
+						"offset" :
+						{
+							"x": 0.0,
+							"y": 1.5,
+							"z": 1.5,
+						},
+					},
+				},
+			],
+			"modifiers":
+			{
+			},
+			"abilitySpecials":
+			{
+
+			},
+		},
+	},
+
+
+	{
+		"Default":
+		{
+			"$type": "ConfigAbility",
+			"abilityName": "Avatar_Yae_Attack01_Bullet_Material",
+			"onAdded":
+			[
+				{
+					"$type":"ApplyModifier",
+					"modifierName":"NormalAttack_Damage_Handler",
+				},
+				{
+					"$type":"ApplyModifier",
+					"modifierName":"NormalAttack_Bullet_Fx",
+				},
+			],
+			"onAbilityStart":
+			[
+
+			],
+			"modifiers":
+			{
+				"NormalAttack_Damage_Handler":
+				{
+					"duration":0.2,
+					"onAdded":
+					[
+						{
+							"$type": "TriggerAttackEvent",
+							"target":"Caster",
+							"targetType": "Enemy",
+							"attackEvent":
+							{
+								"attackPattern":
+								{
+									"$type" : "ConfigAttackBox",
+									"triggerType": "TriggerNoRepeat",
+									"size" : 
+									{
+										"x" : 1.4,
+										"y" : 1.6,
+										"z" : 6.0,
+									},
+									"born":
+									{
+										"$type": "ConfigBornByAttachPoint",
+										"attachPointTargetType":"Self",
+										"attachPointName":"RootNode",
+									},
+								},
+								"attackInfo":
+								{
+									"attackTag": "NormalAttack_01",
+									"attenuationTag": "NormalAttack",
+									"attackProperty":
+									{
+										"damagePercentage": "%Sucrose_NormalAttack_01_Damage",
+										"strikeType": "Default",
+										"elementType":"Electric",
+										"elementDurability":25,
+										"enBreak" : 5.5,
+									},
+									"hitPattern" :
+									{
+										"onHitEffectName": "default",
+										"hitImpulseType":"LV1",
+										"reboundRatio": 0,
+										"hitHaltTime": 0.0,
+										"hitHaltTimeScale": 0.05,
+										"muteHitText": false,
+									},
+									"forceCameraShake": false,
+								},
+							},
+						},
+					],
+				},
+				"NormalAttack_Bullet_Fx":
+				{
+					"onAdded":
+					[
+						{
+							"$type":"FireEffect",
+							"effectPattern":"Eff_Avatar_Lady_Catalyst_Yae_Attack_01_Bullet",
+						}
+					],
+				},
+			},
+			"abilitySpecials":
+			{
+				"Attack01_Damage":1,//先临时给个值，后面需要清零
+			},
+		},
+	},
+
+	{
+		"Default":
+		{
+			"$type": "ConfigAbility",
+			"abilityName": "Avatar_Yae_Attack02_Bullet_Material",
+			"onAdded":
+			[
+				{
+					"$type":"ApplyModifier",
+					"modifierName":"NormalAttack_Damage_Handler",
+				},
+				{
+					"$type":"ApplyModifier",
+					"modifierName":"NormalAttack_Bullet_Fx",
+				},
+			],
+			"onAbilityStart":
+			[
+			],
+			"modifiers":
+			{
+				"NormalAttack_Damage_Handler":
+				{
+					"duration":0.2,
+					"onAdded":
+					[
+						{
+							"$type": "TriggerAttackEvent",
+							"target":"Caster",
+							"targetType": "Enemy",
+							"attackEvent":
+							{
+								"attackPattern":
+								{
+									"$type" : "ConfigAttackBox",
+									"triggerType": "TriggerNoRepeat",
+									"size" : 
+									{
+										"x" : 1.4,
+										"y" : 1.6,
+										"z" : 6.0,
+									},
+									"born":
+									{
+										"$type": "ConfigBornByAttachPoint",
+										"attachPointTargetType":"Self",
+										"attachPointName":"RootNode",
+									},
+								},
+								"attackInfo":
+								{
+									"attackTag": "NormalAttack_01",
+									"attenuationTag": "NormalAttack",
+									"attackProperty":
+									{
+										"damagePercentage": "%Sucrose_NormalAttack_01_Damage",
+										"strikeType": "Default",
+										"elementType":"Electric",
+										"elementDurability":25,
+										"enBreak" : 5.5,
+									},
+									"hitPattern" :
+									{
+										"onHitEffectName": "default",
+										"hitImpulseType":"LV1",
+										"reboundRatio": 0,
+										"hitHaltTime": 0.0,
+										"hitHaltTimeScale": 0.05,
+										"muteHitText": false,
+									},
+									"forceCameraShake": false,
+								},
+							},
+						},
+					],
+				},
+				"NormalAttack_Bullet_Fx":
+				{
+					"onAdded":
+					[
+						{
+							"$type":"FireEffect",
+							"effectPattern":"Eff_Avatar_Lady_Catalyst_Yae_Attack_01_Bullet",
+						}
+					],
+				},
+			},
+			"abilitySpecials":
+			{
+				"Attack02_Damage":1,//先临时给个值，后面需要清零
+			},
+		},
+	},
+
+	{
+		"Default":
+		{
+			"$type": "ConfigAbility",
+			"abilityName": "Avatar_Yae_Attack03_Bullet_Material",
+			"onAdded":
+			[
+				{
+					"$type":"ApplyModifier",
+					"modifierName":"NormalAttack_Damage_Handler",
+				},
+				{
+					"$type":"ApplyModifier",
+					"modifierName":"NormalAttack_Bullet_Fx",
+				},
+			],
+			"onAbilityStart":
+			[
+			],
+			"modifiers":
+			{
+				"NormalAttack_Damage_Handler":
+				{
+					"duration":0.2,
+					"onAdded":
+					[
+						{
+							"$type": "TriggerAttackEvent",
+							"target":"Caster",
+							"targetType": "Enemy",
+							"attackEvent":
+							{
+								"attackPattern":
+								{
+									"$type" : "ConfigAttackBox",
+									"triggerType": "TriggerNoRepeat",
+									"size" : 
+									{
+										"x" : 1.4,
+										"y" : 1.6,
+										"z" : 6.0,
+									},
+									"born":
+									{
+										"$type": "ConfigBornByAttachPoint",
+										"attachPointTargetType":"Self",
+										"attachPointName":"RootNode",
+									},
+								},
+								"attackInfo":
+								{
+									"attackTag": "NormalAttack_01",
+									"attenuationTag": "NormalAttack",
+									"attackProperty":
+									{
+										"damagePercentage": "%Sucrose_NormalAttack_01_Damage",
+										"strikeType": "Default",
+										"elementType":"Electric",
+										"elementDurability":25,
+										"enBreak" : 5.5,
+									},
+									"hitPattern" :
+									{
+										"onHitEffectName": "default",
+										"hitImpulseType":"LV1",
+										"reboundRatio": 0,
+										"hitHaltTime": 0.0,
+										"hitHaltTimeScale": 0.05,
+										"muteHitText": false,
+									},
+									"forceCameraShake": false,
+								},
+							},
+						},
+					],
+				},
+				"NormalAttack_Bullet_Fx":
+				{
+					"onAdded":
+					[
+						{
+							"$type":"FireEffect",
+							"effectPattern":"Eff_Avatar_Lady_Catalyst_Yae_Attack_01_Bullet",
+						}
+					],
+				},
+			},
+			"abilitySpecials":
+			{
+				"Attack03_Damage":1,//先临时给个值，后面需要清零
+			},
+		},
+	},
+
+
+////////////////////////////////////////////////////////////////
+//
+//  角色身上管理所有塔的控制器
+//
+////////////////////////////////////////////////////////////////
+	{
+		"Default":
+		{
+			"$type": "ConfigAbility",
+			"abilityName": "Avatar_Yae_ElementalArt_ElderBrain",
+			"onAdded":
+			[
+				{
+					"$type":"ApplyModifier",
+					"modifierName":"Yae_GenerateElemBall_Handler",
+					"target":"Self",
+				},
+			],
+			"onAbilityStart":
+			[
+			],
+			"onKill":
+			[
+				{//角色死亡时清理全部的塔
+					"$type": "KillGadget",
+					"gadgetInfo":
+					{
+						"$type": "SelectTargetsByChildren",
+						"configID": 41058008,
+						"sortType": "Default",
+					}
+				},
+			],
+			"modifiers":
+			{
+				"Yae_GenerateElemBall_Handler":
+				{
+
+				},
+			},
+			"abilitySpecials":
+			{
+
+			},
+		},
+	},
+
+////////////////////////////////////////////////////////////////
+//
+//  元素战技按键逻辑
+//
+////////////////////////////////////////////////////////////////
+
+	{
+		"Default":
+		{
+			"$type": "ConfigAbility",
+			"abilityName": "Avatar_Yae_ElementalArt_Charge",
+			"abilityMixins":
+			[
+                {
+					"$type": "SkillButtonHoldChargeMixin",
+					"skillID": 10582,
+					"beforeStateIDs" : ["ElementalArt_BS"],
+					// "beforeHoldDuration":0.1,
+					"chargeLoopStateIDs" : ["ElementalArt_Charge",],
+					// "afterStateIDs": ["ElementalArt_Charge_Cast",],
+					"chargeLoopDurations" : [ 10 ],
+					"nextLoopTriggerID" : "NextLoopTrigger",
+					"endHoldTrigger" : "EndHoldTrigger",
+				},
+				{
+					"$type": "AttachToStateIDMixin",
+					"stateIDs": ["ElementalArt_Charge","ElementalArt_Charge_Cast", ],
+					"modifierName": "Focus",
+				},
+				{
+					"$type": "AttachToStateIDMixin",
+					"stateIDs": ["ElementalArt_Charge", ],
+					"modifierName": "Charge",
+				},
+				{
+					"$type": "AttachToStateIDMixin",
+					"stateIDs": ["ElementalArt_Charge", ],
+					"modifierName": "FoxTower_FieldAlert_Handler",
+				},
+				//处于跳跃或飞行状态时，将技能替换未空中技能
+				{
+					"$type": "AvatarChangeSkillMixin",
+					"priority":"AvatarSpecial",
+					"index": 1,
+					"flySkillID": 10583,
+					"jumpSkillID": 10583,
+				},
+			],
+			"onAbilityStart":
+			[
+				{
+					"$type": "AvatarSkillStart", 
+					"skillID": 10582,
+					"cdRatio": 1,
+				},
+				// 长按发射子弹的逻辑放在这里，少写一个 ability
+				{
+					"$type": "TriggerBullet",
+					"bulletID": 41058010,
+					"born":
+					{
+						"$type": "ConfigBornByAttachPoint",
+						"attachPointName": "FocusAnchor",
+		                "offset":{
+							"x": 0.2,
+							"y": 0.0,
+							"z": 0.6,
+						},
+					},
+				},
+			],
+			"modifiers":
+			{
+				"Focus":
+				{
+					"onAdded":
+					[
+						{
+							"$type": "AvatarEnterFocus",
+							"cameraFollowLower":
+							{
+								"x": 0.8,
+								"y": 0.2,
+								"z": -2.5,
+							},
+							"cameraFollowUpper":
+							{
+								"x": 0.5,
+								"y": -0.2,
+								"z": 0.0,
+							},
+							"cameraFollowMaxDegree": 35,  //上版本设定25和-45
+							"cameraFollowMinDegree":-55,//原本上下限60,60
+							"cameraFastFocusMode": true,
+							"dragButtonName": "Skill2",
+							"assistance":
+							{
+								"ps4":
+								{
+									"useGyro": false,
+								},
+								"ps5":
+								{
+									"useGyro": false,
+								},								
+								"other":
+								{
+									"useGyro": true,
+								},
+							},
+							"canMove": false,
+							"showCrosshair":false,
+							"vcam_fov":45,
+							"focusAnchorVerAngle":0, //不用特意改变度数
+							"focusAnchorHorAngle":0,
+						},
+					],
+					"onRemoved":
+					[
+						{
+							"$type": "AvatarExitFocus",
+							"keepRotation": true,
+						},
+					],
+				},
+				"Charge":
+				{
+					"onAdded":
+					[
+						{
+							"$type" : "AddGlobalValue",
+							"key" : "_HOGYOKU_THROW_RANGE",
+							"value" : 15,
+							"useLimitRange" : true,
+							"maxValue" : 15,
+							"minValue" : 15,
+						},
+						{
+							"$type": "AttachEffect",
+							"effectPattern": "Eff_Avatar_Lady_Catalyst_Yae_ElemenalArt_Aim_Line",
+						},
+					],
+				},
+				"FoxTower_FieldAlert_Handler":
+				{
+					"onAdded":
+					[
+						{
+							"$type":"AttachModifier",
+							"modifierName":"FoxTower_FieldAlert",
+							"otherTargets":
+							{
+								"$type": "SelectTargetsByShape",
+								"shapeName": "CircleR50",
+								"centerBasedOn": "Self",
+								"campTargetType": "Alliance",
+								"campBasedOn": "Self",
+							},
+							"predicates" :
+							[
+								{
+									"$type": "ByTargetGlobalValue",
+									"key": "_ABILITY_IS_FOXTOWER",
+									"target":"Target",
+									"value": 1,
+									"compareType": "Equal",
+								},
+							],
+						}
+					],
+				},
+				"FoxTower_FieldAlert":
+				{
+					"onAdded":
+					[
+						{
+							"$type":"AttachEffect",
+							"effectPattern":"Eff_Avatar_Lady_Catalyst_Yae_ElemenalArt_FoxTower_FieldAlert",
+						},
+					],
+				},
+			},
+			"abilitySpecials":
+			{
+			},
+		},
+	},
+//元素战技地面单点施法逻辑
+	{
+		"Default":
+		{
+			"$type": "ConfigAbility",
+			"abilityName": "Avatar_Yae_ElementalArt",
+			"abilityMixins":
+			[
+			],
+			"onAbilityStart":
+			[
+				{
+					"$type": "AvatarSkillStart", 
+					"skillID": 10582,
+					"cdRatio": 1,
+				},
+				{
+					"$type": "TriggerBullet",
+					"bulletID": 41058006,
+					"born":
+					{
+						"$type": "ConfigBornBySelf",//先放到固定点，等动作确认了在改位置
+						"offset":
+						{
+							"x": 0.0,
+							"y": 1.2,
+							"z": 0.8,
+						},
+						"direction":
+						{
+							"$type": "ConfigDirectionByEntity",
+						},
+					},
+					"predicates":
+					[
+						{
+							"$type":"ByHasAttackTarget"
+						},
+					],
+				},
+				{
+					"$type": "TriggerBullet",
+					"bulletID": 41058005,
+					"born":
+					{
+						"$type": "ConfigBornBySelf",//先放到固定点，等动作确认了在改位置
+						"offset":
+						{
+							"x": 0.0,
+							"y": 1.2,
+							"z": 0.8,
+						},
+						"direction":
+						{
+							"$type": "ConfigDirectionByEntity",
+						},
+					},
+					"predicates":
+					[
+						{
+							"$type":"ByNot",
+							"predicates":
+							[
+								{
+									"$type":"ByHasAttackTarget"
+								},
+							],
+						}
+					],
+				},
+			],
+			"modifiers":
+			{
+			},
+			"abilitySpecials":
+			{
+
+			},
+		},
+	},
+//处于空中状态时释放的元素战技
+	{
+		"Default":
+		{
+			"$type": "ConfigAbility",
+			"abilityName": "Avatar_Yae_ElementalArt_Air",
+			"onAbilityStart":
+			[
+				{
+					"$type": "AvatarSkillStart", 
+					"skillID": 10583,
+					"cdRatio": 1,
+				},
+				{
+					"$type":"CreateGadget",
+					"gadgetID":41058008,
+					"campID":1001,
+					"campTargetType":"All",
+					"born":
+					{
+						"$type":"ConfigBornBySelf",
+						"offset":
+						{
+							"x": 0.0,
+							"y": 0.0,
+							"z": 0.0,							
+						},
+					},
+					// "born":
+					// {
+					// 	"$type":"ConfigBornByCollisionPoint",
+					// 	"offset":
+					// 	{
+					// 		"x": 0.0,
+					// 		"y": 0.0,
+					// 		"z": 0.0,							
+					// 	},
+					// },
+				},
+				// {
+				// 	"$type": "TriggerBullet",
+				// 	"bulletID": 41058005,
+				// 	"born":
+				// 	{
+				// 		"$type": "ConfigBornBySelf",//先放到固定点，等动作确认了在改位置
+				// 		"offset":
+				// 		{
+				// 			"x": 0.0,
+				// 			"y": 1.2,
+				// 			"z": 0.8,
+				// 		},
+				// 		"direction":
+				// 		{
+				// 			"$type": "ConfigDirectionByEntity",
+				// 		},
+				// 	},
+				// },
+			],
+			"abilityMixins":
+			[
+				{
+					"$type" : "AttachToStateIDMixin",
+					"modifierName" : "Yae_ElementalArt_Air_LooseWeight",
+					"stateIDs" : ["ElementalArt_Cast_Air","ElementalArt_Cast_Air_AS"],
+				},
+				{
+					"$type" : "AttachToStateIDMixin",
+					"modifierName" : "Yae_ElementalArt_Air_SetVisible",
+					"stateIDs" : ["ElementalArt_Cast_Air",],
+				},
+				{
+					"$type" : "AttachToNormalizedTimeMixin",
+					"stateID" : "ElementalArt_Cast_Air",
+					"modifierName" : "Yae_ElementalArt_Air_CameraPullBack",
+					"target" : "Self",
+					"normalizeStart" : 0,
+					"normalizeEnd" : 0.9,
+				},
+				{
+					"$type" : "AttachToNormalizedTimeMixin",
+					"stateID" : "ElementalArt_Cast_Air",
+					"modifierName" : "DeYae_ElementalArt_Air_ClearVelocityForce",
+					"target" : "Self",
+					"normalizeStart" : 0.0,
+					"normalizeEnd" : 1,
+				},
+			],
+			"modifiers":
+			{
+				"Yae_ElementalArt_Air_LooseWeight":
+				{
+					"onAdded":
+					[
+						{
+							"$type" : "SetVelocityIgnoreAirGY",
+							"ignoreAirGY" : true,
+						},
+					],
+					"onRemoved":
+					[
+						{
+							"doOffStage" : true,
+							"$type" : "SetVelocityIgnoreAirGY",
+							"ignoreAirGY" : false,
+						},
+					],
+					"properties":
+					{
+						"Actor_AddGravityScale" : -2,
+					},
+				},
+				"Yae_ElementalArt_Air_SetVisible":
+				{
+					"onAdded":
+					[
+						{
+							"$type":"FireEffect",
+							"effectPattern":"Eff_Lisa_Attack_HideSpark",
+						},
+				        {
+				          	"$type": "AttachEffect",
+				          	"effectPattern": "Eff_Avatar_Catalyst_FallAnthem_Self_Electric",
+				        },
+						{
+							"$type": "TriggerSetVisible",
+							"visible": false,
+						},
+						{
+                            "$type": "TriggerSetPassThrough",
+                            "passThrough": true,
+                            "doOffStage": true,
+                        },
+					],
+					"onRemoved":
+					[
+						{
+							"$type": "TriggerSetVisible",
+							"visible": true,
+							"doOffStage":true,
+						},
+						{
+							"$type":"FireEffect",
+							"effectPattern":"Eff_Lisa_Attack_ShowSpark",
+						},
+						{
+                            "$type": "TriggerSetPassThrough",
+                            "passThrough": false,
+                            "doOffStage": true,
+                            "canBeHandledOnRecover": true,
+                        },
+					],
+				},
+				"Yae_ElementalArt_Air_CameraPullBack":
+				{
+					"onAdded":
+					[
+						{
+							"$type" : "AvatarCameraParam",
+							"target" : "Self",
+							"lockParam" : false,
+							"cameraParam" :
+							{
+								"forceRadius" : 5.0,
+								"forceRadiusDuration" : 0,
+								"shouldKeepForceRadius" : true,
+							},
+						},
+					],
+				},
+				"DeYae_ElementalArt_Air_ClearVelocityForce":
+				{
+					"onAdded":
+					[
+						{
+							"$type": "RemoveVelocityForce",
+							"forces": ["RushMoveType","InertiaType"],
+						},
+					],
+					"onRemoved":
+					[
+						{
+							"$type": "RemoveVelocityForce",
+							"forces": ["RushMoveType"],
+						},
+					],
+				},
+			},
+			"abilitySpecials":
+			{
+
+			},
+		},
+	},
+////////////////////////////////////////////////////////////////
+//
+//  元素战技子弹及创生物配置
+//
+////////////////////////////////////////////////////////////////
+	{
+		"Default":
+		{
+			"$type": "ConfigAbility",
+			"abilityName": "Avatar_Yae_ElementalArt_Bullet_HasTarget_Material",
+			"onAdded":
+			[
+				{
+					"$type":"AttachModifier",
+					"modifierName":"Bullet_FX",
+				},
+			],
+			"onAbilityStart":
+			[
+				{
+					"$type": "TriggerAttackEvent",
+					"targetType": "Enemy",
+					"attackEvent": 
+					{
+						"attackPattern": 
+						{
+							"$type": "ConfigAttackCircle",
+							"triggerType": "TriggerNoRepeat",
+							"fanAngle": 360.0,
+							"radius": 6.0,
+							"radiusRatio": 0.0,
+							"height": 3,
+							"massiveAttackRatio": 0.5,
+							"born":
+							{
+								"$type": "ConfigBornBySelf",
+								"offset":
+								{
+									"x" : 0.0,
+									"y" : 0.0,
+									"z" : 0.0,
+								},
+							},
+						},
+						"attackInfo": 
+						{
+							"canBeModifiedBy": "OriginOwner",
+							"attackTag": "Elemental_Art",
+							"attackProperty": 
+							{
+								"damagePercentage": "%ElementalArt_Bullet_Damage",
+								"strikeType": "Default",
+								"elementType": "Electric",
+								"elementDurability": 25,
+								"enBreak": 100,
+							},
+							"hitPattern": 
+							{
+								"onHitEffectName": "default",
+			          			"hitImpulseType":"LV3",
+								"reboundRatio": 0,
+								"hitHaltTime": 0.0,
+								"hitHaltTimeScale": 0.01,
+								"muteHitText": false,
+							},
+							"canHitHead": false,
+						},
+					},
+				},
+				//在自身稍靠后的位置创生塔
+				{
+					"$type":"CreateGadget",
+					"gadgetID":41058008,
+					"campID":1001,
+					"campTargetType":"All",
+					"born":
+					{
+						"$type":"ConfigBornBySelf",
+						"offset":
+						{
+							"x": 0.0,
+							"y": 0.0,
+							"z": -1.0,							
+						},
+						"direction":
+						{
+							"$type": "ConfigDirectionByWorld",
+							"eularAngles":
+							{
+								"x" : 0.1,
+								"y" : 0.1,
+								"z" : 0.1,
+							},
+						},
+					},
+					// "born":
+					// {
+					// 	"$type":"ConfigBornByCollisionPoint",
+					// 	"offset":
+					// 	{
+					// 		"x": 0.0,
+					// 		"y": 0.0,
+					// 		"z": 0.0,							
+					// 	},
+					// },
+				},
+			],
+			"modifiers":
+			{
+				"Bullet_FX":
+				{
+					"onAdded":
+					[
+						{
+							"$type":"AttachEffect",
+							"effectPattern":"Eff_Avatar_Lady_Catalyst_Yae_ElemenalArt_Bullet_Trail",
+						}
+					],
+				},
+			},
+			"abilitySpecials":
+			{
+				"ElementalArt_Bullet_Damage":0.12,//先临时给个值，后面需要清零
+			},
+		},
+	},
+
+	{
+		"Default":
+		{
+			"$type": "ConfigAbility",
+			"abilityName": "Avatar_Yae_ElementalArt_Bullet_Material",
+			"onAdded":
+			[
+				{
+					"$type":"AttachModifier",
+					"modifierName":"Bullet_FX",
+				},
+			],
+			"onAbilityStart":
+			[
+				{
+					"$type": "TriggerAttackEvent",
+					"targetType": "Enemy",
+					"attackEvent": 
+					{
+						"attackPattern": 
+						{
+							"$type": "ConfigAttackCircle",
+							"triggerType": "TriggerNoRepeat",
+							"fanAngle": 360.0,
+							"radius": 6.0,
+							"radiusRatio": 0.0,
+							"height": 3,
+							"massiveAttackRatio": 0.5,
+							"born":
+							{
+								"$type": "ConfigBornBySelf",
+								"offset":
+								{
+									"x" : 0.0,
+									"y" : 0.0,
+									"z" : 0.0,
+								},
+							},
+						},
+						"attackInfo": 
+						{
+							"canBeModifiedBy": "OriginOwner",
+							"attackTag": "Elemental_Art",
+							"attackProperty": 
+							{
+								"damagePercentage": "%ElementalArt_Bullet_Damage",
+								"strikeType": "Default",
+								"elementType": "Electric",
+								"elementDurability": 25,
+								"enBreak": 100,
+							},
+							"hitPattern": 
+							{
+								"onHitEffectName": "default",
+			          			"hitImpulseType":"LV3",
+								"reboundRatio": 0,
+								"hitHaltTime": 0.0,
+								"hitHaltTimeScale": 0.01,
+								"muteHitText": false,
+							},
+							"canHitHead": false,
+						},
+					},
+				},
+				//在自身稍靠后的位置创生塔
+				{
+					"$type":"CreateGadget",
+					"gadgetID":41058008,
+					"campID":1001,
+					"campTargetType":"All",
+					"born":
+					{
+						"$type":"ConfigBornBySelf",
+						"offset":
+						{
+							"x": 0.0,
+							"y": 0.0,
+							"z": -1.0,							
+						},
+						"direction":
+						{
+							"$type": "ConfigDirectionByWorld",
+							"eularAngles":
+							{
+								"x" : 0.1,
+								"y" : 0.1,
+								"z" : 0.1,
+							},
+						},
+					},
+					// "born":
+					// {
+					// 	"$type":"ConfigBornByCollisionPoint",
+					// 	"offset":
+					// 	{
+					// 		"x": 0.0,
+					// 		"y": 0.0,
+					// 		"z": 0.0,							
+					// 	},
+					// },
+				},
+			],
+			"modifiers":
+			{
+				"Bullet_FX":
+				{
+					"onAdded":
+					[
+						{
+							"$type":"AttachEffect",
+							"effectPattern":"Eff_Avatar_Lady_Catalyst_Yae_ElemenalArt_Bullet_Trail",
+						}
+					],
+				},
+			},
+			"abilitySpecials":
+			{
+				"ElementalArt_Bullet_Damage":0.12,//先临时给个值，后面需要清零
+			},
+		},
+	},
+
+	{
+		"Default":
+		{
+			"$type": "ConfigAbility",
+			"abilityName": "Avatar_Yae_ElementalArt_Aim_Bullet_Material",
+			"onAdded":
+			[
+				// {//瞄准模式下的子弹加个拖尾就行，应该是一个飞行速度很快的东西
+				// 	"$type":"AttachModifier",
+				// 	"modifierName":"Bullet_FX",
+				// },
+			],
+			"onAbilityStart":
+			[
+				{
+					"$type": "TriggerAttackEvent",
+					"targetType": "Enemy",
+					"attackEvent": 
+					{
+						"attackPattern": 
+						{
+							"$type": "ConfigAttackCircle",
+							"triggerType": "TriggerNoRepeat",
+							"fanAngle": 360.0,
+							"radius": 6.0,
+							"radiusRatio": 0.0,
+							"height": 3,
+							"massiveAttackRatio": 0.5,
+							"born":
+							{
+								"$type": "ConfigBornBySelf",
+								"offset":
+								{
+									"x" : 0.0,
+									"y" : 0.0,
+									"z" : 0.0,
+								},
+							},
+						},
+						"attackInfo": 
+						{
+							"canBeModifiedBy": "OriginOwner",
+							"attackTag": "Elemental_Art",
+							"attackProperty": 
+							{
+								"damagePercentage": "%ElementalArt_Bullet_Damage",
+								"strikeType": "Default",
+								"elementType": "Electric",
+								"elementDurability": 25,
+								"enBreak": 100,
+							},
+							"hitPattern": 
+							{
+								"onHitEffectName": "default",
+			          			"hitImpulseType":"LV3",
+								"reboundRatio": 0,
+								"hitHaltTime": 0.0,
+								"hitHaltTimeScale": 0.01,
+								"muteHitText": false,
+							},
+							"canHitHead": false,
+						},
+					},
+				},
+				//在自身稍靠后的位置创生塔
+				{
+					"$type":"CreateGadget",
+					"gadgetID":41058008,
+					"campID":1001,
+					"campTargetType":"All",
+					"born":
+					{
+						"$type":"ConfigBornBySelf",
+						"offset":
+						{
+							"x": 0.0,
+							"y": 0.0,
+							"z": 0.0,							
+						},
+						"direction":
+						{
+							"$type": "ConfigDirectionByWorld",
+							"eularAngles":
+							{
+								"x" : 0.1,
+								"y" : 0.1,
+								"z" : 0.1,
+							},
+						},
+					},
+					// "born":
+					// {
+					// 	"$type":"ConfigBornByCollisionPoint",
+					// 	"offset":
+					// 	{
+					// 		"x": 0.0,
+					// 		"y": 0.0,
+					// 		"z": 0.0,							
+					// 	},
+					// },
+				},
+			],
+			"modifiers":
+			{
+				"Bullet_FX":
+				{
+					"onAdded":
+					[
+						{
+							"$type":"AttachEffect",
+							"effectPattern":"Eff_Avatar_Lady_Catalyst_Yae_ElemenalArt_Bullet_Trail",
+						}
+					],
+				},
+			},
+			"abilitySpecials":
+			{
+				"ElementalArt_Bullet_Damage":0.12,//先临时给个值，后面需要清零
+			},
+		},
+	},
+
+	{
+		"Default":
+		{
+			"$type": "ConfigAbility",
+			"abilityName": "Avatar_Yae_ElementalArt_Bullet_Air_Material",
+			"onAdded":
+			[
+				{
+					"$type":"AttachModifier",
+					"modifierName":"Bullet_FX",
+				},
+			],
+			"onAbilityStart":
+			[
+				{
+					"$type": "TriggerAttackEvent",
+					"targetType": "Enemy",
+					"attackEvent": 
+					{
+						"attackPattern": 
+						{
+							"$type": "ConfigAttackCircle",
+							"triggerType": "TriggerNoRepeat",
+							"fanAngle": 360.0,
+							"radius": 6.0,
+							"radiusRatio": 0.0,
+							"height": 3,
+							"massiveAttackRatio": 0.5,
+							"born":
+							{
+								"$type": "ConfigBornBySelf",
+								"offset":
+								{
+									"x" : 0.0,
+									"y" : 0.0,
+									"z" : 0.0,
+								},
+							},
+						},
+						"attackInfo": 
+						{
+							"canBeModifiedBy": "OriginOwner",
+							"attackTag": "Elemental_Art",
+							"attackProperty": 
+							{
+								"damagePercentage": "%ElementalArt_Bullet_Damage",
+								"strikeType": "Default",
+								"elementType": "Electric",
+								"elementDurability": 25,
+								"enBreak": 100,
+							},
+							"hitPattern": 
+							{
+								"onHitEffectName": "default",
+			          			"hitImpulseType":"LV3",
+								"reboundRatio": 0,
+								"hitHaltTime": 0.0,
+								"hitHaltTimeScale": 0.01,
+								"muteHitText": false,
+							},
+							"canHitHead": false,
+						},
+					},
+				},
+				//在自身稍靠后的位置创生塔
+				{
+					"$type":"CreateGadget",
+					"gadgetID":41058008,
+					"campID":1001,
+					"campTargetType":"All",
+					"born":
+					{
+						"$type":"ConfigBornBySelf",
+						"offset":
+						{
+							"x": 0.0,
+							"y": 0.0,
+							"z": -2.0,							
+						},
+						"direction":
+						{
+							"$type": "ConfigDirectionByWorld",
+							"eularAngles":
+							{
+								"x" : 0.1,
+								"y" : 0.1,
+								"z" : 0.1,
+							},
+						},
+					},
+					// "born":
+					// {
+					// 	"$type":"ConfigBornByCollisionPoint",
+					// 	"offset":
+					// 	{
+					// 		"x": 0.0,
+					// 		"y": 0.0,
+					// 		"z": 0.0,							
+					// 	},
+					// },
+				},
+			],
+			"modifiers":
+			{
+				"Bullet_FX":
+				{
+					"onAdded":
+					[
+						{
+							"$type":"AttachEffect",
+							"effectPattern":"Eff_Avatar_Lady_Catalyst_Yae_ElemenalArt_Bullet_Trail",
+						}
+					],
+				},
+			},
+			"abilitySpecials":
+			{
+				"ElementalArt_Bullet_Damage":0.12,//先临时给个值，后面需要清零
+			},
+		},
+	},
+
+////////////////////////////////////////////////////////////////
+//
+//  狐狸塔相关的逻辑
+//
+////////////////////////////////////////////////////////////////
+
+	{
+		"Default":
+		{
+			"$type": "ConfigAbility",
+			"abilityName": "Avatar_Yae_ElementalArt_FoxTower_Material",
+			"onAdded":
+			[
+				{//白盒做法，狐狸塔等级的控制器
+					"$type":"AttachModifier",
+					"modifierName":"FoxTower_Level_Controller",
+				},
+				{//掌管自己跟别人生命
+					"$type":"AttachModifier",
+					"modifierName":"UNIQUE_FoxTower_Life_Timer",
+				},
+				{
+					"$type":"AttachModifier",
+					"modifierName":"FoxTower_Damage_Handler",
+				},
+				{//初始等级为1
+					"$type": "AddGlobalValue",
+					"target": "Self",
+					"key": "_ABILITY_FOXTOWER_LEVLE",
+					"value": 1,
+					"useLimitRange": true,
+					"maxValue": "%MaxLevel",
+					"minValue": 1,
+				},
+				{//标记自己是狐狸塔，方面筛选用（也有可能用不到）
+					"$type": "AddGlobalValue",
+					"target": "Self",
+					"key": "_ABILITY_IS_FOXTOWER",
+					"value": 1,
+					"useLimitRange": true,
+					"maxValue": 1,
+					"minValue": 1,
+				},
+				{
+					"$type":"AttachModifier",
+					"modifierName":"FoxTower_FX",
+				},
+			],
+			"onAbilityStart":
+			[
+			],
+			"onKill":
+			[
+				{//销毁时让周围的塔降级
+					"$type":"ApplyModifier",
+					"modifierName":"FoxTower_LevelDown",
+					"otherTargets":
+					{
+						"$type": "SelectTargetsByShape",
+						"shapeName": "CircleR10",
+						"centerBasedOn": "Self",
+						"campTargetType": "Alliance",
+						"campBasedOn": "Self",
+					},
+					"predicates" :
+					[
+						{
+							"$type": "ByTargetGlobalValue",
+							"key": "_ABILITY_IS_FOXTOWER",
+							"target":"Target",
+							"value": 1,
+							"compareType": "Equal",
+						},
+						{
+							"$type":"ByTargetIsSelf",
+							"isSelf":false,
+						},
+					],
+				},
+				// {//若是被充能技销毁，则触发雷暴
+				// 	"$type": "CreateGadget",
+				// 	"gadgetID": 41058009,
+				// 	"campID": 1001,
+				// 	"campTargetType": "Enemy",
+				// 	"born":
+				// 	{
+				// 		"$type": "ConfigBornBySelf",
+				// 		"offset" :
+				// 		{
+				// 			"x": 0.0,
+				// 			"y": 0.0,
+				// 			"z": 0.0,
+				// 		},
+				// 	},
+				// 	"predicates" :
+				// 	[
+				// 		{
+				// 			"$type": "ByTargetGlobalValue",
+				// 			"key": "_ABILITY_FOXTOWER_AddToGarbageTable",
+				// 			"target":"Self",
+				// 			"value": 1,
+				// 			"compareType": "Equal",
+				// 		},
+				// 	],
+				// },
+			],
+			"modifiers":
+			{
+				"FoxTower_Level_Controller":
+				{// 这里很多逻辑都会很丑陋，做白盒的时间不多了，先跑通逻辑,后面用正式的 Mixin 替换掉这部分逻辑
+					"thinkInterval":0.3,
+					"onThinkInterval":
+					[
+						{
+							"$type":"ApplyModifier",
+							"modifierName":"FoxTower_Count_Detect",
+							"otherTargets":
+							{
+								"$type": "SelectTargetsByShape",
+								"shapeName": "CircleR8H5",//这个形状待定，因为现在的机制也不是很完善
+								"centerBasedOn": "Self",
+								"campTargetType": "Alliance",
+								"campBasedOn": "Self",
+							},
+							"predicates" :
+							[
+								{
+									"$type": "ByTargetGlobalValue",
+									"key": "_ABILITY_IS_FOXTOWER",
+									"target":"Target",
+									"value": 1,
+									"compareType": "Equal",
+								},
+								{
+									"$type":"ByTargetIsSelf",
+									"isSelf":false,
+								},
+							],
+						},
+					],
+					"onAttackLanded":
+					[
+						{
+							"$type":"Predicated",
+							"target":"Target",
+							"doOffStage":true,
+							"targetPredicates":
+							[
+                                {
+                                    "$type" : "ByAttackTags",
+                                    "attackTags" : ["FoxTower_Level_Detect",],
+                                },
+							],
+							"successActions":
+							[
+								{
+									"$type": "AddGlobalValue",
+									"target": "Self",
+									"key": "_ABILITY_FOXTOWER_LEVLE",
+									"value": 1,
+									"useLimitRange": true,
+									"maxValue": "%MaxLevel",
+									"minValue": 1,
+								},
+							],
+						},
+					],
+				},
+				"FoxTower_Count_Detect":
+				{
+					// "duration":0.1,//没有duration
+					"onAdded":
+					[
+						{
+							"$type": "DamageByAttackValue",
+							"attacker":"Caster",
+							"attackInfo":
+							{
+								"canBeModifiedBy": "OriginOwner",//这里有个坑点，如果不标 canBeModifiedBy ，HittingOther 事件是不会被转发出去的
+								"attackTag": "FoxTower_Level_Detect",
+								"attackProperty":
+								{
+									"damagePercentage": 0,
+									"elementType": "AntiFire",
+									"elementDurability": 0,
+									"enBreak": 0,
+								},
+							},
+						},
+					],
+				},
+				"FoxTower_LevelDown":
+				{
+					"duration":0.2,
+					"onAdded":
+					[
+						{
+							"$type": "AddGlobalValue",
+							"target": "Self",
+							"key": "_ABILITY_FOXTOWER_LEVLE",
+							"value": -1,
+							"useLimitRange": true,
+							"maxValue": "%MaxLevel",
+							"minValue": 1,
+						},
+					],
+				},
+				"UNIQUE_FoxTower_Life_Timer":
+				{
+					"duration":20,
+					"elementDurability":20,
+					"isUnique":true,
+					"elementType": "None",
+					"modifierMixins":
+					[
+						{
+							"$type": "ShieldBarMixin",
+						},
+					],
+					"onRemoved":
+					[
+						{
+							"$type":"KillSelf",
+						},
+					],
+					"onAdded":
+					[
+						{//销毁一定范围内的塔
+							"$type":"ApplyModifier",
+							"modifierName":"FoxTower_Killer",
+							"otherTargets":
+							{
+								"$type": "SelectTargetsByShape",
+								"shapeName": "CircleR1.5",//暂定1.5 
+								"centerBasedOn": "Self",
+								"campTargetType": "Alliance",
+								"campBasedOn": "Self",
+							},
+							"predicates" :
+							[
+								{
+									"$type": "ByTargetGlobalValue",
+									"key": "_ABILITY_IS_FOXTOWER",
+									"target":"Target",
+									"value": 1,
+									"compareType": "Equal",
+								},
+								{
+									"$type":"ByTargetIsSelf",
+									"isSelf":false,
+								},
+							],
+						},
+						{//给一定范围的塔续命
+							"$type":"ApplyModifier",
+							"modifierName":"FoxTower_Life_Keeper",
+							"otherTargets":
+							{
+								"$type": "SelectTargetsByShape",
+								"shapeName": "CircleR8",
+								"centerBasedOn": "Self",
+								"campTargetType": "Alliance",
+								"campBasedOn": "Self",
+							},
+							"predicates" :
+							[
+								{
+									"$type": "ByTargetGlobalValue",
+									"key": "_ABILITY_IS_FOXTOWER",
+									"target":"Target",
+									"value": 1,
+									"compareType": "Equal",
+								},
+								{
+									"$type":"ByTargetIsSelf",
+									"isSelf":false,
+								},
+							],
+						},
+					],
+				},
+				"FoxTower_Killer":
+				{
+					"duration":0.5,
+					"onAdded":
+					[
+						{
+							"$type":"KillSelf",
+							"target":"Self",
+						},
+					],
+				},
+				"FoxTower_Life_Keeper":
+				{
+					"duration":0.5,
+					"stacking":"Multiple",
+					"onAdded":
+					[
+						{
+							"$type": "AddElementDurability",
+							"modifierName": "UNIQUE_FoxTower_Life_Timer",
+							"value": 5,
+							"useLimitRange": true,
+							"maxValue": 15,
+							"minValue": 0.0,
+							"doOffStage": true,
+						},
+					],
+				},
+				// 不同等级塔的表现逻辑（看情况可以单独拆一个 ability 出来）
+				"FoxTower_FX":
+				{
+					"onAdded":
+					[
+						{
+							"$type":"AttachEffect",
+							"effectPattern":"Eff_Avatar_Lady_Catalyst_Yae_ElemenalArt_FoxTower",
+						},
+					],
+					"modifierMixins":
+					[
+						{
+							"$type": "AttachModifierToSelfGlobalValueMixin", 
+							"globalValueKey": "_ABILITY_FOXTOWER_LEVLE",
+							"valueSteps" : [0, 1.5, 2.5, 3.5, 4.5],
+							"removeAppliedModifier":true,
+							"modifierNameSteps" : ["Level_1", "Level_2", "Level_3", "LEVEL5"],
+							"actionQueues":
+							[
+							],
+						},
+					],
+				},
+				"Level_1":
+				{
+					"onAdded":
+					[
+						{
+							"$type":"AttachEffect",
+							"effectPattern":"Eff_Avatar_Lady_Catalyst_Yae_ElemenalArt_FoxTower_Level_1",
+							"born":
+							{
+								"$type": "ConfigBornBySelf",
+								"offset" :
+								{
+									"x": 0.0,
+									"y": 1.8,
+									"z": 0.0,
+								},
+							},
+						},
+					],
+				},
+				"Level_2":
+				{
+					"onAdded":
+					[
+						{
+							"$type":"AttachEffect",
+							"effectPattern":"Eff_Avatar_Lady_Catalyst_Yae_ElemenalArt_FoxTower_Level_2",
+							"born":
+							{
+								"$type": "ConfigBornBySelf",
+								"offset" :
+								{
+									"x": 0.0,
+									"y": 1.8,
+									"z": 0.0,
+								},
+							},
+						},
+					],
+				},
+				"Level_3":
+				{
+					"onAdded":
+					[
+						{
+							"$type":"AttachEffect",
+							"effectPattern":"Eff_Avatar_Lady_Catalyst_Yae_ElemenalArt_FoxTower_Level_3",
+							"born":
+							{
+								"$type": "ConfigBornBySelf",
+								"offset" :
+								{
+									"x": 0.0,
+									"y": 1.8,
+									"z": 0.0,
+								},
+							},
+						},
+					],
+				},
+				"LEVEL5":
+				{
+					"onAdded":
+					[
+						//怎么能没有LEVEL5
+					],
+				},
+				"FoxTower_Damage_Handler":
+				{
+					"onAdded"://开始的时候就要进行一次蓄能
+					[
+						{
+							"$type":"ApplyModifier",
+							"modifierName":"FoxTower_Charge",
+							"target":"Self",
+						},
+					],
+					"thinkInterval":3,//每2秒进行一次蓄能，并选择要攻击的目标
+					"onThinkInterval":
+					[
+						{
+							"$type":"ApplyModifier",
+							"modifierName":"FoxTower_Charge",
+							"target":"Self",
+						},
+					],
+				},
+				"FoxTower_Charge":
+				{
+					"duration":0.5,
+					"onAdded":
+					[
+						{
+							"$type":"FireEffect",
+							"effectPattern":"Eff_Avatar_Lady_Catalyst_Yae_ElemenalArt_FoxTower_Charge",
+						},
+					],
+					"onRemoved":
+					[
+					//蓄能结束，立即攻击目标,并根绝蓄能结束时塔的等级造成伤害
+						//1级塔的伤害
+						{
+							"$type":"ApplyModifier",
+							"modifierName":"FoxTower_Damage_Level_1",
+							"otherTargets":
+							{
+								"$type": "SelectTargetsByShape",
+								"shapeName": "CircleR15",
+								"centerBasedOn": "Self",
+								"campTargetType": "Enemy",
+								"campBasedOn": "Self",
+								"topLimit":1,
+								"sortType": "Random",
+							},
+							"predicates" :
+							[
+								{
+									"$type" : "ByEntityTypes",
+									"entityTypes" : ["Monster"],
+								},
+								{
+				                	"$type": "ByTargetGlobalValue",
+				                	"key": "_ANIMAL_ENTITY_TYPE",
+				                	"value": 0,
+				                	"compareType": "NoneOrEqual",
+				                },
+								{
+									"$type": "ByTargetGlobalValue",
+									"key": "_ABILITY_FOXTOWER_LEVLE",
+									"forceByCaster":true,
+									"value": 1,
+									"compareType": "Equal",
+								},				         
+							],
+						},
+						//2级塔的伤害
+						{
+							"$type":"ApplyModifier",
+							"modifierName":"FoxTower_Damage_Level_2",
+							"otherTargets":
+							{
+								"$type": "SelectTargetsByShape",
+								"shapeName": "CircleR15",
+								"centerBasedOn": "Self",
+								"campTargetType": "Enemy",
+								"campBasedOn": "Self",
+								"topLimit":1,
+								"sortType": "Random",
+							},
+							"predicates" :
+							[
+								{
+									"$type" : "ByEntityTypes",
+									"entityTypes" : ["Monster"],
+								},
+								{
+				                	"$type": "ByTargetGlobalValue",
+				                	"key": "_ANIMAL_ENTITY_TYPE",
+				                	"value": 0,
+				                	"compareType": "NoneOrEqual",
+				                },
+								{
+									"$type": "ByTargetGlobalValue",
+									"key": "_ABILITY_FOXTOWER_LEVLE",
+									"forceByCaster":true,
+									"value": 2,
+									"compareType": "Equal",
+								},				         
+							],
+						},
+						//3级塔的伤害						
+						{
+							"$type":"ApplyModifier",
+							"modifierName":"FoxTower_Damage_Level_3",
+							"otherTargets":
+							{
+								"$type": "SelectTargetsByShape",
+								"shapeName": "CircleR15",
+								"centerBasedOn": "Self",
+								"campTargetType": "Enemy",
+								"campBasedOn": "Self",
+								"topLimit":1,
+								"sortType": "Random",
+							},
+							"predicates" :
+							[
+								{
+									"$type" : "ByEntityTypes",
+									"entityTypes" : ["Monster"],
+								},
+								{
+				                	"$type": "ByTargetGlobalValue",
+				                	"key": "_ANIMAL_ENTITY_TYPE",
+				                	"value": 0,
+				                	"compareType": "NoneOrEqual",
+				                },
+								{
+									"$type": "ByTargetGlobalValue",
+									"key": "_ABILITY_FOXTOWER_LEVLE",
+									"forceByCaster":true,
+									"value": 3,
+									"compareType": "Equal",
+								},				         
+							],
+						},
+						//4级塔的伤害
+						{
+							"$type":"ApplyModifier",
+							"modifierName":"FoxTower_Damage_Level_4",
+							"otherTargets":
+							{
+								"$type": "SelectTargetsByShape",
+								"shapeName": "CircleR15",
+								"centerBasedOn": "Self",
+								"campTargetType": "Enemy",
+								"campBasedOn": "Self",
+								"topLimit":1,
+								"sortType": "Random",
+							},
+							"predicates" :
+							[
+								{
+									"$type" : "ByEntityTypes",
+									"entityTypes" : ["Monster"],
+								},
+								{
+				                	"$type": "ByTargetGlobalValue",
+				                	"key": "_ANIMAL_ENTITY_TYPE",
+				                	"value": 0,
+				                	"compareType": "NoneOrEqual",
+				                },
+								{
+									"$type": "ByTargetGlobalValue",
+									"key": "_ABILITY_FOXTOWER_LEVLE",
+									"forceByCaster":true,
+									"value": 4,
+									"compareType": "Equal",
+								},				         
+							],
+						},
+					],
+				},
+				"FoxTower_Damage_Level_1":
+				{
+					"duration":0.2,
+					"stacking":"Multiple",
+					"onAdded":
+					[
+						{
+							"$type": "FireSubEmitterEffect",
+							"effectPattern": "Eff_Avatar_Lady_Bow_Sara_AttackWave_Thunderfall",
+							"born":
+							{
+								"$type": "ConfigBornBySelf",
+								"onGround": true,
+							},
+						},
+						{
+							"$type": "TriggerAttackEvent",
+							"targetType": "Enemy",
+							"target":"CasterOriginOwner",//攻击由坏女人自己打
+							"attackEvent": 
+							{
+								"attackPattern": 
+								{
+									"$type": "ConfigAttackCircle",
+									"triggerType": "TriggerNoRepeat",
+									"fanAngle": 360.0,
+									"radius": 1.0,
+									"radiusRatio": 0.0,
+									"height": 3,
+									"born":
+									{
+										"$type": "ConfigBornBySelf",
+										"offset":
+										{
+											"x" : 0.0,
+											"y" : 0.0,
+											"z" : 0.0,
+										},
+									},
+								},
+								"attackInfo": 
+								{
+									"attenuationTag": "Elemental_Art",
+									"canBeModifiedBy": "OriginOwner",
+									"attackTag": "Elemental_Art",
+									"attackProperty": 
+									{
+										"damagePercentage": "%FoxTower_Damage_Level_1",
+										"strikeType": "Default",
+										"elementType": "Electric",
+										"elementDurability": 25,
+										"enBreak": 20,
+									},
+									"hitPattern": 
+									{
+										"onHitEffectName": "default",
+					          			"hitImpulseType":"LV2",
+										"reboundRatio": 0,
+										"hitHaltTime": 0.0,
+										"hitHaltTimeScale": 0.01,
+										"muteHitText": false,
+									},
+									"canHitHead": false,
+								},
+							},
+						},
+					],
+				},
+				"FoxTower_Damage_Level_2":
+				{
+					"duration":0.2,
+					"stacking":"Multiple",
+					"onAdded":
+					[
+						{
+							"$type": "FireSubEmitterEffect",
+							"effectPattern": "Eff_Avatar_Lady_Bow_Sara_AttackWave_Thunderfall",
+							"born":
+							{
+								"$type": "ConfigBornBySelf",
+								"onGround": true,
+							},
+						},
+						{
+							"$type": "TriggerAttackEvent",
+							"targetType": "Enemy",
+							"target":"CasterOriginOwner",//攻击由坏女人自己打
+							"attackEvent": 
+							{
+								"attackPattern": 
+								{
+									"$type": "ConfigAttackCircle",
+									"triggerType": "TriggerNoRepeat",
+									"fanAngle": 360.0,
+									"radius": 1.0,
+									"radiusRatio": 0.0,
+									"height": 3,
+									"born":
+									{
+										"$type": "ConfigBornBySelf",
+										"offset":
+										{
+											"x" : 0.0,
+											"y" : 0.0,
+											"z" : 0.0,
+										},
+									},
+								},
+								"attackInfo": 
+								{
+									"attenuationTag": "Elemental_Art",
+									"canBeModifiedBy": "OriginOwner",
+									"attackTag": "Elemental_Art",
+									"attackProperty": 
+									{
+										"damagePercentage": "%FoxTower_Damage_Level_2",
+										"strikeType": "Default",
+										"elementType": "Electric",
+										"elementDurability": 25,
+										"enBreak": 20,
+									},
+									"hitPattern": 
+									{
+										"onHitEffectName": "default",
+					          			"hitImpulseType":"LV2",
+										"reboundRatio": 0,
+										"hitHaltTime": 0.0,
+										"hitHaltTimeScale": 0.01,
+										"muteHitText": false,
+									},
+									"canHitHead": false,
+								},
+							},
+						},
+					],
+				},
+				"FoxTower_Damage_Level_3":
+				{
+					"duration":0.2,
+					"stacking":"Multiple",
+					"onAdded":
+					[
+						{
+							"$type": "FireSubEmitterEffect",
+							"effectPattern": "Eff_Avatar_Lady_Bow_Sara_AttackWave_Thunderfall",
+							"born":
+							{
+								"$type": "ConfigBornBySelf",
+								"onGround": true,
+							},
+						},
+						{
+							"$type": "TriggerAttackEvent",
+							"targetType": "Enemy",
+							"target":"CasterOriginOwner",//攻击由坏女人自己打
+							"attackEvent": 
+							{
+								"attackPattern": 
+								{
+									"$type": "ConfigAttackCircle",
+									"triggerType": "TriggerNoRepeat",
+									"fanAngle": 360.0,
+									"radius": 1.0,
+									"radiusRatio": 0.0,
+									"height": 3,
+									"born":
+									{
+										"$type": "ConfigBornBySelf",
+										"offset":
+										{
+											"x" : 0.0,
+											"y" : 0.0,
+											"z" : 0.0,
+										},
+									},
+								},
+								"attackInfo": 
+								{
+									"attenuationTag": "Elemental_Art",
+									"canBeModifiedBy": "OriginOwner",
+									"attackTag": "Elemental_Art",
+									"attackProperty": 
+									{
+										"damagePercentage": "%FoxTower_Damage_Level_3",
+										"strikeType": "Default",
+										"elementType": "Electric",
+										"elementDurability": 25,
+										"enBreak": 20,
+									},
+									"hitPattern": 
+									{
+										"onHitEffectName": "default",
+					          			"hitImpulseType":"LV2",
+										"reboundRatio": 0,
+										"hitHaltTime": 0.0,
+										"hitHaltTimeScale": 0.01,
+										"muteHitText": false,
+									},
+									"canHitHead": false,
+								},
+							},
+						},
+					],
+				},
+				"FoxTower_Damage_Level_4":
+				{
+					"duration":0.2,
+					"stacking":"Multiple",
+					"onAdded":
+					[
+						{
+							"$type": "FireSubEmitterEffect",
+							"effectPattern": "Eff_Avatar_Lady_Bow_Sara_AttackWave_Thunderfall",
+							"born":
+							{
+								"$type": "ConfigBornBySelf",
+								"onGround": true,
+							},
+						},
+						{
+							"$type": "TriggerAttackEvent",
+							"targetType": "Enemy",
+							"target":"CasterOriginOwner",//攻击由坏女人自己打
+							"attackEvent": 
+							{
+								"attackPattern": 
+								{
+									"$type": "ConfigAttackCircle",
+									"triggerType": "TriggerNoRepeat",
+									"fanAngle": 360.0,
+									"radius": 1.0,
+									"radiusRatio": 0.0,
+									"height": 3,
+									"born":
+									{
+										"$type": "ConfigBornBySelf",
+										"offset":
+										{
+											"x" : 0.0,
+											"y" : 0.0,
+											"z" : 0.0,
+										},
+									},
+								},
+								"attackInfo": 
+								{
+									"attenuationTag": "Elemental_Art",
+									"canBeModifiedBy": "OriginOwner",
+									"attackTag": "Elemental_Art",
+									"attackProperty": 
+									{
+										"damagePercentage": "%FoxTower_Damage_Level_4",
+										"strikeType": "Default",
+										"elementType": "Electric",
+										"elementDurability": 25,
+										"enBreak": 20,
+									},
+									"hitPattern": 
+									{
+										"onHitEffectName": "default",
+					          			"hitImpulseType":"LV2",
+										"reboundRatio": 0,
+										"hitHaltTime": 0.0,
+										"hitHaltTimeScale": 0.01,
+										"muteHitText": false,
+									},
+									"canHitHead": false,
+								},
+							},
+						},
+					],
+				},
+			},
+			"abilitySpecials":
+			{
+				"FoxTower_Damage_Level_1":0.365,//先临时给个值，后面需要清零
+				"FoxTower_Damage_Level_2":0.48442,
+				"FoxTower_Damage_Level_3":0.7769,
+				"FoxTower_Damage_Level_4":1.2,
+				"MaxLevel":3,//等着天赋加
+			},
+		},
+	},
+
+////////////////////////////////////////////////////////////////
+//
+//  元素爆发
+//
+////////////////////////////////////////////////////////////////
+	{
+		"Default":
+		{
+			"$type": "ConfigAbility",
+			"abilityName": "Avatar_Yae_ElementalBurst_CameraController",
+			"onAbilityStart":
+			[
+				{
+					"$type" : "EnableHeadControl",
+					"enable" : false,
+					"blend" : false,
+				},
+				// {// 先注掉，等做的时候再打开
+				// 	"$type":"AvatarEnterCameraShot",
+				// 	"cameraMoveCfgPath":"Camera_Yae_ElementalBurst",
+				// 	"target" : "Self",
+				// 	"predicates":
+				// 	[
+				// 		{
+				// 			"$type":"ByAttackNotHitScene",
+				// 			"attackPattern":
+				// 			{
+				// 				"$type": "ConfigAttackCircle",
+				// 				"triggerType": "TriggerNoRepeat",
+				// 				"height":0.4,
+				// 				"fanAngle": 30.0,
+				// 				"radius": 1.4,
+				// 				"born":
+				// 				{
+				// 					"$type": "ConfigBornBySelf",
+				// 					"offset":
+				// 					{
+				// 						"x" : 0.0,
+				// 						"y" : 1.5,
+				// 						"z" : 0.0,
+				// 					},
+				// 				},
+				// 			},
+				// 			"checkWaterLayer":true,
+				// 		},
+				// 		{
+				// 			"$type": "ByAvatarInWaterDepth",
+				// 			"compareType": "LessAndEqual",
+				// 			"depth": 0.5,
+				// 		},
+				// 	],
+				// },
+			],
+			"abilityMixins":
+			[
+				{
+					"$type": "AttachToStateIDMixin",
+					"stateIDs": ["ElementalBurst"],
+					"modifierName": "ElementalBurst_Camera_Protection_Ghost",
+				},
+				{
+					"$type": "AttachToStateIDMixin",
+					"stateIDs": ["ElementalBurst"],
+					"modifierName": "ElementalBurst_Camera_Protection_Invincible",
+				},
+				{
+					"$type": "AttachToStateIDMixin",
+					"stateIDs": ["ElementalBurst"],
+					"modifierName": "ElementalBurst_Windzone_Handler",
+				},
+				{
+					"$type": "AttachToStateIDMixin",
+					"stateIDs": ["ElementalBurst"],
+					"modifierName": "ElementalBurst_Camera_Remover",
+				},
+				{
+					"$type": "AttachToStateIDMixin",
+					"stateIDs": ["ElementalBurst"],
+					"modifierName": "ElementalBurst_Camera_Weather",
+				},
+				{
+					"$type": "AttachToStateIDMixin",
+					"stateIDs": ["ElementalBurst","ElementalBurst_AS"],
+					"modifierName": "ElementalBurst_HideWeapon",
+				},
+			],
+			"modifiers":
+			{
+				"ElementalBurst_Camera_Protection_Ghost":
+				{
+					"onAdded":
+					[
+						{
+							"$type" : "AttachAbilityStateResistance",
+							"resistanceListID": 11002,
+						},
+					],
+				},
+				"ElementalBurst_Camera_Protection_Invincible":	
+				{
+					"state": "Invincible",
+				},
+				"ElementalBurst_Melee_Camera_Handler":
+				{
+					"modifierMixins":
+					[
+						{
+							"$type":"TriggerWeatherMixin",
+							"type":"Skill",
+							"weatherPattern":"Weather_Tartaglia_AquariaBlade_Melee",
+							"transDuration":0.7,
+							"duration":1.6,
+						},
+					],
+				},
+				"ElementalBurst_Windzone_Handler":
+				{
+					"modifierMixins":
+					[
+						{
+							"$type": "WindZoneMixin",
+							"shapeName": "CircleR2",
+							"strength" : -3,
+							"attenuation" : 2,
+							"born":
+							{
+								"$type": "ConfigBornByTarget",
+								//"attachPointName" : "RootNode",
+								"offset" :
+								{
+									"x": 0.0,
+									"y": 0.0,
+									"z": 0.0,
+								},
+							},
+							"targetType": "Enemy",
+							"predicates":
+							[
+								{
+									"$type" : "ByEntityTypes",
+									"entityTypes" : ["Monster","Grass"],
+									/*"reject" : true,*/
+								},
+								{
+									"$type" : "ByTargetWeight",	//WindZoneLevel = 2
+									"logic" : "LesserOrEqual",	//WindZoneLevel = 2
+									"weight" : 250.0,	//WindZoneLevel = 2
+								},
+							],
+						},
+					],
+				},
+				"ElementalBurst_Camera_Remover":
+				{
+					"onAdded":
+					[
+						{
+							"$type" : "ControlEmotion",
+							"toggleBlink" : false,
+							"toggleEmoSync" : false,
+							"toggleEyeKey" : false,
+						},
+					],
+					"onRemoved":
+					[
+						{
+							"doOffStage" : true,
+							"$type" : "EnableHeadControl",
+							"enable" : true,
+						},
+						{
+							"$type":"AvatarExitCameraShot",
+							"doOffStage":true,
+						},
+						{
+							"doOffStage" : true,
+							"$type" : "AvatarCameraParam",
+							"lockParam" : false,
+							"cameraParam" :
+							{
+								"forceRadius" : 6.0,
+								"shouldKeepForceRadius" : true,
+							},
+						},
+						{
+							"$type" : "ControlEmotion",
+							"doOffStage": true,
+							"toggleBlink" : true,
+							"toggleEmoSync" : true,
+							"toggleEyeKey" : true,
+						},
+					],
+				},
+				"ElementalBurst_Camera_Weather":
+				{
+					"modifierMixins":
+					[
+						{
+							"$type":"TriggerWeatherMixin",
+							"type":"Skill",
+							"weatherPattern":"Weather_Hutao_ElementalBurst",
+							"transDuration":0.5,//这个同时是渐入时长和渐出时长。
+							"duration":1.5,
+						},
+					]
+				},
+				"ElementalBurst_HideWeapon":
+				{
+					"onAdded":
+					[
+						{
+							"$type": "TriggerHideWeapon",
+							"visible": false,
+							"partNames": ["equip01","sheathPoint"],
+						},
+					],
+					"onRemoved":
+					[
+						{
+							"$type": "TriggerHideWeapon",
+							"doOffStage": true,
+							"visible": true,
+							"partNames": ["equip01","sheathPoint"],
+						},
+					],
+				},
+			},
+		},
+	},
+
+//Garbage Collection
+	{
+		"Default":
+		{
+			"$type": "ConfigAbility",
+			"abilityName": "Avatar_Yae_ElementalBurst_Mark_Tower",
+			"onAbilityStart":
+			[
+				// {
+				// 	"$type": "ApplyModifier",
+				// 	"modifierName": "Yae_ElementalBurst_GC_Mark",
+				// 	"otherTargets":
+				// 	{// 没选到，暂时不知道为啥，后面再查
+				// 		"$type": "SelectTargetsByChildren",
+				// 		"configID": 41058008,
+				// 		"sortType": "Default",
+				// 	},
+				// 	"predicates":
+				// 	[
+				// 		{
+				// 			"$type":"ByTargetPositionToSelfPosition",
+				// 			"compareType":"XZ",
+				// 			"value":40,
+				// 			"logic": "LesserOrEqual",
+				// 		},
+				// 	],
+				// },
+				{//释放元素战技时清除计数
+					"$type":"ClearGlobalValue",
+					"key":"_ABILITY_Yae_ElementalBurst_TowerCount",
+					"doOffStage":true,
+				},
+				{
+					"$type":"AvatarSkillStart",
+					"skillID":10585,
+					"cdRatio":1.0,
+					"predicates":
+					[
+						{
+							"$type": "BySkillReady",
+							"skillID": 10585,
+						},
+					],
+				},
+				{
+					"$type": "ApplyModifier",
+					"modifierName": "Yae_ElementalBurst_GC_Mark",
+					"otherTargets":
+					{
+						"$type": "SelectTargetsByShape",
+						"shapeName": "CircleR20",
+						"centerBasedOn": "Self",
+						"campTargetType": "Alliance",
+						"campBasedOn": "Self",
+					},
+					"predicates" :
+					[
+						{
+							"$type": "ByTargetGlobalValue",
+							"key": "_ABILITY_IS_FOXTOWER",
+							"target":"Target",
+							"value": 1,
+							"compareType": "Equal",
+						},
+					],
+				},
+			],
+			"modifiers":
+			{
+				"Yae_ElementalBurst_GC_Mark":
+				{
+					"duration":0.5,
+					"onAdded":
+					[
+						{//标记该塔为待回收
+							"$type": "AddGlobalValue",
+							"target": "Self",
+							"key": "_ABILITY_FOXTOWER_AddToGarbageTable",
+							"value": 1,
+							"useLimitRange": true,
+							"maxValue": 1,
+							"minValue": 1,
+						},
+						{//可以加个简单的特效
+							"$type":"AttachEffect",
+							"effectPattern":"Eff_Avatar_Lady_Catalyst_Yae_ElemenalBurst_GC_Mark",
+						},
+						{//这个计数方式会因RTT出问题，白盒先这么做，正式版要有新机制
+							"$type":"ApplyModifier",
+							"modifierName":"Yae_ElementalBurst_TowerCount",
+							"target":"Caster",
+						},
+					],
+				},
+				"Yae_ElementalBurst_TowerCount":
+				{
+					"stacking":"Multiple",
+					"duration":0.3,
+					"onAdded":
+					[
+						{
+							"$type": "AddGlobalValue",
+							"target": "Self",
+							"key": "_ABILITY_Yae_ElementalBurst_TowerCount",
+							"value": 1,
+							"useLimitRange": true,
+							"maxValue": 4,
+							"minValue": 1,
+						},
+					],
+				},
+			},
+			"abilitySpecials":
+			{
+			},
+		},
+	},
+
+//释放元素爆发时清除周围的塔
+	{
+		"Default":
+		{
+			"$type": "ConfigAbility",
+			"abilityName": "Avatar_Yae_ElementalBurst_Clear_Tower",
+			"onAbilityStart":
+			[
+				// {
+				// 	"$type": "KillGadget",
+				// 	"gadgetInfo":
+				// 	{
+				// 		"$type": "SelectTargetsByChildren",
+				// 		"configID": 41058008,
+				// 		"sortType": "Default",
+				// 	},
+				// 	"predicates":
+				// 	[//这里就不判距离了，加标记时判过了
+				// 		{
+		  //               	"$type": "ByTargetGlobalValue",
+		  //               	"key": "_ABILITY_FOXTOWER_AddToGarbageTable",
+		  //               	"value": 1,
+		  //               	"compareType": "Equal",
+		  //               },
+				// 	],
+				// },
+				// {//销毁一定范围内的塔
+				// 	"$type":"ApplyModifier",
+				// 	"modifierName":"FoxTower_Killer",
+				// 	"otherTargets":
+				// 	{
+				// 		"$type": "SelectTargetsByShape",
+				// 		"shapeName": "CircleR20",
+				// 		"centerBasedOn": "Self",
+				// 		"campTargetType": "Alliance",
+				// 		"campBasedOn": "Self",
+				// 	},
+				// 	"predicates" :
+				// 	[
+				// 		{
+				// 			"$type": "ByTargetGlobalValue",
+				// 			"key": "_ABILITY_IS_FOXTOWER",
+				// 			"target":"Target",
+				// 			"value": 1,
+				// 			"compareType": "Equal",
+				// 		},
+				// 	],
+				// },
+				{//角色在身边也放置一个雷暴
+					"$type": "CreateGadget",
+					"gadgetID": 41058009,
+					"campID": 1001,
+					"campTargetType": "Enemy",
+					"born":
+					{
+						"$type": "ConfigBornBySelf",
+						"offset" :
+						{
+							"x": 0.0,
+							"y": 0.0,
+							"z": 2.5,
+						},
+					},
+				},
+                {//这里应该是返还技能使用次数，但是现在没有功能支持，RefreshMaxChargeCount可能需要增加中一种一次性的 _maxChargeCountDelta
+                    "$type" : "ModifyAvatarSkillCD",
+                    "skillID" : 10582,
+                    "target" : "Self",
+                    "cdRatio" : -1,
+                },
+			],
+			"modifiers":
+			{
+				"FoxTower_Killer":
+				{
+					"duration":0.5,
+					"onAdded":
+					[
+						{
+							"$type":"KillSelf",
+							"target":"Self",
+						},
+					],
+				},
+			},
+			"abilitySpecials":
+			{
+			},
+		},
+	},
+
+	{
+		"Default":
+		{
+			"$type": "ConfigAbility",
+			"abilityName": "Avatar_Yae_ElementalBurst_TowerExplosion_Material",
+			"onAdded":
+			[
+				{
+					"$type":"CopyGlobalValue",
+					"srcTarget":"OriginOwner",
+					"dstTarget":"Self",
+					"srcKey":"_ABILITY_Yae_ElementalBurst_TowerCount",//取值的名称不对，先用着
+					"dstKey":"_ABILITY_TowerExplosion_ExtraDamageRatio",
+				},
+				{
+					"$type":"SetGlobalValueToOverrideMap",
+					"doOffStage":true,
+					"globalValueKey":"_ABILITY_TowerExplosion_ExtraDamageRatio",
+					"overrideMapKey":"TowerExplosion_ExtraDamageRatio",
+				},
+				{
+					"$type":"ApplyModifier",
+					"modifierName":"TowerExplosion_Damage_Handler",
+				},
+			],
+			"onAbilityStart":
+			[
+			],
+			"modifiers":
+			{//这里不倾向于不同等级的塔在元素爆发里爆炸的伤害不一样，这会导致元素爆发收益的方差太大了
+				"TowerExplosion_Damage_Handler":
+				{
+					"duration":3,
+					"onAdded":
+					[
+						{
+							"$type":"FireEffect",
+							"effectPattern":"Eff_Avatar_Lady_Catalyst_Yae_ElemenalBurst_TowerExplode",
+						},
+						//保底会炸一下
+						{
+							"$type": "TriggerAttackEvent",
+							"targetType": "Enemy",
+							"target":"OriginOwner",//攻击由坏女人自己打
+							"attackEvent": 
+							{
+								"attackPattern": 
+								{
+									"$type": "ConfigAttackCircle",
+									"triggerType": "TriggerNoRepeat",
+									"fanAngle": 360.0,
+									"radius": 5.0,
+									"radiusRatio": 0.0,
+									"height": 3,
+									"born":
+									{
+										"$type": "ConfigBornBySelf",
+										"offset":
+										{
+											"x" : 0.0,
+											"y" : 0.0,
+											"z" : 0.0,
+										},
+									},
+								},
+								"attackInfo": 
+								{
+									"attenuationTag": "Elemental_Burst",
+									"canBeModifiedBy": "OriginOwner",
+									"attackTag": "Elemental_Burst",
+									"attackProperty": 
+									{
+										"damagePercentage": "%TowerExplosion_Damage",
+										"strikeType": "Default",
+										"elementType": "Electric",
+										"elementDurability": 25,
+										"enBreak": 50,
+										// "damageExtra":"%TowerExplosion_ExtraDamageRatio",
+									},
+									"hitPattern": 
+									{
+										"onHitEffectName": "default",
+					          			"hitImpulseType":"LV2",
+										"reboundRatio": 0,
+										"hitHaltTime": 0.0,
+										"hitHaltTimeScale": 0.01,
+										"muteHitText": false,
+									},
+									"canHitHead": false,
+								},
+							},
+							"predicates":
+							[
+								{
+									"$type": "ByTargetGlobalValue",
+									"target":"Self",
+									"key": "_ABILITY_TowerExplosion_ExtraDamageRatio",
+									"value": 1,
+									"compareType": "MoreThanAndEqual",
+								},
+							],
+						},
+					],
+					"thinkInterval":0.5,
+					"onThinkInterval":
+					[
+						{
+							"$type": "AddGlobalValue",
+							"key": "_ABILITY_Yae_TowerExplosion_DamageCount",
+							"value": 1,
+							"useLimitRange": true,
+							"minValue": 0,
+							"maxValue": "%TowerExplosion_ExtraDamageRatio",
+							"doOffStage": true,
+						},
+						{
+							"$type":"ApplyModifier",
+							"modifierName":"TowerExplosion_Damage_01",
+							"predicates":
+							[
+								{
+									"$type":"ByTargetGlobalValue",
+									"key":"_ABILITY_Yae_TowerExplosion_DamageCount",
+									"value":1,
+									"compareType": "Equal",
+								},
+							],
+						},
+						{
+							"$type":"ApplyModifier",
+							"modifierName":"TowerExplosion_Damage_02",
+							"predicates":
+							[
+								{
+									"$type":"ByTargetGlobalValue",
+									"key":"_ABILITY_Yae_TowerExplosion_DamageCount",
+									"value":2,
+									"compareType": "Equal",
+								},
+							],
+						},
+						{
+							"$type":"ApplyModifier",
+							"modifierName":"TowerExplosion_Damage_03",
+							"predicates":
+							[
+								{
+									"$type":"ByTargetGlobalValue",
+									"key":"_ABILITY_Yae_TowerExplosion_DamageCount",
+									"value":3,
+									"compareType": "Equal",
+								},
+							],
+						},
+					],
+				},
+				"TowerExplosion_Damage_01":
+				{
+					"onAdded":
+					[
+						{
+							"$type":"FireEffect",
+							"effectPattern":"Eff_Avatar_Lady_Catalyst_Yae_ElemenalBurst_TowerExplode",
+						},
+						{
+							"$type": "TriggerAttackEvent",
+							"targetType": "Enemy",
+							"target":"OriginOwner",//攻击由坏女人自己打
+							"attackEvent": 
+							{
+								"attackPattern": 
+								{
+									"$type": "ConfigAttackCircle",
+									"triggerType": "TriggerNoRepeat",
+									"fanAngle": 360.0,
+									"radius": 5.0,
+									"radiusRatio": 0.0,
+									"height": 3,
+									"born":
+									{
+										"$type": "ConfigBornBySelf",
+										"offset":
+										{
+											"x" : 0.0,
+											"y" : 0.0,
+											"z" : 0.0,
+										},
+									},
+								},
+								"attackInfo": 
+								{
+									"attenuationTag": "Elemental_Burst",
+									"canBeModifiedBy": "OriginOwner",
+									"attackTag": "Elemental_Burst",
+									"attackProperty": 
+									{
+										"damagePercentage": "%TowerExplosion_Damage",
+										"strikeType": "Default",
+										"elementType": "Electric",
+										"elementDurability": 25,
+										"enBreak": 50,
+										// "damageExtra":"%TowerExplosion_ExtraDamageRatio",
+									},
+									"hitPattern": 
+									{
+										"onHitEffectName": "default",
+					          			"hitImpulseType":"LV2",
+										"reboundRatio": 0,
+										"hitHaltTime": 0.0,
+										"hitHaltTimeScale": 0.01,
+										"muteHitText": false,
+									},
+									"canHitHead": false,
+								},
+							},
+							"predicates":
+							[
+								{
+									"$type": "ByTargetGlobalValue",
+									"target":"Self",
+									"key": "_ABILITY_TowerExplosion_ExtraDamageRatio",
+									"value": 1,
+									"compareType": "MoreThanAndEqual",
+								},
+							],
+						},
+					],
+				},
+				"TowerExplosion_Damage_02":
+				{
+					"onAdded":
+					[
+						{
+							"$type":"FireEffect",
+							"effectPattern":"Eff_Avatar_Lady_Catalyst_Yae_ElemenalBurst_TowerExplode",
+						},
+						{
+							"$type": "TriggerAttackEvent",
+							"targetType": "Enemy",
+							"target":"OriginOwner",//攻击由坏女人自己打
+							"attackEvent": 
+							{
+								"attackPattern": 
+								{
+									"$type": "ConfigAttackCircle",
+									"triggerType": "TriggerNoRepeat",
+									"fanAngle": 360.0,
+									"radius": 5.0,
+									"radiusRatio": 0.0,
+									"height": 3,
+									"born":
+									{
+										"$type": "ConfigBornBySelf",
+										"offset":
+										{
+											"x" : 0.0,
+											"y" : 0.0,
+											"z" : 0.0,
+										},
+									},
+								},
+								"attackInfo": 
+								{
+									"attenuationTag": "Elemental_Burst",
+									"canBeModifiedBy": "OriginOwner",
+									"attackTag": "Elemental_Burst",
+									"attackProperty": 
+									{
+										"damagePercentage": "%TowerExplosion_Damage",
+										"strikeType": "Default",
+										"elementType": "Electric",
+										"elementDurability": 25,
+										"enBreak": 50,
+										// "damageExtra":"%TowerExplosion_ExtraDamageRatio",
+									},
+									"hitPattern": 
+									{
+										"onHitEffectName": "default",
+					          			"hitImpulseType":"LV2",
+										"reboundRatio": 0,
+										"hitHaltTime": 0.0,
+										"hitHaltTimeScale": 0.01,
+										"muteHitText": false,
+									},
+									"canHitHead": false,
+								},
+							},
+							"predicates":
+							[
+								{
+									"$type": "ByTargetGlobalValue",
+									"target":"Self",
+									"key": "_ABILITY_TowerExplosion_ExtraDamageRatio",
+									"value": 1,
+									"compareType": "MoreThanAndEqual",
+								},
+							],
+						},
+					],
+				},
+				"TowerExplosion_Damage_03":
+				{
+					"onAdded":
+					[
+						{
+							"$type":"FireEffect",
+							"effectPattern":"Eff_Avatar_Lady_Catalyst_Yae_ElemenalBurst_TowerExplode",
+						},
+						{
+							"$type": "TriggerAttackEvent",
+							"targetType": "Enemy",
+							"target":"OriginOwner",//攻击由坏女人自己打
+							"attackEvent": 
+							{
+								"attackPattern": 
+								{
+									"$type": "ConfigAttackCircle",
+									"triggerType": "TriggerNoRepeat",
+									"fanAngle": 360.0,
+									"radius": 5.0,
+									"radiusRatio": 0.0,
+									"height": 3,
+									"born":
+									{
+										"$type": "ConfigBornBySelf",
+										"offset":
+										{
+											"x" : 0.0,
+											"y" : 0.0,
+											"z" : 0.0,
+										},
+									},
+								},
+								"attackInfo": 
+								{
+									"attenuationTag": "Elemental_Burst",
+									"canBeModifiedBy": "OriginOwner",
+									"attackTag": "Elemental_Burst",
+									"attackProperty": 
+									{
+										"damagePercentage": "%TowerExplosion_Damage",
+										"strikeType": "Default",
+										"elementType": "Electric",
+										"elementDurability": 25,
+										"enBreak": 50,
+										// "damageExtra":"%TowerExplosion_ExtraDamageRatio",
+									},
+									"hitPattern": 
+									{
+										"onHitEffectName": "default",
+					          			"hitImpulseType":"LV2",
+										"reboundRatio": 0,
+										"hitHaltTime": 0.0,
+										"hitHaltTimeScale": 0.01,
+										"muteHitText": false,
+									},
+									"canHitHead": false,
+								},
+							},
+							"predicates":
+							[
+								{
+									"$type": "ByTargetGlobalValue",
+									"target":"Self",
+									"key": "_ABILITY_TowerExplosion_ExtraDamageRatio",
+									"value": 1,
+									"compareType": "MoreThanAndEqual",
+								},
+							],
+						},
+					],
+				},
+			},
+			"abilitySpecials":
+			{
+				"TowerExplosion_Damage":1,//先临时给个值，后面需要清零
+				"TowerExplosion_ExtraDamageRatio":0,
+			},
+		},
+	},
+
+]

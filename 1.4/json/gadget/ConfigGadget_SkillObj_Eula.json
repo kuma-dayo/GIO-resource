@@ -1,0 +1,129 @@
+{
+////////////////////////////////////////////////////////////////
+//
+//  优菈元素战技物件
+//
+////////////////////////////////////////////////////////////////
+	"Eula_ElementalArt_IceWave" :
+	{
+		"$type" : "ConfigGadget",
+		"common" :
+		{
+			"effectAttachShape" :
+			{
+				"$type" : "ConfigEffectAttachBox",
+				"emitFrom" : "Volume",
+				"scaleX" : 1,
+				"scaleY" : 1,
+				"scaleZ" : 1.0,
+			},
+		},
+		"combat" :
+		{
+			"property":
+			{
+				"useCreatorProperty" : true, // 是否继承创造者的数值
+				"canTriggerBullet" : false,
+				"isInvincible":true,
+			},
+			"combatLock":
+			{
+				"denyLockOn":true,
+				"lockType":"Gadget_Lv1",
+			},
+			"beHit" :
+			{
+				"hitBloodEffect" : "",
+				"muteAllHit" : true,
+				"muteAllHitEffect" : true,
+				"muteAllHitText" : true,
+			},
+		},
+		// 生命周期管理
+		"timer" :
+		{
+			"lifeInfinite" : false,		//如果未触发是否一致存在
+			"lifeTime" : 3.5,			//存在时间
+		},
+		"abilities":
+		[
+			{
+				"abilityID": "IceWave",
+				"abilityName":"Avatar_Eula_ElementalArt_IceWave",
+			},
+		],
+	},
+
+////////////////////////////////////////////////////////////////
+//
+//  优菈元素爆發物件
+//
+////////////////////////////////////////////////////////////////
+	"Eula_ElementalBurst_Judgment" :
+	{
+		"$type" : "ConfigGadget",
+		"common" :
+		{
+			"effectAttachShape" :
+			{
+				"$type" : "ConfigEffectAttachBox",
+				"emitFrom" : "Volume",
+				"scaleX" : 1,
+				"scaleY" : 1,
+				"scaleZ" : 1.0,
+			},
+		},
+		"combat" :
+		{
+			"property":
+			{
+				"useCreatorProperty" : true, // 是否继承创造者的数值
+				"canTriggerBullet" : false,
+				"isInvincible":true,
+			},
+			"combatLock":
+			{
+				"denyLockOn":true,
+				"lockType":"Gadget_Lv1",
+			},
+			"beHit" :
+			{
+				"hitBloodEffect" : "",
+				"muteAllHit" : true,
+				"muteAllHitEffect" : true,
+				"muteAllHitText" : true,
+			},
+		},
+		"move" :
+		{
+			"$type" : "ConfigFollowMove",
+			"target" : "LocalAvatar",
+			"followRotation" : true,
+			"offset" :
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 0.0,
+			},
+			"forward" :
+			{
+				"x" : 0.0,
+				"y" : 0.0,
+				"z" : 1.0,
+			},
+			"followOwnerInvisible" : true,
+		},
+		// 生命周期管理
+		"timer" :
+		{
+			"lifeInfinite" : false,		//如果未触发是否一致存在
+			"lifeTime" : 10.5,			//存在时间
+		},
+		"abilities":
+		[
+			{
+				"abilityName":"Avatar_Eula_ElementalBurst_Judgment",
+			},
+		],
+	},
+}

@@ -1,0 +1,12 @@
+ID	默认阵营	类型	描述	JSON名称	能否移动	是否有音响	是否能装备	能否交互	视距等级	服务器脚本	ItemJSON名称	联机动态属性ID
+49001001	4001	19	冰牢	GeneralSkill_IceDamage_Prison_Center							Default_Item	
+49001002	4001	19	旋涡	GeneralSkill_WindDamage_Vortex_Center							Default_Item	
+49001003	4001	19	地波发射器	GeneralSkill_RockDamage_LowWave_Emitter							Default_Item	
+49001004	4001	3	单发地波	GeneralSkill_RockDamage_LowWave_SingleBullet	1						Default_Item	
+49001005	4001	19	电球（连线终点）	GeneralSkill_ElecDamage_Arc_Charge							Default_Item	
+49001006	4001	3	电球之间连接的电弧	GeneralSkill_ElecDamage_Arc_TriggerBullet	1						Default_Item	
+49001008	4001	3	追踪地火	GeneralSkill_FireDamage_TracingImpulse_Bullet	1						Default_Item	
+49001009	4001	19	追到后触发的攻击	GeneralSkill_FireDamage_TracingImpulse_DamageGadget							Default_Item	
+49001010	4001	19	用于触发第二波泡泡的逻辑gadget	GeneralSkill_WaterDamage_Bubble_Center							Default_Item	
+49001011	4001	19	泡泡	GeneralSkill_WaterDamage_Bubble_Single							Default_Item	
+49001012	4001	19	中心电球（连线起点）	GeneralSkill_ElecDamage_Arc_CenterCharge							Default_Item	

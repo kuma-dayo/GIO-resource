@@ -1,0 +1,28 @@
+ID	名称$text_name_Name	Prefab路径	Prefab_Remote路径	Controller路径	Controller_Remote路径	默认阵营	JSON名称	JSON路径文件名	能否战斗	能否移动	能否发声	是否常驻	角色npc初见分组
+1700	安娜	ART/Char/NPC/NPC_Mengde/NPC_Mengde_Female/NPC_Mengde_Female_Standard_Anna_1700				2001		ConfigNpc_Common_AnimatorMove_Female		1	1	1	
+2164	王平安	ART/Char/NPC/NPC_Quest/NPC_Quest_Male_Strong_Wangpingan_12326				2001		ConfigNpc_Common_AnimatorMove_Male		1	1	1	
+2174	观察	ART/Char/NPC/NPC_Others/NPC_Others_Readable_Invisible				2001	ReadableNPC					1	
+3227	阿倍良久	ART/Char/NPC/NPC_Others/NPC_Others_Enkanomiya_Shade/NPC_Others_Enkanomiya_Shade				2001		ConfigNpc_Common_AnimatorMove_Child_noheadcontrol		1	1	1	
+3228	阿多尼斯	ART/Char/NPC/NPC_Others/NPC_Others_Enkanomiya_Shade/NPC_Others_Enkanomiya_Shade				2001		ConfigNpc_Common_AnimatorMove_Child_noheadcontrol		1	1	1	
+3229	贺摩	ART/Char/NPC/NPC_Others/NPC_Others_Enkanomiya_Shade/NPC_Others_Enkanomiya_Shade				2001		ConfigNpc_Common_AnimatorMove_Child_noheadcontrol		1	1	1	
+3230	乌帽子	ART/Char/NPC/NPC_Others/NPC_Others_Enkanomiya_Shade/NPC_Others_Enkanomiya_Shade				2001		ConfigNpc_Common_AnimatorMove_Child_noheadcontrol		1	1	1	
+12402	？？？	ART/Char/NPC/NPC_Others/NPC_Others_Readable_Invisible				2001	ReadableNPC						
+12403	？？？	ART/Char/NPC/NPC_Others/NPC_Others_Readable_Invisible				2001	ReadableNPC						
+12404	？？？	ART/Char/NPC/NPC_Others/NPC_Others_Readable_Invisible				2001	ReadableNPC						
+12407	遗迹猎者	ART/Char/NPC/NPC_Monster/NPC_Monster_Formathr_None				2001		ConfigNpc_Common_AnimatorMove_Male_noheadcontrol		1	1		
+12412	博易	ART/Char/NPC/NPC_Quest/NPC_Quest_Male_Standard_Zhubian_12320				4001	ConfigNpc_Sensing_AnimatorMove_SneakRunNPC	ConfigNpc_Sensing_AnimatorMove_SneakRunNPC		1	1		
+12413	诗筠	ART/Char/NPC/NPC_Quest/NPC_Quest_Female_Standard_Jizhe_12319				2001	ConfigNpc_Common_AnimatorMove_Female	ConfigNpc_Common_AnimatorMove_Female		1	1		
+12422	观察杯子	ART/Char/NPC/NPC_Others/NPC_Others_Readable_Invisible				2001	ReadableNPC						
+12426	开始拍照	ART/Char/NPC/NPC_Others/NPC_Others_Readable_Invisible				2001	ReadableNPC			1	1		
+12441	老章	ART/Char/NPC/NPC_Liyue/NPC_Liyue_MuscleMan/NPC_Liyue_MuscleMan_Standard_MasterZhang02_204801				2001		ConfigNpc_Common_AnimatorMove_MuscleMan		1	1		
+12442	(test)商人D	ART/Char/NPC/NPC_Liyue/NPC_Liyue_Male/NPC_Liyue_Male_Standard_Bolai_2013				2001		ConfigNpc_Common_AnimatorMove_Male		1	1		
+12443	(test)商人E	ART/Char/NPC/NPC_Quest/NPC_Quest_Male_Fat_MerchantAdd2_12443				2001		ConfigNpc_Common_AnimatorMove_Male		1	1		
+12444	(test)商人F	ART/Char/NPC/NPC_Quest/NPC_Quest_Female_Standard_MerchantAdd3_12444				2001		ConfigNpc_Common_AnimatorMove_Female		1	1		
+20558	潦草的笔记	ART/Char/NPC/NPC_Others/NPC_Others_Readable_Invisible				2001	ReadableNPC			1	1		
+30109	盗宝团成员	ART/Char/NPC/NPC_Quest/NPC_Quest_Male_Standard_HuangMaZi2_10254				2001		ConfigNpc_Common_AnimatorMove_Male		1	1		
+30111	盗宝团成员	ART/Char/NPC/NPC_Quest/NPC_Quest_Male_Standard_Caijing_10317				2001		ConfigNpc_Common_AnimatorMove_Male		1	1		
+30134	（test）盗宝团胖	ART/Char/NPC/NPC_Quest/NPC_Quest_Male_Fat_QiqiNPC2_10340				2001		ConfigNpc_Common_AnimatorMove_Male		1	1		
+30135	(test）盗宝团电	ART/Char/NPC/NPC_Quest/NPC_Quest_Male_Standard_Feitheflyer_10414				2001		ConfigNpc_Common_AnimatorMove_Male		1	1		
+30136	（test）盗宝团冰	ART/Char/NPC/NPC_Quest/NPC_Quest_Male_Standard_FishingDaobaotuanLeader_12164				2001		ConfigNpc_Common_AnimatorMove_Male		1	1		
+30137	千岩军守卫	ART/Char/NPC/NPC_Liyue/NPC_Liyue_Male/NPC_Liyue_Male_Standard_Fengyan_2071				2001		ConfigNpc_Common_AnimatorMove_Male		1	1	1	
+30138	千岩军守卫	ART/Char/NPC/NPC_Liyue/NPC_Liyue_Male/NPC_Liyue_Male_Standard_Fengyan_2071				2001		ConfigNpc_Common_AnimatorMove_Male		1	1	1	

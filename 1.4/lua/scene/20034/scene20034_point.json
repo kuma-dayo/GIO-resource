@@ -1,0 +1,94 @@
+{
+  "radius": 10.0,
+  "points": {
+    "1": {
+      "type": "NORMAL",
+      "$type": "DungeonQuitPoint",
+      "gadgetId": 70120004,
+      "pos": {
+        "x": 0.0,
+        "y": -56.25773,
+        "z": 0.0
+      },
+      "rot": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "areaId": 0,
+      "unlocked": true,
+      "cutsceneList": [],
+      "groupLimit": false,
+      "size": {
+        "x": 5.0,
+        "y": 5.0,
+        "z": 5.0
+      },
+      "titleTextID": ""
+    },
+    "2": {
+      "type": "NORMAL",
+      "$type": "DungeonSlipRevivePoint",
+      "gadgetId": 70010006,
+      "pos": {
+        "x": -0.07741788,
+        "y": -56.2815,
+        "z": 17.5839
+      },
+      "rot": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "areaId": 0,
+      "unlocked": true,
+      "cutsceneList": [],
+      "groupLimit": false,
+      "worktopGroupId": 220034001,
+      "size": {
+        "x": 30.0,
+        "y": 5.0,
+        "z": 30.0
+      },
+      "isBoss": false,
+      "isActive": false,
+      "groupIds": [
+        220034001
+      ]
+    },
+    "3": {
+      "type": "NORMAL",
+      "$type": "DungeonWayPoint",
+      "gadgetId": 70010006,
+      "pos": {
+        "x": -0.0720576,
+        "y": -56.28177,
+        "z": 18.23552
+      },
+      "rot": {
+        "x": 0.0,
+        "y": 180.0,
+        "z": 0.0
+      },
+      "areaId": 0,
+      "unlocked": true,
+      "cutsceneList": [],
+      "groupLimit": false,
+      "worktopGroupId": 220034001,
+      "size": {
+        "x": 30.0,
+        "y": 5.0,
+        "z": 30.0
+      },
+      "isBoss": false,
+      "isActive": false,
+      "groupIds": [
+        220034001
+      ]
+    }
+  },
+  "areas": {},
+  "forces": {},
+  "entities": {},
+  "doors": {}
+}

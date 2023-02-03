@@ -1,0 +1,109 @@
+ID	AbilityName	[参数信息]1参数名	[参数信息]1参数	[参数信息]2参数名	[参数信息]2参数	[参数信息]3参数名	[参数信息]3参数	[参数信息]4参数名	[参数信息]4参数	[参数信息]5参数名	[参数信息]5参数	参数名列表	参数值列表	是否刷新所有AbilitySpecials
+100001	Activity_Rogue_ElementAddHurt_SSR	Rogue_ElementAddHurt_SSR	0.3									Rogue_ElementAddHurt_SSR	0.3	
+100002	Activity_Rogue_ElementAddHurt_SR	Rogue_ElementAddHurt_SR_Level01	0.1	Rogue_ElementAddHurt_SR_Level02	0.2	Rogue_ElementAddHurt_SR_Level03	0.3					Rogue_ElementAddHurt_SR_Level01,Rogue_ElementAddHurt_SR_Level02,Rogue_ElementAddHurt_SR_Level03	0.1,0.2,0.3	
+100003	Activity_Rogue_ElementReactionAttack_Explode	Explode_CJB_CD	10	CJB_Damage	5							Explode_CJB_CD,CJB_Damage	10,5	
+100004	Activity_Rogue_ElementReactionAttack_Superconductor	Explode_CJB_CD	10	CJB_Damage	5							Explode_CJB_CD,CJB_Damage	10,5	
+100005	Activity_Rogue_ElementReactionAttack_Melt	Explode_CJB_CD	10	CJB_Damage	5							Explode_CJB_CD,CJB_Damage	10,5	
+100006	Activity_Rogue_ElementReactionAttack_Stream	Explode_CJB_CD	10	CJB_Damage	5							Explode_CJB_CD,CJB_Damage	10,5	
+100007	Activity_Rogue_ElementReactionAttack_Shock	Explode_CJB_CD	10	CJB_Damage	5							Explode_CJB_CD,CJB_Damage	10,5	
+100008	Activity_Rogue_AreaNoEnemyAtkSpeedUp	AtkSpeed	0.2	EnemyCount	3							AtkSpeed,EnemyCount	0.2,3	
+100009	Activity_Rogue_NormalAttackDamageUp_R	PER_NormalAttackDamageUp	0.08	NormalAttackDamageUp_MAXLV	2							PER_NormalAttackDamageUp,NormalAttackDamageUp_MAXLV	0.08,2	
+100010	Activity_Rogue_ExtraAttackDamageUp_R	PER_ExtraAttackDamageUp	0.08	ExtraAttackDamageUp_MAXLV	2							PER_ExtraAttackDamageUp,ExtraAttackDamageUp_MAXLV	0.08,2	
+100011	Activity_Rogue_FallingAttackDamageUp_R	PER_FallingAttackDamageUp	0.12	FallingAttackDamageUp_MAXLV	2							PER_FallingAttackDamageUp,FallingAttackDamageUp_MAXLV	0.12,2	
+100012	Activity_Rogue_Elemental_ArtDamageUp_R	PER_Elemental_ArtDamageUp	0.08	Elemental_ArtDamageUp_MAXLV	2							PER_Elemental_ArtDamageUp,Elemental_ArtDamageUp_MAXLV	0.08,2	
+100013	Activity_Rogue_DefenceRatio_R	PER_DefenceRatio	0.15	DefenceRatio_MAXLV	2							PER_DefenceRatio,DefenceRatio_MAXLV	0.15,2	
+100015	Activity_Rogue_HighHp_DamageUp_SR	HighHp_Threshold	0.7	HighHp_NormalExtraFallingDamageUp_Rate	0.1	HighHp_ElementalArtDamageUp_Rate	0.1	HighHp_ElementalBurstDamageUp_Rate	0.1			HighHp_Threshold,HighHp_NormalExtraFallingDamageUp_Rate,HighHp_ElementalArtDamageUp_Rate,HighHp_ElementalBurstDamageUp_Rate	0.7,0.1,0.1,0.1	
+100016	Activity_Rogue_LowHp_DamageUp_SR	LowHp_Threshold	0.5	LowHp_NormalExtraFallingDamageUp_Rate	0.1	LowHp_ElementalArtDamageUp_Rate	0.1	LowHp_ElementalBurstDamageUp_Rate	0.1			LowHp_Threshold,LowHp_NormalExtraFallingDamageUp_Rate,LowHp_ElementalArtDamageUp_Rate,LowHp_ElementalBurstDamageUp_Rate	0.5,0.1,0.1,0.1	
+100017	Activity_Rogue_DamageUp_SubHurtDown_SR	SubHurtDown_Rate	-0.1	DamageUp_Rate	0.15							SubHurtDown_Rate,DamageUp_Rate	-0.1,0.15	
+100018	Activity_Rogue_OtherNumerical_R	NormalAttack_MAXLV	0	PER_NormalAttack	0	NormalAttack_LV	0					NormalAttack_MAXLV,PER_NormalAttack,NormalAttack_LV	0,0,0	
+100019	LevelEntityTowerBuff_HighEnergyAtkUp_Multiple	ThinkTime	1	MoreEnergyRatio	0.5	LessEnergyRatio	0.3	Actor_AttackRatio	0.065	MaxLayer	10	ThinkTime,MoreEnergyRatio,LessEnergyRatio,Actor_AttackRatio,MaxLayer,MaxLayer,MaxLayer	1,0.5,0.3,0.065,10,10,10	
+100021	LevelEntityTowerBuff_HighEnergyTriggerAoe	CJB_MoreEnergyRatio	0.5	Damage01	5	Damage02	8.33					CJB_MoreEnergyRatio,Damage01,Damage02	0.5,5,8.33	
+100022	LevelEntity_ElementAddHurt_Water_V22	ElementAddHurt_Water	0.6									ElementAddHurt_Water	0.6	
+100023	Activity_Rogue_ElemnentalArt_GenerateBall	Rougue_GenerateBall_CD	4									Rougue_GenerateBall_CD	4	
+100024	Activity_Rogue_ElementAddHurt_R	PER_ElementAddHurt	0.02	ElementAddHurt_MAXLV_R	10							PER_ElementAddHurt,ElementAddHurt_MAXLV_R	0.02,10	
+100025	Activity_Rogue_HighStaminaAreaAttack_SR	StaminaRatio	0.7	CJB_Damage	8.4	Rougue_HighStamina_CD	5					StaminaRatio,CJB_Damage,Rougue_HighStamina_CD	0.7,8.4,5	
+100026	Activity_Rogue_DownPhysicalSubHurt_SR	Bufftime	12	PhysicalSubHurt	-0.2							Bufftime,PhysicalSubHurt	12,-0.2	
+100030	ActivityAbility_MistTrial_Level_1	Damage_Ratio_Lv1	0.6	Damage_Ratio_Lv2	0.8	Damage_Ratio_Lv3	1	Damage_Ratio_Lv4	1.2			Damage_Ratio_Lv1,Damage_Ratio_Lv2,Damage_Ratio_Lv3,Damage_Ratio_Lv4	0.6,0.8,1,1.2	
+100031	ActivityAbility_MistTrial_Level_2	Damage_Ratio_Lv1	1	Damage_Ratio_Lv2	1.5	Damage_Ratio_Lv3	2	Damage_Ratio_Lv4	2.5	CD_Interval	3	Damage_Ratio_Lv1,Damage_Ratio_Lv2,Damage_Ratio_Lv3,Damage_Ratio_Lv4,CD_Interval,CD_Minus,Energy	1,1.5,2,2.5,3,1,4	
+100032	ActivityAbility_MistTrial_Level_3	Damage_Ratio_Lv1	10	Damage_Ratio_Lv2	13.3	Damage_Ratio_Lv3	16.7	Damage_Ratio_Lv4	20	CD_Interval	3	Damage_Ratio_Lv1,Damage_Ratio_Lv2,Damage_Ratio_Lv3,Damage_Ratio_Lv4,CD_Interval	10,13.3,16.7,20,3	
+100033	ActivityAbility_MistTrial_Level_4	Damage_Ratio_Lv1	0.24	Damage_Ratio_Lv2	0.36	Damage_Ratio_Lv3	0.48	Damage_Ratio_Lv4	0.6	Duration	8	Damage_Ratio_Lv1,Damage_Ratio_Lv2,Damage_Ratio_Lv3,Damage_Ratio_Lv4,Duration	0.24,0.36,0.48,0.6,8	
+100034	ActivityAbility_MistTrial_Level_5	Damage_Ratio_Lv1	0.15	Damage_Ratio_Lv2	0.2	Damage_Ratio_Lv3	0.25	Damage_Ratio_Lv4	0.3	AttackSpeed_Ratio	0.2	Damage_Ratio_Lv1,Damage_Ratio_Lv2,Damage_Ratio_Lv3,Damage_Ratio_Lv4,AttackSpeed_Ratio,MoveSpeed_Ratio	0.15,0.2,0.25,0.3,0.2,0.1	
+100035	ActivityAbility_MistTrial_Level_6	Damage_Ratio_Lv1	1	Damage_Ratio_Lv2	1.35	Damage_Ratio_Lv3	1.7	Damage_Ratio_Lv4	2.05	Duration	8	Damage_Ratio_Lv1,Damage_Ratio_Lv2,Damage_Ratio_Lv3,Damage_Ratio_Lv4,Duration	1,1.35,1.7,2.05,8	
+100036	LevelEntity_ChannellerSlabV2_Avatar_ShieldCostMinusDown	ShieldCostMinusRatio	-0.5									ShieldCostMinusRatio	-0.5	
+100037	LevelEntity_ChannellerSlabV2_Avatar_MoveSpeedDown	MoveSpeedRatio	-0.12									MoveSpeedRatio	-0.12	
+100038	LevelEntity_ChannellerSlabV2_Avatar_DashStaminaUp	CostStaminaRatio	1									CostStaminaRatio	1	
+100039	LevelEntity_ChannellerSlabV2_Avatar_SkillCDIncrement	SkillCDMinusRatio	-1									SkillCDMinusRatio	-1	
+100040	LevelEntity_ChannellerSlabV2_Avatar_RecoverStaminaRatioDown	RecoverStaminaRatio	-0.35									RecoverStaminaRatio	-0.35	
+100041	LevelEntity_ChannellerSlabV2_Avatar_NoShieldAtkDown	AttackRatio	-0.5									AttackRatio	-0.5	
+100042	LevelEntity_ChannellerSlabV2_Team_AtkDownLowHP	HpRate_P1	0.5	AtkRate_P2	-0.5							HpRate_P1,AtkRate_P2	0.5,-0.5	
+100043	LevelEntity_ChannellerSlabV2_Team_SpeedDownLowHP	HpRate_P1	0.5	MoveSpeedRatio_P2	-0.18							HpRate_P1,MoveSpeedRatio_P2	0.5,-0.18	
+100044	LevelEntity_ChannellerSlabV2_Avatar_SprintBeHurtDamageUp	Duration	10	SubHurtDelta	-0.4							Duration,SubHurtDelta	10,-0.4	
+100045	LevelEntity_ChannellerSlabV2_Team_BeHurtDamageUpAfterChangeAvatar	EnergyDisk_BeHurtSubHurt	-0.15	BuffMaxCount	4	Duration	30					EnergyDisk_BeHurtSubHurt,BuffMaxCount,Duration	-0.15,4,30	
+100046	LevelEntity_ChannellerSlabV2_Team_BeHurtDamageUpAfterULT	EnergyDisk_BeHurtSubHurt	-0.15	BuffMaxCount	4	Duration	30					EnergyDisk_BeHurtSubHurt,BuffMaxCount,Duration	-0.15,4,30	
+100047	LevelEntity_ChannellerSlabV2_Team_AtkDownLowHP_TwoStages	HpRate_P1	0.7	DmgRate_P3	-0.4	HpRate_P2	0.35	DmgRate_P4	-0.8			HpRate_P1,DmgRate_P3,HpRate_P2,DmgRate_P4	0.7,-0.4,0.35,-0.8	
+100048	LevelEntity_ChannellerSlabV2_Avatar_ChargeEfficiencyDelta	ChargeEfficiencyDelta	-0.5									ChargeEfficiencyDelta	-0.5	
+100050	LevelEntityTowerBuff_PickUpCrystal_OnTeam	Hurt_Ratio	0.08	Duration	10	CJB_DamageRatio	3.74	CJB_Interval	3			Hurt_Ratio,Duration,CJB_DamageRatio,CJB_Interval	0.08,10,3.74,3	
+100051	LevelEntityTowerBuff_DoElementDamage_OnTeam	ElementDamage_Ratio_Per	0.1	Buff_MaxLevel	10	Add_Interval	3					ElementDamage_Ratio_Per,Buff_MaxLevel,Add_Interval	0.1,10,3	
+100052	LevelEntityTowerBuff_RockGadgetUp_OnAvatar	Damage_Ratio	0.3	StaminaCost_Ratio	0.5							Damage_Ratio,StaminaCost_Ratio	0.3,0.5	
+100053	ActivityAbility_EnergyDisk_Purple_HealthyDamage_V2	DamageLow	15	DamageHigh	30	CDTime	5					DamageLow,DamageHigh,CDTime	15,30,5	
+100054	ActivityAbility_EnergyDisk_Purple_Berserker_V2	Rate	0.15	AttackSpeed_Rate	0.15	ReviveTime	10					Rate,AttackSpeed_Rate,ReviveTime	0.15,0.15,10	
+100055	ActivityAbility_EnergyDisk_Purple_PickupTriggerAOE_V2	DamageRate	5	CDTime	5	RockAddHurt	0.4	Bufftime	10			DamageRate,CDTime,RockAddHurt,Bufftime	5,5,0.4,10	
+100056	ActivityAbility_EnergyDisk_Purple_ElementBurst_Count3Wave_V2	Bufftime	20	Delta	100	ElementBurst_Wave_Damage	5					Bufftime,Delta,ElementBurst_Wave_Damage	20,100,5	
+100057	ActivityAbility_EnergyDisk_Purple_ElementBurstTriggerWave_V2	Purple_Damage	6	CDTime	2							Purple_Damage,CDTime	6,2	
+100058	ActivityAbility_EnergyDisk_Blue_ElementDmgUpAfterCrystalShield_V2	time	10	Rate	0.3							time,Rate	10,0.3	
+100059	ActivityAbility_EnergyDisk_Blue_ElementBurst_NormalAtkUp_V2	time	20	Rate	0.4							time,Rate	20,0.4	
+100060	ActivityAbility_EnergyDisk_Blue_HasShield_NormalAtkUp_V2	Bufftime	8	Rate	0.08							Bufftime,Rate	8,0.08	
+100061	ActivityAbility_EnergyDisk_Blue_ExtraAtkKill_Attract_V2	CDTime	2									CDTime	2	
+100062	ActivityAbility_EnergyDisk_Blue_MonsterNumAtkDefUp_V2	Atk	0.2	Def	0.2							Atk,Def	0.2,0.2	
+100063	ActivityAbility_EnergyDisk_Blue_ExtraAtkKillMonster_V2	CDTime	10	HPRatio	0.5	Damage	20					CDTime,HPRatio,Damage	10,0.5,20	
+100064	ActivityAbility_EnergyDisk_Blue_BuffAfterCrystalShield_V2	CDtime	2									CDtime	2	
+100065	ActivityAbility_EnergyDisk_Blue_KillAOEMonster_V2													
+100066	ActivityAbility_EnergyDisk_Green_PhysicalHurtUp_V2	EnergyDisk_PhysicalAddHurtDelta	0.3									EnergyDisk_PhysicalAddHurtDelta	0.3	
+100067	ActivityAbility_EnergyDisk_Green_BurstDamageUp_V2	Burst_Rate	0.3									Burst_Rate	0.3	
+100068	ActivityAbility_EnergyDisk_Green_ElemMasteryDeltaUp_V2	EnergyDisk_ElemMasteryDelta	100									EnergyDisk_ElemMasteryDelta	100	
+100069	ActivityAbility_EnergyDisk_Green_DefUp_V2	Actor_ShieldCostMinusRatio	0.4									Actor_ShieldCostMinusRatio	0.4	
+100070	ActivityAbility_EnergyDisk_Green_ExtraAtkUp_V2	NormalAttack_Rate	0.3									NormalAttack_Rate	0.3	
+100071	ActivityAbility_EnergyDisk_Green_ThumpDamageUp_V2	EnergyDisk_ExtraAtk_damRatio	0.3									EnergyDisk_ExtraAtk_damRatio	0.3	
+100072	ActivityAbility_EnergyDisk_Purple_BurstDamageUp_V2	Bufftime	15	BurstDamageUp	0.12	AttackSpeed_Ratio	0.15					Bufftime,BurstDamageUp,AttackSpeed_Ratio	15,0.12,0.15	
+100073	ActivityAbility_EnergyDisk_Blue_ShockCdMinus_V2	CD_Minus	1	CD_Interval	1.5							CD_Minus,CD_Interval	1,1.5	
+100074	ActivityAbility_Potion_ThumDamageUp	ThumDamageUpRate	0.2									ThumDamageUpRate	0.2	
+100075	ActivityAbility_Potion_NormalAttackUp	NormalAttackUpRate	0.2									NormalAttackUpRate	0.2	
+100076	ActivityAbility_Potion_ElementalBurstDamageUp	ElementalBurstDamageUpRate	0.2									ElementalBurstDamageUpRate	0.2	
+100077	ActivityAbility_Potion_ElemMasteryDeltaUp	ElemMasteryDelta	120									ElemMasteryDelta	120	
+100078	ActivityAbility_Potion_DefenceUp_Team	DefenceUpRatio	0.5									DefenceUpRatio	0.5	
+100079	ActivityAbility_Potion_ThumpCostReduce	ThumpCostReduceRate	0.5									ThumpCostReduceRate	0.5	
+100080	ActivityAbility_Potion_DashStaminaReduce	DashStaminaReduceRate	0.5									DashStaminaReduceRate	0.5	
+100081	ActivityAbility_Potion_ExtraAttackAtkUpAfterUseUltimateSkill	ThumDamageUpRate	0.25	NormalAttackUpRate	0.25	FallingAttackUpRate	0.25	ExtraAttackAtkUpDuration	15			ThumDamageUpRate,NormalAttackUpRate,FallingAttackUpRate,ExtraAttackAtkUpDuration	0.25,0.25,0.25,15	
+100082	ActivityAbility_Potion_SwirlIncreaseTeamAtk	AtkUpRate	0.2	AtkUpRateDuration	8							AtkUpRate,AtkUpRateDuration	0.2,8	
+100083	ActivityAbility_Potion_ElemnentalArt_GenerateBall	GenerateBall_CD	3									GenerateBall_CD	3	
+100084	ActivityAbility_Potion_DamageUp_SubHurtDown	DamageUpRate	0.3	SubHurtDownRate	0.15							DamageUpRate,SubHurtDownRate	0.3,0.15	
+100085	ActivityAbility_Potion_Purple_After_Steam_Melt	PurpleDamageValue	5	GenerateCDTime	5							PurpleDamageValue,GenerateCDTime	5,5	
+100086	ActivityAbility_Potion_AttackFrozenEnemy_IncreaseDamage	DamageUpRate	0.25									DamageUpRate	0.25	
+100087	ActivityAbility_Potion_ContinuousNormalAtk_PhysicalDamageUp	PhysicalDamageUpRate	0.06	DamageUpDuration	8	MaxBuffLevel	5					PhysicalDamageUpRate,DamageUpDuration,MaxBuffLevel	0.06,8,5	
+100088	ActivityAbility_Potion_SkillCDMinusRatioUp_AfterSkill	SkillCDMinusRatioUp	0.5	DecreaseCDDuration	8	DecreaseCD_CD	16					SkillCDMinusRatioUp,DecreaseCDDuration,DecreaseCD_CD	0.5,8,16	
+100089	ActivityAbility_Potion_ContinuousNormalAtk_HealEffectUp	HealEffectUpRate	1									HealEffectUpRate	1	
+100090	ActivityAbility_Potion_HealAttackUp	AttackUpRate	0.2	AttackUpDuration	12	AttackUpMaxLevel	3					AttackUpRate,AttackUpDuration,AttackUpMaxLevel	0.2,12,3	
+100091	ActivityAbility_Potion_HightHP_IncreaseDamage	TargetHPRatio	0.8	DamageUpRate	0.5							TargetHPRatio,DamageUpRate	0.8,0.5	
+100092	ActivityAbility_Potion_ATKSpeedUp_AfterDash	ATKSpeedUpRatio	0.5	ATKSpeedUpDuration	8							ATKSpeedUpRatio,ATKSpeedUpDuration	0.5,8	
+100093	ActivityAbility_Potion_UltimateSkill_UltimateSkillDamageUp	UltimateSkillDamageUpRate	0.15	UltimateSkillDamageUpDuration	8	MaxLevel	3					UltimateSkillDamageUpRate,UltimateSkillDamageUpDuration,MaxLevel	0.15,8,3	
+100094	ActivityAbility_Potion_HitTheTarget_GenerateBall_AfterUltimateSkill	GenerateBallDuration	12	GenerateBallCD	2							GenerateBallDuration,GenerateBallCD	12,2	
+100095	ActivityAbility_Potion_LowEnergy_ChargeEfficiencyUp	TargetEnergyRatio	0.75	ChargeEfficiencyUpRate	1							TargetEnergyRatio,ChargeEfficiencyUpRate	0.75,1	
+100096	ActivityAbility_Potion_AtkUp_OnAvatarIn	AtkUpRate	0.1	AtkUpDuration	10	AtkUpMaxLevel	4					AtkUpRate,AtkUpDuration,AtkUpMaxLevel	0.1,10,4	
+100097	ActivityAbility_Potion_AtkUp_DefUp_Crystallize	AtkUpRate	0.25	DefUpRate	0.4	AtkUp_DefUpDuration	8					AtkUpRate,DefUpRate,AtkUp_DefUpDuration	0.25,0.4,8	
+100098	ActivityAbility_Potion_RockGadgetNearAvatar_ThumDamageUp_ThumpCostReduce	ThumDamageUpRate	0.3	ThumpCostReduceRate	0.5							ThumDamageUpRate,ThumpCostReduceRate	0.3,0.5	
+100099	ActivityAbility_Potion_GainCrystalSeed_AllElementalDamageUp	AllElementalDamageUpRate	0.25	AllElementalDamageUpDuration	8							AllElementalDamageUpRate,AllElementalDamageUpDuration	0.25,8	
+100100	ActivityAbility_Potion_LevelBuff_Level1	AtkUpRate	0.05	DefUpRate	0.1	MaxLevel	6	ExtraEffLevel	3	ChargeEffUpRate	0.5	AtkUpRate,DefUpRate,MaxLevel,ExtraEffLevel,ChargeEffUpRate	0.05,0.1,6,3,0.5	
+100101	ActivityAbility_Potion_LevelEntity_LevelBuff_Level2	DamageUpRate	0.1	PickUpCrystalLevelDuration	8	MaxPickUpCrystalLevel	3	ImpactCD	3	DamageCoefficient	5	DamageUpRate,PickUpCrystalLevelDuration,MaxPickUpCrystalLevel,ImpactCD,DamageCoefficient	0.1,8,3,3,5	
+100102	ActivityAbility_Potion_DeathRattle_Corruption_LogicGadget	LoseHP_Amount	100	LoseHP_AmountRatio	0.01	LoseHPBuff_duration	8	Backstage_HPRatio	0.15			LoseHP_Amount,LoseHP_AmountRatio,LoseHPBuff_duration,Backstage_HPRatio	100,0.01,8,0.15	
+100103	ActivityAbility_Potion_GainCrystalSeed_GenerateImpact	ImpactDamageCoefficient	5	RockHurtUpRate	0.3	RockHurtUpDuration	10	BuffCD	5			ImpactDamageCoefficient,RockHurtUpRate,RockHurtUpDuration,BuffCD	5,0.3,10,5	
+100104	ActivityAbility_Potion_Explode_Superconductor_Shock_IncreaseDmg	DamageUpRate	0.075	DmgUpRateDuration	8	DmgUpMaxLevel	3					DamageUpRate,DmgUpRateDuration,DmgUpMaxLevel	0.075,8,3	
+100105	LevelEntity_TowerBuff_NormalAttackUp	NormalAtk_Ratio	0.5									NormalAtk_Ratio	0.5	
+100106	LevelEntity_TowerBuff_NormalExFallSustainAttackUp	BuffTime	8	BuffMaxLevel	15	BuffDamageUp	0.05	AtkTime	2			BuffTime,BuffMaxLevel,BuffDamageUp,AtkTime	8,15,0.05,2	
+100107	LevelEntity_TowerBuff_NormalAttackRandomShock	RandomValue	0.5	DamageRatio	2.4	DamageRadius	3	TriggerCD	0.3			RandomValue,DamageRatio,DamageRadius,TriggerCD	0.5,2.4,3,0.3	
+100108	LevelEntity_TowerBuff_NormalExFallSustainAttackShockUp	BuffTime	8	BuffMaxLevel	15	BuffDamageUp	0.25	BuffDamageUpTime	10	AtkTime	2	BuffTime,BuffMaxLevel,BuffDamageUp,BuffDamageUpTime,AtkTime,DamageRatio,DamageRadius	8,15,0.25,10,2,29.95,8	
+100109	ActivityAbility_Potion_AtkSpeedUp_MoveSpeedUp_OnKillEnemies	AtkSpeedUpRate	0.3	MoveSpeedUpRate	0.3	AtkMoveSpeedUpDuration	12					AtkSpeedUpRate,MoveSpeedUpRate,AtkMoveSpeedUpDuration	0.3,0.3,12	
+100110	ActivityAbility_Potion_ElementalDamageUp_AfterSkill	ElementalDamageUpRate	0.4	ElementalDamageUpDuration	10							ElementalDamageUpRate,ElementalDamageUpDuration	0.4,10	
+100111	ActivityAbility_Potion_RecoverEnergy_HitDamage	ReviveEnergyAmount	6	ReviveEnergyAmountCD	2							ReviveEnergyAmount,ReviveEnergyAmountCD	6,2	
+100112	ActivityAbility_Potion_LevelEntity_LevelBuff_QuicklyAttack	AddBuffCD	1.5	AtkUpDuration	6	MaxLevel	8	AtkUpRate	0.05			AddBuffCD,AtkUpDuration,MaxLevel,AtkUpRate	1.5,6,8,0.05	
+100113	ActivityAbility_Potion_AddAtkUpLevelOnStage_SubAtkLevelOffStage	OnStageInterval	4	OneLevelAtkUpRate	0.075	AtkUpMaxLevel	6	OffStageInterval	2			OnStageInterval,OneLevelAtkUpRate,AtkUpMaxLevel,OffStageInterval	4,0.075,6,2	
+100114	ActivityAbility_Potion_AllElementalDmgUp_AfterNormalAttack	OneElementalDmgUpCD	1	ElementalDmgUpDuration	10	ElementalDmgUpMaxLevel	4	OneDmgUpRate	0.05			OneElementalDmgUpCD,ElementalDmgUpDuration,ElementalDmgUpMaxLevel,OneDmgUpRate	1,10,4,0.05	

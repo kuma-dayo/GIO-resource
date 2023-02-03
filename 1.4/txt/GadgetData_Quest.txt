@@ -1,0 +1,666 @@
+ID	默认阵营	类型	描述	JSON名称	能否移动	是否有音响	是否能装备	能否交互	视距等级	服务器脚本	ItemJSON名称	联机动态属性ID
+70300003	1001	19	飞行中吃的金币	SceneObj_Quest_Flying_Get_Coin_Effect							SceneObj_Quest_Flying_Get_Coin_Effect	
+70300004	1001	19	飞行终点的花环	SceneObj_Quest_Flying_Get_GoalFollower_Effect							SceneObj_Quest_Flying_Get_GoalFollower_Effect	
+70300005	1001	19	飞行终点的花环消失的特效	SceneObj_Quest_Flying_Get_GoalFollower_Disappear_Effect							SceneObj_Quest_Flying_Get_GoalFollower_Disappear_Effect	
+70300006	1001	22	印在建筑上的古文诗	SceneObj_Quest_Guide_TargetPoint							SceneObj_Quest_Guide_TargetPoint	
+70300007	1001	22	丽莎实验室里一只咕嘟嘟冒泡的坩埚旁边的一碗闪光药剂	SceneObj_Gather_Default_Gather							Default_Item	
+70300008	1001	22	半截乐谱，以派蒙的素养并不能看懂。右下角标记着"S to J"的字样	SceneObj_Gather_Default_Gather							Default_Item	
+70300009	1001	22	里面出了日常文件，还有一本《少女薇拉的烦恼》	SceneObj_Gather_Default_Gather							Default_Item	
+70300010	1001	22	因为是风之国土的民俗地理考察，故称“风土人情”。卷三主要讲述了恋人岬和马斯克礁的相关信息。能在地理志里塞进这么多肉麻情话和恋爱日记，作者真是个人才。	SceneObj_Gather_Default_Gather							Default_Item	
+70300011	1001	22	丽莎拜托主角带给琴，说是《少女薇拉的秘密》下卷有消息了	SceneObj_Gather_Default_Gather							Default_Item	
+70300012	1001	22	丽莎帮芭芭拉制作的药剂。看起来和普通药水一样，但是包含了某些更厉害的东西。“喝下它，你也可以闪耀”	SceneObj_Gather_Default_Gather							Default_Item	
+70300013	5001	19	风龙羽毛	DragonFeather		1			2		Default_Item	
+70300014	5001	19	风龙羽毛	DragonFeather_HP		1			1		DragonFeather_HP	
+70300015	5001	19	风龙羽毛	DragonFeather_HP		1			1		DragonFeather_HP	
+70300016	5001	19	风龙羽毛	DragonFeather_HP		1			1		DragonFeather_HP	
+70300017	1001	18	安柏诱饵，不会爆炸	Dummy_Safe	1	1					Default_Item	
+70300018	5001	19	风史莱姆	DragonFeather							Default_Item	
+70300020	1001	22	蛐蛐								Default_Item	
+70300021	1001	19	蛐蛐声（小）	SceneObj_Quest_Cricket_Sound_Small							SceneObj_Quest_Cricket_Sound_Small	
+70300022	1001	19	蛐蛐声（中）	SceneObj_Quest_Cricket_Sound_Middle							SceneObj_Quest_Cricket_Sound_Middle	
+70300023	1001	19	蛐蛐声（大）	SceneObj_Quest_Cricket_Sound_Big							SceneObj_Quest_Cricket_Sound_Big	
+70300024	1001	19	蛐蛐声（巨）	SceneObj_Quest_Cricket_Sound_Loud							SceneObj_Quest_Cricket_Sound_Loud	
+70300031	1001	19	浮桥木板						2		Default_Item	
+70300032	1001	19	浮桥木板								Default_Item	
+70300036	1001	3	潜入诱饵	Sneak_Crouch_Throw	1	1					Default_Item	
+70300037	1001	19	温迪脚印	ElementTrack							Default_Item	
+70300038	1001	22	风龙留下的泪滴，似乎涌动着一股污浊的力量	SceneObj_Quest_Interact_Muddy_CrysTear							SceneObj_Quest_Interact_Muddy_CrysTear	
+70300039	5001	19	特殊的暴风结晶	DragonFeather					2		Default_Item	
+70300040	1001	19	风神巴巴托斯的至宝，可以用来呼唤风龙特瓦林。如今已然失去风元素的加持。								Default_Item	
+70300041	1001	19	风龙留下的泪滴，似乎涌动着一股污浊的力量。	SceneObj_Quest_NoInteract_Muddy_CrysTear							SceneObj_Quest_NoInteract_Muddy_CrysTear	
+70300042	1001	19	风龙留下的泪滴，似乎涌动着一股清澈的风元素之力。	SceneObj_Quest_Clear_CrysTear							SceneObj_Quest_Clear_CrysTear	
+70300043	1001	22	破旧的羊皮纸	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+70300044	1001	22	破旧的羊皮纸	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+70300045	1001	22	潦草的地图	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+70300046	5001	19	风龙羽毛	DragonFeather					1		Default_Item	
+70300047	5001	19	判断攻击风龙羽毛cutscene的东西	TransparentHitSphere					1		TransparentHitSphere	
+70300048	1001	19	能坐下的地方									
+70300049	1001	19	风龙留下的泪滴，似乎涌动着一股污浊的力量	SceneObj_Quest_NoInteract_Muddy_CrysTear_Dialog							SceneObj_Quest_NoInteract_Muddy_CrysTear_Dialog	
+70300050	1001	22	通用临时任务道具，Default_NoDrop_Item	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+70300051	5001	19	维持和Cutscene一致光柱，30s后消失	SceneObj_Quest_Mengde_Fading_Light_Pillar					3		SceneObj_Quest_Mengde_Fading_Light_Pillar	
+70300052	1001	38	布置元素诱饵，用于吸引史莱姆	SceneObj_Quest_Interact_Point_01				1			SceneObj_Quest_Interact_Point_01	
+70300053	5001	19	元素诱饵，用于吸引史莱姆	SceneObj_Gear_Platform_NormalPlatform_Ice							SceneObj_Gear_Platform_NormalPlatform_Ice	
+70300054	5001	19	风龙羽毛	DragonFeather_HP		1			1		DragonFeather_HP	
+70300055	1001	19	任务木架	SceneObj_Environment_Quest_GrapeStick							Default_Item	
+70300056	5001	32	移动平台	DragonFeather_Move	1				1		DragonFeather_Move	
+70300057	5001	19	可移动目标	Guide_Point_Move	1				3		Guide_Point_Move	
+70300058	1001	23	安柏飞行挑战气垫测试	SceneObj_Environment_WindField_Anbai_FlyTest_01					3		SceneObj_Environment_WindField_Anbai_FlyTest_01	
+70300059	1001	22	风龙留下的泪滴，似乎涌动着一股污浊的力量	SceneObj_Quest_Interact_Muddy_CrysTear_Dialog							SceneObj_Quest_Interact_Muddy_CrysTear_Dialog	
+70300060	1001	19	特效1	SceneObj_Quest_Abyss_Water_Blink_01							SceneObj_Quest_Abyss_Water_Blink_01	
+70300061	1001	19	特效2	SceneObj_Quest_Abyss_Water_Blink_02							SceneObj_Quest_Abyss_Water_Blink_02	
+70300062	1001	19	特效3	SceneObj_Quest_Abyss_Water_Blink_03							SceneObj_Quest_Abyss_Water_Blink_03	
+70300063	1001	19	任务木架								Default_Item	
+70300064	1001	19	蒙德城飞行任务-目标	SceneObj_Quest_Mengde_City_FlyMission_Target							SceneObj_Quest_Mengde_City_FlyMission_Target	
+70300065	1001	22	线索采集	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+70300066	1001	22	似乎是深渊教团对「暗夜英雄」下的战书，内容中有很多地方用「暗文」写成，隐藏了关键的情报。	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+70300067	1001	23	安柏飞行挑战气垫测试	SceneObj_Environment_WindField_Anbai_FlyTest_02					3		SceneObj_Environment_WindField_Anbai_FlyTest_02	
+70300068	1001	23	安柏飞行挑战气垫测试	SceneObj_Environment_WindField_Anbai_FlyTest_03					3		SceneObj_Environment_WindField_Anbai_FlyTest_03	
+70300069	1001	19	自走棋框框						2		Default_Item	
+70300070	1001	19	安柏线-怪鸟的元素线索	AmborTaskTrack							Default_Item	
+70300071	1001	38	爪印巨大，显然不是一般的狼群。	SceneObj_Quest_Interact_Point_02				1			SceneObj_Quest_Interact_Point_02	
+70300072	1001	38	牙齿尖利锋锐，若不是用力过猛，无法断裂。	SceneObj_Quest_Interact_Point_02				1			SceneObj_Quest_Interact_Point_02	
+70300073	1001	38	仔细看毛发上面粘的东西，似乎是果子。	SceneObj_Quest_Interact_Point_02				1			SceneObj_Quest_Interact_Point_02	
+70300074	1001	38	沿路淌着新鲜的血迹	SceneObj_Quest_Interact_Point_02				1			SceneObj_Quest_Interact_Point_02	
+70300075	4001	19	循环事件路障 木板	SceneObj_Event_RoadBlock		1					Default_Item	
+70300076	4001	19	循环事件路障 黑叉	SceneObj_Event_RoadBlock02		1					Default_Item	
+70300077	4001	19	循环事件帐篷 高	SceneObj_Event_QQTent		1					Default_Item	
+70300078	4001	19	循环事件帐篷 矮	SceneObj_Event_QQTent02		1					Default_Item	
+70300079	1001	19	不动热气球	SceneObj_Event_StableCart							Default_Item	
+70300080	1001	3	捕捉陷阱	Task_Trap							Task_Trap	
+70300081	4001	19	循环事件路障 白栅栏	SceneObj_Event_RoadBlock03		1					Default_Item	
+70300083	4001	19	循环事件路障 白叉	SceneObj_Event_RoadBlock05		1					Default_Item	
+70300084	4001	19	循环事件路障 黑栅栏	SceneObj_Event_RoadBlock04							Default_Item	
+70300085	4001	19	丘丘人石头平台	SceneObj_Event_QQPlatform							Default_Item	
+70300086	4001	19	丘丘人木柱子	SceneObj_Event_QQPile							Default_Item	
+70300087	4001	19	丘丘人大锅	SceneObj_Event_QQPot		1					Default_Item	
+70300088	4001	19	丘丘人箭靶	SceneObj_Event_QQTarget		1					Default_Item	
+70300089	4001	19	丘丘人图腾	SceneObj_Event_QQTotem		1					Default_Item	
+70300090	4001	19	丘丘人哨塔 黑塔	SceneObj_Event_WatchTower01							Default_Item	
+70300091	4001	19	丘丘人哨塔 白塔	SceneObj_Event_WatchTower02		1					Default_Item	
+70300092	1001	19	人类小车	SceneObj_Event_HumanCart		1					Default_Item	
+70300093	1001	19	人类破车	SceneObj_Event_HumanCart_Broken							Default_Item	
+70300094	1001	19	人类货物	SceneObj_Event_HumanCart_Goods							Default_Item	
+70300095	1001	19	战利品	SceneObj_Event_Spoils							Default_Item	
+70300096	1001	19	战利品2	SceneObj_Event_Spoils							Default_Item	
+70300097	1001	19	战利品3	SceneObj_Event_Spoils							Default_Item	
+70300098	5001	19	战术点篝火	SceneObj_Environment_FireMaterial_Bornfires		1				SetGadgetState	Default_Item	
+70300099	5001	19	战术点腐化篝火	SceneObj_Environment_Ceremony_Fires		1				SetGadgetState	Default_Item	
+70300100	4001	19	战术点丘丘人图腾	SceneObj_Event_QQTotem		1					Default_Item	
+70300101	4001	19	战术点丘丘人哨塔02	SceneObj_Event_WatchTower02		1					Default_Item	
+70300102	4001	19	战术点丘丘人石头平台	SceneObj_Event_QQPlatform		1					Default_Item	
+70300103	1001	19	战术点战利品	SceneObj_Event_Spoils							Default_Item	
+70300104	1001	19	人类帐篷2								Default_Item	
+70300105	1001	19	人类帐篷3								Default_Item	
+70300106	4001	19	战术点丘丘人箭靶	SceneObj_Event_QQTarget		1					Default_Item	
+70300107	5001	19	仪式火堆	SceneObj_Environment_Ceremony_Fires		1				SetGadgetState	Default_Item	
+70300108	4001	19	丘丘人箭靶	SceneObj_Event_QQTarget		1					Default_Item	
+70300109	1001	19	事件脚印	SceneObj_Event_ElementTrack							SceneObj_Event_ElementTrack	
+70300110	1001	19	卷轴信件								Default_Item	
+70300111	4001	19	事件特殊丘丘人训练木桩	SceneObj_Event_QQTotem		1					Default_Item	
+70300112	5001	19	事件鸭子喂食点	SceneObj_Event_DuckEat					1		Default_Item	
+70300113	4001	19	赫尔曼事件训练木桩	SceneObj_Event_QQTotem		1					Default_Item	
+70300114	4001	19	可莉封印圈	SceneObj_Event_Kelee_Seal		1					SceneObj_Event_Kelee_Seal	
+70300115	5001	19	可莉地城台子			1					Default_Item	
+70300116	5001	19	事件污渍	SceneObj_Event_Stain		1					Default_Item	
+70300117	5001	19	可莉炸弹			1						
+70300118	5001	19	定标特效	SceneObj_Event_TargetPoint		1					SceneObj_Event_TargetPoint	
+70300119	1001	19	温迪疗伤特效	SceneObj_Environment_Cure_Wind							Default_Item	
+70300120	5001	19	归终机-完整状态								Default_Item	
+70300121	5001	19	归终机-破损状态								Default_Item	
+70300122	4001	19	循环事件路障 单木板	SceneObj_Event_RoadBlock06		1					Default_Item	
+70300123	4001	19	可莉封印圈110m加长版	SceneObj_Event_Kelee_SealR110		1			1		Default_Item	
+70300200	1001	19	风神巴巴托斯的至宝，可以用来呼唤风龙特瓦林。如今已然失去风元素的加持。								Default_Item	
+70300201	1001	19	风神巴巴托斯的至宝，可以用来呼唤风龙特瓦林。如今已然失去风元素的加持。								Default_Item	
+70300202	1001	22	风龙留下的泪滴，似乎涌动着一股污浊的力量	SceneObj_Quest_Interact_Muddy_CrysTear_Dialog_Small							SceneObj_Quest_Interact_Muddy_CrysTear_Dialog_Small	
+70300203	9001	19	Eff_QuestGuide_Position	SceneObj_Quest_QuestGuide_Position					2		SceneObj_Quest_QuestGuide_Position	
+70700003	9001	19	三地城特效	SceneObj_Quest_Mengde_Dungeon_Top_Effect					2		SceneObj_Quest_Mengde_Dungeon_Top_Effect	
+70700004	9001	19	蒙德风龙坏天气特效	Env_Mengde_WindDragon_01					3		Env_Mengde_WindDragon_01	
+70700005	1001	38	丽莎线-书本线索	LisaBookGather				1			Default_NoDrop_Item	
+70700006	1001	19	丽莎线-元素指南针	LisaCompass							Default_Item	
+70700007	1001	38	可疑的元素痕迹	SceneObj_Quest_Interact_Point_01							SceneObj_Quest_Interact_Point_01	
+70700008	1001	38	随处可见的普通树枝	SceneObj_Quest_Interact_Point_01							SceneObj_Quest_Interact_Point_01	
+70700009	1001	38	撕碎的特制布片	SceneObj_Quest_Interact_Point_01							SceneObj_Quest_Interact_Point_01	
+70700010	1001	19	丽莎线-丽莎攻击特效	SceneObj_Eff_Eff_ThunderFall_03							SceneObj_Eff_Eff_ThunderFall_03	
+70700011	1001	19	丽莎线-丽莎攻击前摇特效	SceneObj_Eff_Eff_ThunderFall_Area							SceneObj_Eff_Eff_ThunderFall_Area	
+70700012	1001	19	风龙地城松动特效	SceneObj_DvalinEntry_Shake								
+70700013	1001	19	丽莎线—丽莎地城封印特效	SceneObj_Quest_Lisa_Dungeon_Seal							SceneObj_Quest_Lisa_Dungeon_Seal	
+70700014	1001	19	丽莎线—丽莎地城封印破碎特效	SceneObj_Quest_Lisa_Dungeon_Seal_Break							SceneObj_Quest_Lisa_Dungeon_Seal_Break	
+70700015	1001	38	提瓦特游览指南	SceneObj_Gather_Default_Gather							SceneObj_Gather_Default_Gather	
+70700016	1001	38	被夺走的天空之琴	SceneObj_Gather_Task_NoDrop_70700016							Default_NoDrop_Item	
+70700017	1001	19	海灯节—盗宝团标志特效	SceneObj_Quest_SeaLantern_ThiefRegimentMark							SceneObj_Quest_SeaLantern_ThiefRegimentMark	
+70700018	1001	19	丽莎线—丽莎技能感电特效	SceneObj_Quest_Lisa_Skill_StickElectric							SceneObj_Quest_Lisa_Skill_StickElectric	
+70710004	1001	23	射羽毛任务风场	SceneObj_Environment_WindField_ShootFeather_Vertical_Feather					2		SceneObj_Environment_WindField_ShootFeather_Vertical_Feather	
+70710005	1001	23	安柏飞行风场	SceneObj_Environment_WindField_Anbai_Vertical_Feather					2		SceneObj_Environment_WindField_Anbai_Vertical_Feather	
+70710008	1001	38	任务用拾取点（采集物逻辑）	SceneObj_Quest_Interact_Point_01				1			SceneObj_Quest_Interact_Point_01	
+70710009	1001	38	任务用播撒交互（采集物逻辑）	SceneObj_Quest_Interact_Point_01				1	2		SceneObj_Quest_Interact_Point_01	
+70710011	1001	19	肥美的蘑菇（香菱线废弃）	SceneObj_Gather_Default_Gather							Default_Item	
+70710012	1001	19	新鲜的胡萝卜（香菱线废弃）	SceneObj_Gather_Default_Gather							Default_Item	
+70710013	1001	19	饱满的卷心菜（香菱线废弃）	SceneObj_Gather_Default_Gather							Default_Item	
+70710014	1001	19	猫猫脚印	ElementTrackCat							Default_Item	
+70710015	1001	38	（TEST）调好的酒，现在只有一种酒杯	SceneObj_Gather_Default_Gather							Default_Item_WithQuest	
+70710016	1001	19	香菱线用于料理对决的桌子									
+70710017	1001	19	香菱线用于料理对决的桌子									
+70710018	1001	19	香菱线用于料理对决的桌子									
+70710019	1001	19	香菱线用于料理对决的桌子									
+70710020	1001	22	(TEST) 来自稻妻的漂流瓶用于璃月大世界任务	SceneObj_Gather_Default_Gather							Default_Item	
+70710021	1001	38	拾取	SceneObj_Quest_Interact_Point_01				1			SceneObj_Quest_Interact_Point_01	
+70710022	1001	38	拾取	SceneObj_Quest_Interact_Point_01				1			SceneObj_Quest_Interact_Point_01	
+70710023	1001	38	观察	SceneObj_Quest_Interact_Point_01				1			SceneObj_Quest_Interact_Point_01	
+70710024	4001	30	用于找猫猫玩法	SceneObj_Quest_FindCat	1			1				
+70710025	4001	19	鱼肉（采集物）	SceneObj_Quest_Fish	1						Default_Item	
+70710026	4001	19	隐藏surround	SceneObj_Quest_Fish	1						Default_Item	
+70710027	1001	19	香菱线用于摆放食材的桌子									
+70710028	1001	38	用于调查的酒杯（调查点）	SceneObj_Gather_Default_Gather				1			Default_NoDrop_Item	
+70710029	1001	19	香菱线遭遇到冰冻的野猪，还保留着当时的姿态。									
+70710030	1001	38	香菱线洗净蔬菜	SceneObj_Quest_Interact_Point_01				1			SceneObj_Quest_Interact_Point_01	
+70710031	1001	38	香菱线调整火力1	SceneObj_Quest_Interact_Adjust_Firepower				1			SceneObj_Quest_Interact_Adjust_Firepower	
+70710032	1001	38	香菱线调整火力2	SceneObj_Quest_Interact_Adjust_Firepower				1			SceneObj_Quest_Interact_Adjust_Firepower	
+70710033	1001	38	香菱线调整火力3	SceneObj_Quest_Interact_Adjust_Firepower				1			SceneObj_Quest_Interact_Adjust_Firepower	
+70710034	1001	38	遗迹任务观察点A	SceneObj_Quest_Interact_Point_01				1			SceneObj_Quest_Interact_Point_01	
+70710035	1001	38	遗迹任务观察点A	SceneObj_Quest_Interact_Point_01				1			SceneObj_Quest_Interact_Point_01	
+70710036	1001	38	遗迹任务观察点A	SceneObj_Quest_Interact_Point_01				1			SceneObj_Quest_Interact_Point_01	
+70710037	1001	19	用于调查的酒杯（模型）								Default_Item	
+70710038	1001	19	可莉埋宝坑乱石堆								Default_Item	
+70710039	1001	19	可莉埋宝坑木牌								Default_Item	
+70710040	1001	38	海灯节活动放置稀有材料	SceneObj_Quest_Interact_Point_01				1			SceneObj_Quest_Interact_Point_01	
+70710041	1001	38	2020海灯节任务调查点A	SceneObj_Quest_Interact_Point_01				1			SceneObj_Quest_Interact_Point_01	
+70710042	1001	38	2020海灯节任务调查点B	SceneObj_Quest_Interact_Point_01				1			SceneObj_Quest_Interact_Point_01	
+70710043	1001	38	2020海灯节任务调查点C	SceneObj_Quest_Interact_Point_01				1			SceneObj_Quest_Interact_Point_01	
+70710044	1001	38	进香的香炉。	SceneObj_Environment_Other_CenserTask							Default_Item	
+70710045	1001	38	（test）赌石的石头低奖励	SceneObj_Gather_GamblingRock_Low						SetGadgetState		
+70710046	1001	38	（test）赌石的石头中奖励	SceneObj_Gather_GamblingRock_Low						SetGadgetState		
+70710047	1001	38	（test）赌石的石头高奖励	SceneObj_Gather_GamblingRock						SetGadgetState		
+70710048	1001	38	（test）赌石的石头底座生成差石头	SceneObj_Quest_GamblingRockCreater_1								
+70710049	1001	38	（test）赌石的石头底座生成中等石头	SceneObj_Quest_GamblingRockCreater_2								
+70710050	1001	38	（test）赌石的石头底座生成好石头	SceneObj_Quest_GamblingRockCreater_3								
+70710051	1001	19	璃月主线用石头	SceneObj_Environment_Task_Rock							Default_Item	
+70710052	1001	19	璃月主线用石头	SceneObj_Environment_Task_Rock							Default_Item	
+70710053	1001	19	璃月主线用石头	SceneObj_Environment_Task_Rock							Default_Item	
+70710054	1001	19	小冥被发现的烟雾	SceneObj_Quest_Xiaoming_Smoke_BeFound							SceneObj_Quest_Xiaoming_Smoke_BeFound	
+70710055	1001	19	废弃的遗迹猎者	SceneObj_Environment_Other_Formathr							Default_Item	
+70710056	9001	38	降魔印任务判断	SceneObj_Gather_Default_Gather				1			Default_NoDrop_Item	
+70710057	9001	19	降魔印后续无限观看	SceneObj_Environment_Bulletin3							Default_NoDrop_Item	
+70710058	1001	19	降魔印提示点	XiangmoyinGuide							Default_NoDrop_Item	
+70710059	5001	19	望舒客栈断楼梯01						2			
+70710060	1001	19	行秋看书书本特效	SceneObj_Quest_Xingqiu_LookBook_Effect							SceneObj_Quest_Xingqiu_LookBook_Effect	
+70710061	5001	19	望舒客栈断楼梯02						2			
+70710062	1001	19	一团雾气。								Default_Item	
+70710063	1001	38	魈任务线进香的香炉。								Default_Item	
+70710064	1001	38	魈任务线七星灯	SceneObj_Item_Property_Starlamp01							Default_Item	
+70710065	1001	19	璃月港船只A						2		Default_Item	
+70710066	1001	19	璃月港船只B						2		Default_Item	
+70710067	5001	19	魈任务线石柱	SceneObj_Task_Rock_Pierce		1					Default_Item	
+70710068	1001	22	安东尼治病事件	SceneObj_Gather_WindmilDaisy							SceneObj_Item_Small	
+70710069	1001	38	魈任务线冰雾花——不可拾取	SceneObj_Environment_Other_CenserTask							Default_NoDrop_Item	
+70710070	1001	38	魈任务线七星灯——不可拾取	SceneObj_Environment_Other_CenserTask							Default_NoDrop_Item	
+70710071	5001	30	石碑	SceneObj_Gear_Operator_Invisible_Operator				1			Default_Item	
+70710072	5001	30	石碑	SceneObj_Gear_Operator_Invisible_Operator				1			Default_Item	
+70710073	5001	30	石碑	SceneObj_Gear_Operator_Invisible_Operator				1			Default_Item	
+70710074	5001	30	石碑	SceneObj_Gear_Operator_Invisible_Operator				1			Default_Item	
+70710075	5001	30	石碑	SceneObj_Gear_Operator_Invisible_Operator				1			Default_Item	
+70710076	5001	30	石碑	SceneObj_Gear_Operator_Invisible_Operator				1			Default_Item	
+70710077	5001	30	石碑	SceneObj_Gear_Operator_Invisible_Operator				1			Default_Item	
+70710078	1001	38	魈任务线——躺下的丘丘人	SceneObj_Environment_Other_CenserTask							Default_NoDrop_Item	
+70710079	1001	19	黄金屋-岩王爷仙蜕	SceneObj_Other_Property_Prop_GeoDraco_01					1		Default_NoDrop_Item	
+70710080	1001	38	仙人物件「涤尘铃」	SceneObj_Gather_Default_Gather				1			Default_Item	
+70710081	1001	38	旧仙壶	SceneObj_Gather_Celestialpot_01				1			Default_Item	
+70710082	1001	38	香膏（红）	SceneObj_Gather_Default_Gather				1			Default_Item	
+70710083	1001	38	香膏（蓝）	SceneObj_Gather_Default_Gather				1			Default_Item	
+70710084	1001	38	香膏（绿）	SceneObj_Gather_Default_Gather				1			Default_Item	
+70710085	1001	38	永生香	SceneObj_Gather_Burner01							Default_Item	
+70710086	1001	38	木板	SceneObj_Gather_Default_Gather				1			Default_Item	
+70710087	1001	38	木板和绳索	SceneObj_Gather_Default_Gather				1			Default_Item	
+70710088	1001	38	绳索	SceneObj_Gather_Default_Gather				1			Default_Item	
+70710089	5001	19	材料桌	SceneObj_Quest_MaterialTable							Default_Item	
+70710090	1001	19	风属性元素气息	SceneObj_Environment_ElementFootprint_Trail							Default_Item	
+70710091	5001	19	石碑								Default_Item	
+70710092	5001	19	木牌(1.2资源迭代）	SceneObj_Quest_WoodenBoard							Default_Item	
+70710093	5001	19	提示牌								Default_Item	
+70710094	5001	30	发光小神像	SceneObj_Quest_Statue01				1	1		Default_Item	
+70710095	5001	19	木牌(大)								Default_Item	
+70710096	5001	19	炒菜								Default_Item	
+70710097	5001	19	瓦罐汤								Default_Item	
+70710098	5001	19	米饭								Default_Item	
+70710099	5001	19	烤鸭								Default_Item	
+70710100	5001	19	烤肉								Default_Item	
+70710101	5001	19	蒸笼虾饺								Default_Item	
+70710102	5001	19	炖菜								Default_Item	
+70710103	5001	19	烤鸡								Default_Item	
+70710104	5001	19	果篮								Default_Item	
+70710105	5001	19	肉类								Default_Item	
+70710106	5001	19	色拉								Default_Item	
+70710107	5001	19	花盆	SceneObj_Quest_CommonFloraPot01				1			Default_Item	
+70710108	1001	19	木板								Default_Item	
+70710109	1001	19	绳索								Default_Item	
+70710110	5001	19	猫食盆	SceneObj_Quest_PetPot_Cat01						SetGadgetState	Default_Item	
+70710111	5001	19	狗食盆	SceneObj_Quest_PetPot_Dog01						SetInteract	Default_Item	
+70710112	5001	22	风元素力量树叶	SceneObj_Quest_Wind_Leaves01				1			Default_Item	
+70710113	5001	30	可开启牢笼	SceneObj_Quest_WoodenCage01				1		SetGadgetState	Default_Item	
+70710114	5001	19	箱子（通用）								Default_Item	
+70710115	5001	19	日记（通用）								Default_Item	
+70710116	5001	32	丘丘人小车	SceneObj_Item_Hili_Cart	1	1						
+70710117	1001	38	珍珠翡翠白玉堂的提示（仙人主线废弃）	SceneObj_Gather_Default_Gather				1			SceneObj_Gather_Default_Gather	
+70710118	1001	38	摩拉肉的提示（仙人主线废弃）	SceneObj_Gather_Default_Gather				1			SceneObj_Gather_Default_Gather	
+70710119	1001	38	松茸酿肉卷的提示（仙人主线废弃）	SceneObj_Gather_Default_Gather				1			SceneObj_Gather_Default_Gather	
+70710120	1001	19	供奉珍珠翡翠白玉汤	SceneObj_Item_Property_JarSoup01							SceneObj_Item_Property_JarSoup01	
+70710121	1001	19	供奉摩拉肉	SceneObj_Item_Property_RoastMeat01							SceneObj_Item_Property_RoastMeat01	
+70710122	1001	19	供奉松茸酿肉卷	SceneObj_Item_Property_FiredVegetablew01							SceneObj_Item_Property_FiredVegetablew01	
+70710123	5001	19	莫娜线封印特效	SceneObj_Environment_Mona_Door_Sealed							Default_Item	
+70710124	5001	19	路径节点（红）	SceneObj_Item_PathNode_Red					2		Default_Item	
+70710125	5001	19	路径节点（绿）	SceneObj_Item_PathNode_Green					2		Default_Item	
+70710126	5001	19	路径节点（黄）	SceneObj_Item_PathNode_Yellow					2		Default_Item	
+70710127	5001	19	(test)莫娜线日记								Default_Item	
+70710128	5001	19	流风仙人地城门	SceneObj_Item_Immortaldungeonbarrier							Default_Item	
+70710129	5001	19	风元素能量体	SceneObj_Item_WindRingEmitter_Element						WindEnergyBody	Default_Item	
+70710130	5001	19	风元素能量体（小）	SceneObj_Item_ElemViewWindClotS_01						WindEnergyBodySmall	Default_Item	
+70710131	5001	30	元素蜜囊（小）	SceneObj_Item_ChargePointS				1		SetGadgetState	Default_Item	
+70710132	5001	30	元素蜜囊（大）	SceneObj_Item_ChargePointL				1		SetGadgetState	Default_Item	
+70710133	5001	19	风元素力量树叶（元素版）	SceneObj_Quest_Wind_Leaves02							Default_Item	
+70710134	1001	38	熬制薄荷香膏点	SceneObj_Gather_Default_Gather				1			Default_NoDrop_Item	
+70710135	5001	19	三碗不过港酒馆的空饭碗								Default_Item	
+70710136	5001	19	莫娜线对话中可莉翻包掉出								Default_Item	
+70710137	5001	19	莫娜线对话中可莉翻包掉出								Default_Item	
+70710138	5001	19	莫娜线对话中可莉翻包掉出								Default_Item	
+70710139	5001	19	莫娜线对话中可莉翻包掉出								Default_Item	
+70710140	5001	19	莫娜线对话中可莉翻包掉出								Default_Item	
+70710141	5001	38	璃月主线三阶段特别甜的甜甜花	SceneObj_Gather_Small							SceneObj_Item_Small	
+70710142	5001	19	璃月送仙仪式氛围物件	SceneObj_Area_Ly_Property_Prop_LYG_Common_Candlestick_01							Default_Item	
+70710143	5001	19	璃月送仙仪式氛围物件								Default_Item	
+70710144	5001	19	璃月送仙仪式氛围物件								Default_Item	
+70710145	5001	19	璃月送仙仪式氛围物件								Default_Item	
+70710146	5001	19	璃月送仙仪式氛围物件								Default_Item	
+70710147	5001	19	璃月送仙仪式氛围物件								Default_Item	
+70710148	1001	38	七七线用琉璃百合1	SceneObj_Gather_Task_NoDrop							Default_NoDrop_Item	
+70710149	1001	38	七七线用琉璃百合2	SceneObj_Gather_Task_NoDrop							Default_NoDrop_Item	
+70710150	1001	19	温迪脚印	ElementTrack							Default_Item	
+70710151	1001	38	七七线调查线索					0	1		Lv3_Item	
+70710152	1001	38	或许是受到特殊的生长环境的影响，这种日落果看上去更加饱满一些，但除此之外并没有发现其他的特殊之处。	SceneObj_Gather_Default_Gather				1			Default_NoDrop_Item	
+70710153	5001	19	璃月小告示牌	SceneObj_Item_Default_Item							Default_Item	
+70710154	5001	19	被风吹走的告示牌	SceneObj_Item_Default_Item							Default_Item	
+70710155	5001	19	琉璃亭中式餐具	SceneObj_Item_Default_Item							Default_Item	
+70710156	1001	38	仙人物件「涤尘铃」——不可交互型								Default_Item	
+70710157	1001	38	香膏（红）——不可交互型								Default_Item	
+70710158	1001	38	香膏（蓝）——不可交互型								Default_Item	
+70710159	1001	38	香膏（绿）——不可交互型								Default_Item	
+70710160	5001	19	花盆——不可交互型								Default_Item	
+70710161	5001	38	瞳孔石	SceneObj_Area_Ly_Property_Prop_EyeStone_01					2		Default_Item	
+70710162	5001	19	「珍珠翡翠白玉汤」氛围物件								Default_Item	
+70710163	5001	19	「摩拉肉」氛围物件								Default_Item	
+70710164	5001	19	「松茸酿肉卷」氛围物件								Default_Item	
+70710165	5001	19	日记（莫娜线）	SceneObj_Property_Ani_Stages_Prop_Diary_01							Default_Item	
+70710166	5001	19	黄金屋屋顶装饰	SceneObj_Item_Default_Item							Default_Item	
+70710167	5001	19	黄金屋屋顶飘带	SceneObj_Item_Default_Item							Default_Item	
+70710168	5001	19	黄金屋柱面装饰	SceneObj_Item_Default_Item							Default_Item	
+70710169	5001	19	黄金屋地板	SceneObj_Item_Default_Item							Default_Item	
+70710170	5001	19	71802任务云中仙居图纸	SceneObj_Gather_Default_Gather							Default_Item	
+70710171	5001	19	无人岛旋风特效	SceneObj_Environment_WindField_Desert_Island					2		Default_Item	
+70710172	5001	19	璃月风格，酒壶								Default_Item	
+70710173	5001	19	璃月风格，酒盅								Default_Item	
+70710174	5001	19	璃月风格，中型大小的空碗								Default_Item	
+70710175	5001	19	璃月风格，筷子								Default_Item	
+70710176	5001	19	百无禁忌箓								Default_Item	
+70710177	5001	38	盐神遗迹地城，盐尺	SceneObj_Area_Ly_Property_Ani_Prop_SaltRuler_01							Default_Item	
+70710178	5001	38	盐神遗迹地城，盐尺底座								Default_Item	
+70710179	5001	38	盐神遗迹地城，盐盏	SceneObj_Area_Ly_Property_Ani_Prop_SaltBowl_01							Default_Item	
+70710180	5001	38	盐神遗迹地城，盐盏底座								Default_Item	
+70710181	5001	38	盐神遗迹地城，掰断的剑刃	SceneObj_Item_Default_Item							Default_Item	
+70710182	5001	38	盐神遗迹地城，掰断剑刃的底座								Default_Item	
+70710183	5001	19	盐神遗迹地城，地城用石台								Default_Item	
+70710184	5001	19	盐神遗迹地城相关，放置在地城外的石台								Default_Item	
+70710185	5001	19	盐神遗迹地城入口迷雾	SceneObj_Area_Ly_Property_Prop_EntryMist_01							Default_Item	
+70710186	5001	38	可以在望春/染秋/底座间来回切换	SceneObj_Area_Ly_Property_Ani_Flower_Qingxin_02							Default_Item	
+70710187	5001	38	传送浮生石	SceneObj_Area_Ly_Property_Ani_Prop_TransmitSetting_01							Default_Item	
+70710188	9001	38	陨石与冒险任务调查点	SceneObj_Quest_Interact_Point_01				1			SceneObj_Quest_Interact_Point_01	
+70710189	9001	38	陨石与冒险任务调查点	SceneObj_Quest_Interact_Point_01				1			SceneObj_Quest_Interact_Point_01	
+70710190	9001	38	陨石与冒险任务调查点	SceneObj_Quest_Interact_Point_01				1			SceneObj_Quest_Interact_Point_01	
+70710191	5001	38	陨石线用通用帐篷								Default_Item	
+70710192	5001	19	黄金屋地板（空气墙）								Default_Item	
+70710193	5001	19	公子线地城迷雾（已废弃，并未在游戏中使用）	SceneObj_Area_Ly_Property_Prop_EntryMist_02							Default_Item	
+70710194	1001	19	七七线冰元素脚印	SceneObj_Area_Common_Property_Ani_Effect_ElementTrackIce_01							Default_Item	
+70710195	5001	38	璃月三阶段通告悬赏物	SceneObj_Item_Default_Item							Default_Item	
+70710196	5001	38	(test)陨石轻量活动任务的采集物	SceneObj_Gather_Small							SceneObj_Item_Small	
+70710197	5001	32	被钩爪悬挂的遗迹守卫（移动平台）	SceneObj_Gear_Platform_NormalPlatform	1	1						
+70710198	5001	38	公子线配合CS，已损坏的遗迹守卫									
+70710199	5001	38	公子线配合CS，已损坏的遗迹守卫									
+70710200	5001	38	公子线配合CS，已损坏的遗迹守卫									
+70710201	5001	38	公子线配合CS，已损坏的遗迹守卫									
+70710202	5001	38	公子线遗迹怪脚印									
+70710203	5001	38	璃月三岩神神之心									
+70710204	5001	38	七七个人线-----任务专用重力压板  	SceneObj_Quest_Gravity_Board_Great_Switch						SetGadgetState		
+70710205	5001	19	陨石核心	SceneObj_Property_Area_Common_Stone_MeteoriteCore_01				1		SetGadgetState	Default_Item	
+70710206	5001	19	黄金屋地板（破碎）	SceneObj_Item_Default_Item							Default_Item	
+70710207	1001	35	中陨石白盒	SceneObj_Property_Area_Common_Prop_AsterMiddle_Quest_01		1		1			Default_NoDrop_Item	
+70710208	1001	35	中陨石白盒	SceneObj_Property_Area_Common_Prop_AsterMiddle_Quest_02		1		1			Default_NoDrop_Item	
+70710209	1001	35	中陨石白盒	SceneObj_Property_Area_Common_Prop_AsterMiddle_Quest_03		1		1			Default_NoDrop_Item	
+70710210	5001	19	盗宝团的放置信件地点	SceneObj_Quest_Interact_Point_01							Default_Item	
+70710211	5001	38	可以被风吹散的沙堆	SceneObj_Area_Common_Property_Ani_Prop_SandStacks_01		1		1			Default_Item	
+70710212	1001	38	陨石支线维克多事件——元素痕迹	LisaBookGather				1			Default_NoDrop_Item	
+70710213	1001	38	陨石支线维克多事件——元素痕迹	LisaBookGather				1			Default_NoDrop_Item	
+70710214	1001	38	陨石支线维克多事件——元素痕迹	LisaBookGather				1			Default_NoDrop_Item	
+70710215	5001	19	蒙德告示牌	SceneObj_Item_Default_Item							Default_Item	
+70710216	5001	38	钟离个人线 视觉解谜物件	SceneObj_Environment_Task_Rock							Default_Item	
+70710217	5001	38	陨石活动——查看图书馆目录	SearchPoint				1			Default_Item	
+70710218	5001	38	钟离个人线 视觉解谜物件_对应石头								Default_Item	
+70710219	5001	38	阿贝多个人线——阿贝多的脚印	SceneObj_Area_Ljxs_Property_Prop_AlbedoFootprint_01								
+70710220	5001	19	雪山活动线——枯萎的急冻树									
+70710221	5001	30	可开启牢笼（不可交互）	SceneObj_Quest_WoodenCage02						SetGadgetState	Default_Item	
+70710222	5001	19	雪山活动线——丘丘人雪地脚印									
+70710223	5001	38	雪山活动线——魔剑（引用自武器模型)	SceneObj_Area_Ljxs_Property_Prop_SwordMagnum_01						SetGadgetState		
+70710224	5001	19	胡桃个人线地城入口	SceneObj_Area_Ly_Property_Prop_EntryMist_02							Default_Item	
+70710225	5001	38	(test)胡桃线守护玩法布点	SceneObj_Quest_Interact_Point_01				1			Default_Item	
+70710226	1001	30	陨星碎屑（任务）	SceneObj_Area_Common_Property_Ani_Prop_AsterSmall_02				1	1		Default_Item	
+70710227	5001	38	阿贝多个人线——阿贝多的异世界花朵	SceneObj_Area_Ljxs_Property_Ani_Flower_AlbedoFlower_01						SetGadgetState		
+70710228	5001	19	凝光室内装饰_水青色瓷玉瓶								Default_Item	
+70710229	5001	38	阿贝多个人线——阿贝多的特殊饮料	SceneObj_Area_Ljxs_Property_Ani_Prop_AlbedoDrink_01				1		SetGadgetState		
+70710230	5001	38	阿贝多个人线——阿贝多的记录黑板	SceneObj_Area_Ljxs_Property_Ani_Prop_AlbedoBlackBoard_01						SetGadgetState		
+70710231	5001	38	阿贝多个人线——阿贝多的画架	SceneObj_Item_Default_Item								
+70710232	1001	38	洞口_放置芙萝拉的鲜花盒子	SceneObj_Quest_Interact_Point_01							SceneObj_Quest_Interact_Point_01	
+70710233	5001	19	鲜花盒子								Default_Item	
+70710234	5001	38	芙萝拉鲜花盒子——盗宝团的脚印									
+70710235	9001	38	拍照小道具投放任务拍照点	SceneObj_Quest_Interact_Point_01				1			SceneObj_Quest_Interact_Point_01	
+70710236	1001	38	洞口_回收芙萝拉的鲜花盒子	SceneObj_Quest_Interact_Point_01							SceneObj_Quest_Interact_Point_01	
+70710237	1001	38	神像_回收芙萝拉的鲜花盒子	SceneObj_Quest_Interact_Point_01							SceneObj_Quest_Interact_Point_01	
+70710238	1001	38	水池_回收芙萝拉的鲜花盒子	SceneObj_Quest_Interact_Point_01							SceneObj_Quest_Interact_Point_01	
+70710239	1001	38	神像_放置芙萝拉的鲜花盒子	SceneObj_Quest_Interact_Point_01							SceneObj_Quest_Interact_Point_01	
+70710240	1001	38	水池_放置芙萝拉的鲜花盒子	SceneObj_Quest_Interact_Point_01							SceneObj_Quest_Interact_Point_01	
+70710241	1001	38	神像_失败芙萝拉的鲜花盒子	SceneObj_Quest_Interact_Point_01							SceneObj_Quest_Interact_Point_01	
+70710242	5001	19	魈任务射击点	SceneObj_Area_Ly_Property_Ani_Prop_ShootingPoint_01								
+70710243	1001	38	双子线预热任务调查点	SceneObj_Quest_Interact_Point_03							Default_NoDrop_Item	
+70710244	1001	19	双子线预热任务调查点（特效）	SceneObj_Quest_Symbol_Fire_01							SceneObj_Quest_Symbol_Fire_01	
+70710245	1001	38	双子线预热任务调查点	SceneObj_Quest_Interact_Point_03							Default_NoDrop_Item	
+70710246	1001	38	魈任务丘丘人武器									
+70710247	1001	38	魈任务丘丘人盾牌									
+70710248	5001	19	双子线预热任务蒲公英									
+70710249	5001	19	双子线任务遗迹守卫脚印									
+70710250	1001	38	星银矿石	SceneObj_Gather_Small_Ore							SceneObj_Item_Small_Ore	
+70710251	1001	38	星银矿石	SceneObj_Gather_Small_Ore							SceneObj_Item_Small_Ore	
+70710252	1001	38	星银矿石	SceneObj_Gather_Small_Ore							SceneObj_Item_Small_Ore	
+70710253	1001	38	塞西莉亚花（任务）								SceneObj_Item_Small	
+70710254	5001	38	元素气息特效_火	SceneObj_Area_Common_Property_Ani_Ajar_ElementBreathFire_01				1				
+70710255	5001	38	元素气息特效_风	SceneObj_Area_Common_Property_Ani_Ajar_ElementBreathWind_01				1				
+70710256	5001	38	元素气息特效_雷	SceneObj_Area_Common_Property_Ani_Ajar_ElementBreathElec_01				1				
+70710257	1001	38	星银矿石	SceneObj_Gather_Small_Ore							SceneObj_Item_Small_Ore	
+70710258	1001	38	星银矿石	SceneObj_Gather_Small_Ore							SceneObj_Item_Small_Ore	
+70710259	5001	38	(test)聪子放置浮生石片的木箱子（错误的箱子）	SceneObj_Quest_Interact_Point_01				1			Default_Item	
+70710260	5001	38	(test)聪子放置浮生石片的木箱子（正确的箱子）	SceneObj_Quest_Interact_Point_01				1			Default_Item	
+70710261	5001	38	(test)聪子放置浮生石片的木箱子（错误的箱子）	SceneObj_Quest_Interact_Point_01				1			Default_Item	
+70710262	5001	19	胡桃线守护玩法布点——不可点击时的状态								Default_Item	
+70710263	1001	38	（test）71812炼金釜任务挖掘宝箱	SceneObj_Quest_Interact_Point_01							SceneObj_Quest_Interact_Point_01	
+70710264	5001	38	望舒客栈桌椅									
+70710265	5001	38	铜雀雕像									
+70710266	5001	19	霄灯_大									
+70710267	5001	22	阿贝多的触媒 原矿	SceneObj_Gather_Default_Ore		1					Default_Item	
+70710268	5001	38	海灯节支线朱老板任务用	SceneObj_Quest_Interact_Point_01				1			SceneObj_Quest_Interact_Point_01	
+70710269	5001	38	海灯节支线朱老板任务用	SceneObj_Quest_Interact_Point_03				1			Default_NoDrop_Item	
+70710270	5001	38	海灯节支线朱老板任务用	SceneObj_Quest_Interact_Point_03				1			Default_NoDrop_Item	
+70710271	5001	19	海灯节支线朱老板任务用									
+70710272	1001	38	无拍照功能，白盒临时使用	SceneObj_Quest_Interact_Point_01							SceneObj_Quest_Interact_Point_01	
+70710273	5001	38	海灯节支线小白任务用	SceneObj_Quest_Interact_Point_03				1			Default_NoDrop_Item	
+70710274	5001	19	玲珑天机海灯图摩拉									
+70710275	5001	19	玲珑天机海灯图仙鹤									
+70710276	5001	19	玲珑天机海灯图莲花									
+70710277	5001	19	左图案	SceneObj_Area_Ly_Property_Ani_Prop_LanternScreenControl_Left						SetGadgetState		
+70710278	5001	19	中图案	SceneObj_Area_Ly_Property_Ani_Prop_LanternScreenControl_Middle						SetGadgetState		
+70710279	5001	19	右图案	SceneObj_Area_Ly_Property_Ani_Prop_LanternScreenControl_Right						SetGadgetState		
+70710280	5001	19	摩拉成功演出	SceneObj_Area_Ly_Property_Ani_Prop_LanternScreenSuccess						SetGadgetState		
+70710281	5001	19	仙鹤成功演出	SceneObj_Area_Ly_Property_Ani_Prop_LanternScreenSuccess						SetGadgetState		
+70710282	5001	19	莲花成功演出	SceneObj_Area_Ly_Property_Ani_Prop_LanternScreenSuccess						SetGadgetState		
+70710283	5001	30	投射海灯	SceneObj_Area_Ly_Property_Ani_Prop_LanternProjector_01				1		SetGadgetState		
+70710284	5001	38	百无禁忌箓施法	SceneObj_Stages_Property_Prop_AdeptusPermit_01								
+70710285	5001	19	海灯节支线用，改变状态可使其消失	SceneObj_Level_Common_Property_Light_Lantern_EverLit_01						SetGadgetState		
+70710286	5001	19	海灯节用						1	SetGadgetState		
+70710287	3001	32	海灯节衍生支线用	SceneObj_Property_Ani_Prop_BalloonCart_01_Inflammable	1	1				SetGadgetState		
+70710288	5001	38	魈线怪物魔化特效	SceneObj_Stages_Property_Prop_Demonize_01								
+70710289	5001	30	被交互的沙堆	SceneObj_Area_Common_Property_Ani_Prop_SandStacksInteraction_01		1		1			Default_Item	
+70710290	5001	19	霄灯_小									
+70710291	5001	19	任务用落雷特效	SceneObj_Level_Common_Property_Prop_ThunderFall_01		1						
+70710292	5001	22	诺艾尔锻炼用铁矿	SceneObj_Gather_Default_Ore		1					Default_Item	
+70710293	5001	22	诺艾尔锻炼用铁矿	SceneObj_Gather_Advance_Ore		1					Default_Item	
+70710294	5001	38	霄灯_小	SceneObj_Level_Common_Property_Light_Lantern_EverLit_02_Pick								
+70710295	5001	38	霄灯_大	SceneObj_Level_Common_Property_Light_Lantern_EverLit_01_Pick								
+70710296	5001	26	播撒点	SearchPoint_Big				1			Default_Item	
+70710297	5001	22	芭芭拉1红色钩钩果	SceneObj_Gather_Default_Gather				1			Default_Item	
+70710298	5001	22	芭芭拉1 新鲜的绝云椒椒	SceneObj_Gather_Small							SceneObj_Item_Small	
+70710299	5001	38	重云coop迷雾	SceneObj_Stages_Property_Terrain_Mist_01								
+70710300	5001	19	班尼特Coop线，已吹散的蒲公英	SceneObj_Area_Common_Property_Flower_Dandelion_NoFlower_01								
+70710301	5001	38	海灯节支线 挂霄灯 望舒客栈	SceneObj_Quest_Interact_Point_03				1			Default_NoDrop_Item	
+70710302	5001	38	海灯节支线 挂霄灯 望舒客栈	SceneObj_Quest_Interact_Point_03				1			Default_NoDrop_Item	
+70710303	1001	38	2020海灯节任务拾取做灯材料	SceneObj_Quest_Interact_Point_01				1			SceneObj_Quest_Interact_Point_01	
+70710304	1001	38	2020海灯节任务寻找观察点	SceneObj_Quest_Interact_Point_04				1			Default_Item	
+70710305	1001	38	2020海灯节梵米尔2挂霄灯	SceneObj_Quest_Interact_Point_01				1			SceneObj_Quest_Interact_Point_01	
+70710306	1001	38	2020海灯节梵米尔2眺望	SceneObj_Quest_Interact_Point_04				1			Default_Item	
+70710307	1001	38	2020海灯节梵米尔2挂霄灯	SceneObj_Quest_Interact_Point_01				1			SceneObj_Quest_Interact_Point_01	
+70710308	1001	38	2020海灯节梵米尔2挂霄灯	SceneObj_Quest_Interact_Point_01				1			SceneObj_Quest_Interact_Point_01	
+70710309	1001	38	霄灯_小	SceneObj_Level_Common_Property_Light_Lantern_EverLit_02_Pick								
+70710310	1001	19	（test）朱老板客栈的霄灯（小+无动画）									
+70710311	1001	19	纯水小精灵，对话中使用的Gadget	SceneObj_Quest_Endora							Default_NoDrop_Item	
+70710312	1001	19	1.4风花节献花用	SceneObj_Area_Common_Property_Foliage_Dandelion_01							Default_NoDrop_Item	
+70710313	1001	19	1.4风花节献花用	SceneObj_Area_Common_Property_Foliage_WindmilDaisy_01							Default_NoDrop_Item	
+70710314	1001	19	1.4风花节献花用	SceneObj_Area_Common_Property_Foliage_Cecilia_01							Default_NoDrop_Item	
+70710315	1001	19	1.4风花节献花用	SceneObj_Area_Common_Property_Foliage_ImitationGrass_01							Default_NoDrop_Item	
+70710316	1001	19	1.4风花节献花用	SceneObj_Area_Common_Property_Foliage_Whiteballet_01							Default_NoDrop_Item	
+70710317	1001	19	1.4风花节献花用	SceneObj_Area_Common_Property_Foliage_GogoFruit_01							Default_NoDrop_Item	
+70710318	1001	19	1.4风花节献花用（含献上功能）	SceneObj_Item_Property_Fenghua							Default_NoDrop_Item	
+70710319	1001	19	1.4风花节献花用（含献上功能）	SceneObj_Item_Property_Fenghua							Default_NoDrop_Item	
+70710320	1001	19	1.4风花节献花用（含献上功能）	SceneObj_Item_Property_Fenghua							Default_NoDrop_Item	
+70710321	1001	19	1.4风花节献花用（含献上功能）	SceneObj_Item_Property_Fenghua							Default_NoDrop_Item	
+70710322	1001	19	1.4风花节献花用（含献上功能）	SceneObj_Item_Property_Fenghua							Default_NoDrop_Item	
+70710323	1001	19	1.4风花节献花用（含献上功能）	SceneObj_Item_Property_Fenghua							Default_NoDrop_Item	
+70710324	1001	19	1.4双子线深渊符咒	SceneObj_Area_Common_Property_Prop_AbyssSpell_01							Default_NoDrop_Item	
+70710325	5001	19	事件污渍（带定标）	SceneObj_Event_Stain01		1					Default_Item	
+70710328	1001	19	重云coop路灯									
+70710329	1001	19	重云coop笔墨纸砚									
+70710330	1001	19	重云coop算盘									
+70710331	1001	19	重云coop钱袋									
+70710332	5001	19	风花节场景氛围布设1-1									
+70710333	5001	19	风花节场景氛围布设1-2									
+70710334	5001	19	风花节场景氛围布设2-2									
+70710335	9001	19	风花节查看作诗笔记	SceneObj_Environment_Bulletin6							Default_NoDrop_Item	
+70710336	1001	19	诺艾尔Coop用不可破坏的碎石堆	SceneObj_Environment_Rock_StonePileWorld		1					Default_Item	
+70710340	5001	19	诺艾尔Coop用岩元素含量高的碎石堆	SceneObj_Environment_Rock_StonePileQuest_Hard		1					Default_Item	
+70710345	5001	19	班尼特地城特效	SceneObj_Level_Common_Property_Prop_NineGrids_01								
+70710354	5001	19	双子线GodRay									
+71700001	9001	19	猎鹿人餐馆海报	SceneObj_Environment_Bulletin1		1					Default_NoDrop_Item	
+71700002	1001	22	少女薇拉的忧郁·卷一	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700003	1001	22	少女薇拉的忧郁·卷二	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700004	1001	22	少女薇拉的忧郁·卷三	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700005	1001	22	与神性同行·序言	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700006	1001	22	温妮莎传奇·上篇	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700007	1001	22	温妮莎传奇·下篇	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700008	9001	19	AS酒馆前海报	SceneObj_Environment_Bulletin2		1					Default_NoDrop_Item	
+71700009	1001	22	蒲公英海的狐狸·卷一	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700010	1001	22	蒲公英海的狐狸·卷二	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700011	1001	22	蒲公英海的狐狸·卷三	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700012	1001	22	蒲公英海的狐狸·卷五	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700013	1001	22	蒲公英海的狐狸·卷六	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700014	1001	22	蒲公英海的狐狸·卷七	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700015	1001	22	蒲公英海的狐狸·卷十	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700016	1001	22	蒲公英海的狐狸·卷十一	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700017	1001	22	丘丘人诗歌选·上卷	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700018	1001	22	丘丘人诗歌选·下卷	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700019	1001	22	少女薇拉的忧郁·卷五	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700020	1001	22	少女薇拉的忧郁·卷九	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700021	1001	22	少女薇拉的忧郁·卷十	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700022	1001	22	林间风·故事拔萃节选	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700023	1001	22	野猪公主·卷一	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700024	1001	22	野猪公主·卷二	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700025	1001	22	野猪公主·卷三	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700026	1001	22	野猪公主·卷四	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700027	1001	22	野猪公主·卷五	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700028	1001	22	野猪公主·卷七	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700029	1001	22	蒙德高塔·第一卷	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700030	1001	22	林间风拾遗·龙之书	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700031	1001	22	白之公主与六侏儒·卷一	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700032	1001	22	白之公主与六侏儒·卷二	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700033	1001	22	白之公主与六侏儒·卷三	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700034	1001	22	白之公主与六侏儒·卷四	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700035	1001	22	白之公主与六侏儒·卷五	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700036	1001	22	白之公主与六侏儒·卷六	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700037	1001	22	白之公主与六侏儒·卷七	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700038	1001	22	千年孤独	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700039	1001	22	提瓦特游览指南	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700040	1001	22	风、勇气和翅膀	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700041	1001	19	琴个人线酒馆庆祝装饰								Default_Item	
+71700042	1001	22	冒险家日志·轻策山庄	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700043	1001	22	冒险家日志·渌华池	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700044	1001	22	冒险家日志·瑶光滩	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700045	1001	22	飞行指南	SceneObj_Gather_Default_Gather							SceneObj_Gather_Default_Gather	
+71700046	1001	22	可莉的本子	SceneObj_Gather_Default_Gather							SceneObj_Gather_Default_Gather	
+71700047	1001	38	夜泊石小车									
+71700048	1001	22	给东东的信	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700049	1001	22	谁人的日志·其一·瑶光滩	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700050	1001	22	谁人的日志·其二·归离原	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700051	1001	22	谁人的日志·其三·绝云间	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700052	1001	22	谁人的日志·其四·璃月港	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700053	1001	38	夜泊石小车特效	SceneObj_Quest_NightStone_Car_Effect							SceneObj_Quest_NightStone_Car_Effect	
+71700054	1001	22	冒险家罗尔德的日志·孤云阁	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700055	1001	22	冒险家罗尔德的日志·地中之盐	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700056	1001	22	冒险家罗尔德的日志·绝云间·庆云顶	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700057	1001	22	冒险家罗尔德的日志·绝云间·奥藏天池	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700058	1001	22	绝云记闻·石兽	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700059	1001	22	绝云记闻·海神宫	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700060	1001	22	玑衡经	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700061	1001	22	侠客记·山叟篇	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700062	1001	22	璃月风土志·绣球	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700063	1001	22	石书辑录·卷一	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700064	1001	22	天衡绝倒集	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700065	1001	22	丘丘人习俗考察·卷一	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700066	1001	22	丘丘人习俗考察·卷二	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700067	1001	22	丘丘人习俗考察·卷四	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700068	1001	22	列王与宗室史·序	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700069	1001	22	古恩希尔德小传	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700070	1001	22	侍从骑士之歌·上篇	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700071	1001	22	侍从骑士之歌·下篇	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700072	1001	22	提瓦特野外救急食谱	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700073	1001	22	给盗宝团的信	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700074	1001	22	护法仙众夜叉录	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700075	1001	19	璃月主线 - CS开始前 祭坛								Default_Item	
+71700076	1001	19	璃月主线 - CS开始后 祭坛								Default_Item	
+71700077	9001	19	可莉的木牌	SceneObj_Environment_KleeBoard		1					Default_NoDrop_Item	
+71700078	1001	22	神霄折戟录·第一卷	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700079	1001	22	神霄折戟录·第二卷	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700080	1001	22	神霄折戟录·第三卷	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700081	1001	22	神霄折戟录·第四卷	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700082	1001	22	神霄折戟录·第五卷	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700083	1001	38	藏宝地线索	SearchPoint_Big					1		SearchPoint_Big	
+71700084	1001	22	碎梦奇珍·月光	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700085	1001	22	碎梦奇珍·琉璃	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700086	1001	22	给盗宝团的信	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700087	1001	22	护法仙众夜叉录	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700088	1001	22	冒险家罗尔德的日志·青墟浦	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700089	1001	22	旅行者的笔记	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700090	1001	22	旅行者的笔记	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700091	1001	22	旅行者的笔记	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700092	1001	22	旅行者的笔记	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700093	1001	38	封印魔法圈	SearchPoint_Big					1		SearchPoint_Big	
+71700094	1001	38	放置夜泊石	SceneObj_Quest_Interact_Point_01							SceneObj_Quest_Interact_Point_01	
+71700095	1001	38	取水	SceneObj_Quest_Interact_Point_01							SceneObj_Quest_Interact_Point_01	
+71700096	1001	38	（test）博弈&讲价玩法替代交互	SceneObj_Quest_Interact_Point_01							SceneObj_Quest_Interact_Point_01	
+71700097	1001	38	（test）通用玩法替代交互	SceneObj_Quest_Interact_Point_01							SceneObj_Quest_Interact_Point_01	
+71700098	1001	22	（test）盗宝团情报笔记	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700099	1001	38	仙人物件「涤尘铃」	SceneObj_Gather_Default_Gather				1			Default_Item	
+71700100	1001	38	（test）弩机	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700102	1001	38	木板和绳索	SceneObj_Gather_Default_Gather				1			Default_Item	
+71700101	1001	38	艾拉马斯克丘丘语念诗交互	SearchPoint_Big							SearchPoint_Big	
+71700103	1001	38	遗失的盒子1（旅馆剧情任务21024）	SceneObj_Quest_Interact_Point_02				1			SceneObj_Quest_Interact_Point_02	
+71700104	1001	38	遗失的盒子2（旅馆剧情任务21024）	SceneObj_Quest_Interact_Point_02				1			SceneObj_Quest_Interact_Point_02	
+71700105	1001	38	水桶								Default_Item	
+71700106	5001	38	好肉族锅架	SceneObj_Quest_ChargePot						SetGadgetState	Default_Item	
+71700107	1001	38	（test）弩机	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700108	1001	38	璃月二用琉璃百合（不可采摘）								Default_NoDrop_Item	
+71700109	1001	38	木板和绳索								Default_Item	
+71700110	1001	22	清泉之心·一	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700111	1001	22	清泉之心·二	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700112	1001	22	清泉之心·三	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700113	1001	22	清泉之心·四	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700114	1001	22	霖铃精选诗集	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700115	1001	22	丘丘语诗歌试作·朗诵诗	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700116	1001	22	丘丘语诗歌试作·叙事诗	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700117	1001	22	丘丘语诗歌试作·抒情诗	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700118	5001	32	浮空岛-壶中洞天	SceneObj_Gear_Platform_ImmortalPlatform01	1	1			3			
+71700119	5001	32	浮空岛2-壶中洞天	SceneObj_Gear_Platform_ImmortalPlatform02	1	1			3			
+71700120	1001	22	梵米尔的钙化池画作·其一	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700121	1001	22	梵米尔的钙化池画作·其二	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700122	1001	22	梵米尔的钙化池画作·其三	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700123	9001	19	从无人岛的废弃营地发现的笔记本，记载着时间的秘密	SceneObj_Gather_Default_Gather							Default_Item	
+71700124	1001	22	骑士团指导手册·第五版	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700125	1001	22	浮浪记·潮起	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700126	1001	22	浮浪记·狂涛	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700127	1001	22	浮浪记·潮息	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700128	1001	22	犬又二分之一·一	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700129	1001	22	犬又二分之一·二	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700130	1001	22	犬又二分之一·三	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700131	1001	22	犬又二分之一·四	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700132	1001	22	犬又二分之一·五	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700133	1001	22	竹林月夜·一	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700134	1001	22	竹林月夜·二	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700135	1001	22	竹林月夜·三	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700136	1001	22	竹林月夜·四	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700137	1001	22	醉客轶事·一	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700138	1001	22	醉客轶事·二	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700139	1001	22	醉客轶事·三	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700140	1001	22	醉客轶事·四	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700141	1001	22	帝君尘游记·一	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700142	1001	22	帝君尘游记·二	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700143	1001	22	帝君尘游记·三	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700144	1001	22	帝君尘游记·四	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700145	1001	22	荒山孤剑录·一	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700146	1001	22	荒山孤剑录·二	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700147	1001	22	荒山孤剑录·三	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700148	1001	22	荒山孤剑录·四	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700149	9001	19	亨利莫顿写就的笔记。上面记载的东西似乎与这个地方有关…	SceneObj_Gather_Default_Gather							Default_Item	
+71700150	5001	22	新鲜的清心	SceneObj_Gather_Default_Gather				1			Default_Item	
+71700151	5001	22	新鲜的甜甜花	SceneObj_Gather_Default_Gather				1			Default_Item	
+71700152	5001	22	新鲜的小灯草	SceneObj_Gather_Default_Gather				1			Default_Item	
+71700153	5001	22	新鲜的塞西莉亚花	SceneObj_Gather_Default_Gather				1			Default_Item	
+71700154	5001	22	新鲜的风车菊	SceneObj_Gather_Default_Gather				1			Default_Item	
+71700155	1001	22	蒲公英海的狐狸·卷四	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700156	1001	22	蒲公英海的狐狸·卷八	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700157	1001	22	蒲公英海的狐狸·卷九	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700158	1001	22	野猪公主·卷六	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700159	1001	22	少女薇拉的忧郁·卷四	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700160	1001	22	少女薇拉的忧郁·卷六	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700161	1001	22	少女薇拉的忧郁·卷七	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700162	1001	22	少女薇拉的忧郁·卷八	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700163	1001	22	丘丘人习俗考察·卷三	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700164	1001	22	百货名鉴纵览	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700165	1001	22	山与海之书	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700166	1001	22	璃月风土志·迎神	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700167	1001	22	绝云记闻·无妄	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700168	1001	22	绝云记闻·山灵	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700169	1001	22	珠玑宝矿	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700170	1001	22	璃月风土志·霓裳花	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700171	1001	22	璃月风土志·琉璃百合	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700172	1001	22	连心珠·卷一	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700173	1001	22	连心珠·卷二	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700174	1001	22	连心珠·卷三	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700175	1001	22	古老的考察日志·其之一	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700176	1001	22	古老的考察日志·其之二	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700177	1001	22	古老的考察日志·其之三	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700178	1001	22	一张被揉皱了的纸条，纸条上的字迹很是潦草，能想象到写这份字条的人当时所处的状态。	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700179	5001	19	藏宝图探测器	SceneObj_Stages_Property_Prop_QuestSeekerSeelie_01							Default_Item	
+71700180	1001	22	著名冒险家罗尔德遗落的日志，有一些书页已经残破发皱了，些许发亮的冰晶附着其上。	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700181	1001	22	（test）藏宝图无文字版	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700182	1001	22	（test）藏宝图有谜题版	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700183	1001	38	观察蒲公英	SceneObj_Quest_Interact_Point_03							Default_NoDrop_Item	
+71700184	1001	38	挂霄灯	SceneObj_Quest_Interact_Point_03				1			Default_NoDrop_Item	
+71700185	1001	22	绝云记闻·麒麟	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700186	1001	22	绝云记闻·玉遁	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700187	1001	22	侠客记·黑貉	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700188	1001	22	侠客记·留尘	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700189	1001	22	犬又二分之一·六	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700190	1001	22	犬又二分之一·七	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700191	1001	22	犬又二分之一·八	SceneObj_Gather_Default_Gather							Default_NoDrop_Item	
+71700192	1001	38	（test）海灯节主支线交互一	SceneObj_Quest_Interact_Point_01							SceneObj_Quest_Interact_Point_01	
+71700193	1001	38	（test）海灯节主支线交互二	SceneObj_Quest_Interact_Point_01							SceneObj_Quest_Interact_Point_01	
+71700194	1001	38	（test）海灯节主支线交互三	SceneObj_Quest_Interact_Point_01							SceneObj_Quest_Interact_Point_01	
+71700195	1001	38	（test）海灯节支线索拉雅	SceneObj_Quest_Interact_Point_02				1			Default_NoDrop_Item	
+71700196	1001	19	（test）双子线	SceneObj_Area_Common_Property_Prop_AbyssPower_01							Default_NoDrop_Item	
+71700197	1001	38	（test）海灯节主支线交互一	SceneObj_Quest_Interact_Point_01							SceneObj_Quest_Interact_Point_01	
+71700198	5001	38	（test）海灯节主支线交互一	SceneObj_Gather_Small							SceneObj_Item_Small	
+71700199	5001	38	（test）海灯节主支线交互一								Default_Item	
+71700200	1001	19	（test）1.4双子线								Default_NoDrop_Item	
+71700201	1001	19	（test）1.4风花节								Default_NoDrop_Item	
+71700202	2001	19	（test）1.4双子线	SceneObj_Area_Common_Property_Prop_AbyssChain_01							Default_NoDrop_Item	
+71700209	5001	22	蒲公英籽	SceneObj_Gather_Dandelion		1				ElementFlora	Default_Item	
+71700210	5001	22	品质不错的风车菊	SceneObj_Gather_Default_Gather				1			Default_Item	

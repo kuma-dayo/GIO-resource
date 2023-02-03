@@ -1,0 +1,115 @@
+{
+  "radius": 10.0,
+  "points": {
+    "2": {
+      "type": "NORMAL",
+      "$type": "DungeonQuitPoint",
+      "gadgetId": 70120004,
+      "pos": {
+        "x": -76.44441,
+        "y": 279.6115,
+        "z": -193.1086
+      },
+      "rot": {
+        "x": 0.0,
+        "y": 40.4854,
+        "z": 0.0
+      },
+      "areaId": 0,
+      "unlocked": true,
+      "cutsceneList": [],
+      "groupLimit": false,
+      "size": {
+        "x": 3.0,
+        "y": 3.0,
+        "z": 3.0
+      },
+      "titleTextID": ""
+    },
+    "3": {
+      "type": "NORMAL",
+      "$type": "DungeonWayPoint",
+      "gadgetId": 70010006,
+      "pos": {
+        "x": 12.18488,
+        "y": 246.1,
+        "z": -36.66079
+      },
+      "rot": {
+        "x": 0.0,
+        "y": 111.468704,
+        "z": 0.0
+      },
+      "areaId": 0,
+      "unlocked": true,
+      "cutsceneList": [],
+      "groupLimit": false,
+      "size": {
+        "x": 50.0,
+        "y": 50.0,
+        "z": 50.0
+      },
+      "isBoss": false,
+      "isActive": false,
+      "groupIds": []
+    },
+    "4": {
+      "type": "NORMAL",
+      "$type": "DungeonWayPoint",
+      "gadgetId": 70010006,
+      "pos": {
+        "x": -23.00493,
+        "y": 246.1356,
+        "z": -56.56771
+      },
+      "rot": {
+        "x": 0.0,
+        "y": 212.983,
+        "z": 0.0
+      },
+      "areaId": 0,
+      "unlocked": true,
+      "cutsceneList": [],
+      "groupLimit": false,
+      "size": {
+        "x": 50.0,
+        "y": 50.0,
+        "z": 50.0
+      },
+      "isBoss": false,
+      "isActive": false,
+      "groupIds": []
+    },
+    "5": {
+      "type": "NORMAL",
+      "$type": "DungeonWayPoint",
+      "gadgetId": 70010006,
+      "pos": {
+        "x": -43.37117,
+        "y": 276.6768,
+        "z": -151.4506
+      },
+      "rot": {
+        "x": 0.0,
+        "y": 214.8175,
+        "z": 0.0
+      },
+      "areaId": 0,
+      "unlocked": true,
+      "cutsceneList": [],
+      "groupLimit": false,
+      "size": {
+        "x": 30.0,
+        "y": 30.0,
+        "z": 30.0
+      },
+      "isBoss": false,
+      "isActive": false,
+      "groupIds": []
+    }
+  },
+  "areas": {},
+  "forces": {},
+  "entities": {},
+  "doors": {}
+}

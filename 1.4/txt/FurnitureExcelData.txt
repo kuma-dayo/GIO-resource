@@ -1,0 +1,1 @@
+家具ID	名称$text_name_FurnitureName	GadgetID1	GadgetID2	GadgetID3	图标	类型ID1	类型ID2	可配置表面

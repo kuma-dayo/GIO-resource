@@ -1,0 +1,2186 @@
+[
+////////////////////////////////////////////////////////////////
+//
+//  ElementType
+//
+////////////////////////////////////////////////////////////////
+	{
+		"Default":
+		{
+			"$type": "ConfigAbility",
+			"abilityName": "Monster_Dahaka_ElementType_Fire",
+			"isDynamicAbility":true,
+			"onAdded":
+			[
+				{
+					"$type":"SetGlobalValue",
+					"key":"_DAHAKA_FIRE_",
+					"value":1,
+				},
+				{
+					"$type":"SetGlobalValue",
+					"key":"_DAHAKA_ELEMENTTYPE_TAG_LOWER_",
+					"value":2,
+				},
+			],
+		},
+	},
+	{
+		"Default":
+		{
+			"$type": "ConfigAbility",
+			"abilityName": "Monster_Dahaka_ElementType_Water",
+			"isDynamicAbility":true,
+			"onAdded":
+			[
+				{
+					"$type":"SetGlobalValue",
+					"key":"_DAHAKA_WATER_",
+					"value":1,
+				},
+				{
+					"$type":"SetGlobalValue",
+					"key":"_DAHAKA_ELEMENTTYPE_TAG_LOWER_",
+					"value":3,
+				},
+			],
+		},
+	},
+	{
+		"Default":
+		{
+			"$type": "ConfigAbility",
+			"abilityName": "Monster_Dahaka_ElementType_Ice",
+			"isDynamicAbility":true,
+			"onAdded":
+			[
+				{
+					"$type":"SetGlobalValue",
+					"key":"_DAHAKA_ICE_",
+					"value":1,
+				},
+				{
+					"$type":"SetGlobalValue",
+					"key":"_DAHAKA_ELEMENTTYPE_TAG_UPPER_",
+					"value":2,
+				},
+			],
+		},
+	},
+	{
+		"Default":
+		{
+			"$type": "ConfigAbility",
+			"abilityName": "Monster_Dahaka_ElementType_Electric",
+			"isDynamicAbility":true,
+			"onAdded":
+			[
+				{
+					"$type":"SetGlobalValue",
+					"key":"_DAHAKA_ELECTRIC_",
+					"value":1,
+				},
+				{
+					"$type":"SetGlobalValue",
+					"key":"_DAHAKA_ELEMENTTYPE_TAG_UPPER_",
+					"value":3,
+				},
+			],
+		},
+	},
+////////////////////////////////////////////////////////////////
+//
+//  Switch
+//
+////////////////////////////////////////////////////////////////
+	{
+		"Default" : 
+		{
+			"$type" : "ConfigAbility",
+			"abilityName" : "Monster_Dahaka_Switch_Fire",
+			"abilityMixins":
+			[
+				{
+					"$type":"AttachToStateIDMixin",
+					"stateIDs":["Switch01"],
+					"modifierName":"Dahaka_Switch_Fire",
+				},
+			],
+			"modifiers":
+			{
+				"Dahaka_Switch_Fire":
+				{
+					"onAdded":
+					[
+						{
+							"$type":"AttachEffect",
+							"effectPattern":"Eff_Monster_Dahaka_Switch_Fire",
+						},
+					],
+					"onRemoved":
+					[
+						{
+							"$type":"SetGlobalValue",
+							"key":"_STAGE_",
+							"value":2,
+						},
+					],
+				},
+			},
+		},
+	},
+	{
+		"Default" : 
+		{
+			"$type" : "ConfigAbility",
+			"abilityName" : "Monster_Dahaka_Switch_Water",
+			"abilityMixins":
+			[
+				{
+					"$type":"AttachToStateIDMixin",
+					"stateIDs":["Switch01"],
+					"modifierName":"Dahaka_Switch_Water",
+				},
+			],
+			"modifiers":
+			{
+				"Dahaka_Switch_Water":
+				{
+					"onAdded":
+					[
+						{
+							"$type":"AttachEffect",
+							"effectPattern":"Eff_Monster_Dahaka_Switch_Water",
+						},
+					],
+					"onRemoved":
+					[
+						{
+							"$type":"SetGlobalValue",
+							"key":"_STAGE_",
+							"value":2,
+						},
+					],
+				},
+			},
+		},
+	},
+	{
+		"Default" : 
+		{
+			"$type" : "ConfigAbility",
+			"abilityName" : "Monster_Dahaka_Switch_Ice",
+			"abilityMixins":
+			[
+				{
+					"$type":"AttachToStateIDMixin",
+					"stateIDs":["Switch01"],
+					"modifierName":"Dahaka_Switch_Ice",
+				},
+			],
+			"modifiers":
+			{
+				"Dahaka_Switch_Ice":
+				{
+					"onAdded":
+					[
+						{
+							"$type":"AttachEffect",
+							"effectPattern":"Eff_Monster_Dahaka_Switch_Ice",
+						},
+					],
+					"onRemoved":
+					[
+						{
+							"$type":"SetGlobalValue",
+							"key":"_STAGE_",
+							"value":3,
+						},
+					],
+				},
+			},
+		},
+	},
+	{
+		"Default" : 
+		{
+			"$type" : "ConfigAbility",
+			"abilityName" : "Monster_Dahaka_Switch_Electric",
+			"abilityMixins":
+			[
+				{
+					"$type":"AttachToStateIDMixin",
+					"stateIDs":["Switch01"],
+					"modifierName":"Dahaka_Switch_Electric",
+				},
+			],
+			"modifiers":
+			{
+				"Dahaka_Switch_Electric":
+				{
+					"onAdded":
+					[
+						{
+							"$type":"AttachEffect",
+							"effectPattern":"Eff_Monster_Dahaka_Switch_Electric",
+						},
+					],
+					"onRemoved":
+					[
+						{
+							"$type":"SetGlobalValue",
+							"key":"_STAGE_",
+							"value":3,
+						},
+					],
+				},
+			},
+		},
+	},
+////////////////////////////////////////////////////////////////
+//
+//  EarthQuake
+//
+////////////////////////////////////////////////////////////////
+	{
+		"Default" : 
+		{
+			"$type" : "ConfigAbility",
+			"abilityName" : "Monster_Dahaka_EarthQuakeAS",
+			"onAbilityStart":
+			[
+				{
+					"$type":"ApplyModifier",
+					"modifierName":"Monster_Dahaka_EarthQuake_Attack_Strong_Fire",
+					"target":"Self",
+/*					"predicates": 
+					[
+						{
+		                 	"$type": "ByTargetGlobalValue",
+		                 	"target": "Self",
+		                 	"key": "_DAHAKA_ELEMENTTYPE_TAG_LOWER_",
+		                 	"value": 2,
+		                 	"compareType": "Equal",
+		                },
+					],*/
+				},
+				{
+					"$type":"ApplyModifier",
+					"modifierName":"Monster_Dahaka_EarthQuake_Attack_Strong_Water",
+					"target":"Self",
+					"predicates": 
+					[
+						{
+		                 	"$type": "ByTargetGlobalValue",
+		                 	"target": "Self",
+		                 	"key": "_DAHAKA_ELEMENTTYPE_TAG_LOWER_",
+		                 	"value": 3,
+		                 	"compareType": "Equal",
+		                },
+					],
+				},
+			],
+			"modifiers":
+			{
+				"Monster_Dahaka_EarthQuake_Attack_Strong_Fire":
+				{
+					"duration": 0.5,
+					"thinkInterval":0.3,
+					"onThinkInterval":
+					[
+						{
+							"$type" : "TriggerAttackEvent",
+							"targetType" : "Enemy",
+							"attackEvent": 
+							{
+								"attackPattern":
+								{
+									"$type": "ConfigAttackBox",
+									"triggerType": "TriggerNoRepeat",
+									"size":
+									{
+										"x": 20,
+										"y": 3,
+										"z": 20,
+									},
+									"born":
+									{
+										"$type": "ConfigBornBySelf",
+										"offset" :
+										{
+											"x" : 0,
+											"y" : 1.5,
+											"z" : -13.5,
+										},
+									},
+									"ignoreMassive":true,
+								},
+								"attackInfo":
+								{
+									"attackProperty":
+									{
+										"damagePercentage": 1,
+										"strikeType": "Blunt",
+										"attackType": "Default",
+										"elementType": "Ice",
+										"elementDurability": 25,
+										"enBreak": 999999.0,
+									},
+									"hitPattern" :
+									{
+										"hitImpulseType":"LV5",
+										"reboundRatio" : 0,
+										"hitHaltTime" : 0.0,
+										"hitHaltTimeScale" : 0.05,
+										"muteHitText" : false,
+										"retreatType":"ByHitDirection",
+									},
+								}
+							},			
+						},
+					],
+					"onAdded":
+					[
+						{
+							"$type":"FireEffect",
+							"effectPattern":"Eff_Monster_Dahaka_EarthQuake_Fire_FireWaveStrong",
+							"born":
+							{
+								"$type": "ConfigBornBySelf",
+								"offset" : 
+								{
+									"x": 0.0,
+									"y": 0.0,
+									"z": 0.0,
+								},
+							},
+						},
+					],
+				},
+				"Monster_Dahaka_EarthQuake_Attack_Strong_Water":
+				{
+					"duration": 0.5,
+					"thinkInterval":0.3,
+					"onThinkInterval":
+					[
+						{
+							"$type" : "TriggerAttackEvent",
+							"targetType" : "Enemy",
+							"attackEvent": 
+							{
+								"attackPattern":
+								{
+									"$type": "ConfigAttackBox",
+									"triggerType": "TriggerNoRepeat",
+									"size":
+									{
+										"x": 20,
+										"y": 3,
+										"z": 20,
+									},
+									"born":
+									{
+										"$type": "ConfigBornBySelf",
+										"offset" :
+										{
+											"x" : 0,
+											"y" : 1.5,
+											"z" : -13.5,
+										},
+									},
+									"ignoreMassive":true,
+								},
+								"attackInfo":
+								{
+									"attackProperty":
+									{
+										"damagePercentage": 1,
+										"strikeType": "Blunt",
+										"attackType": "Default",
+										"elementType": "Electric",
+										"elementDurability": 25,
+										"enBreak": 999999.0,
+									},
+									"hitPattern" :
+									{
+										"hitImpulseType":"LV5",
+										"reboundRatio" : 0,
+										"hitHaltTime" : 0.0,
+										"hitHaltTimeScale" : 0.05,
+										"muteHitText" : false,
+										"retreatType":"ByHitDirection",
+									},
+								}
+							},			
+						},
+					],
+					"onAdded":
+					[
+						{
+							"$type":"FireEffect",
+							"effectPattern":"Eff_Monster_Dahaka_EarthQuake_Water_WaterWaveStrong",
+							"born":
+							{
+								"$type": "ConfigBornBySelf",
+								"offset" : 
+								{
+									"x": 0.0,
+									"y": 0.0,
+									"z": 0.0,
+								},
+							},
+						},
+					],
+				},
+			},
+		},
+	},
+	{
+		"Default" : 
+		{
+			"$type" : "ConfigAbility",
+			"abilityName" : "Monster_Dahaka_EarthQuakeLoop",
+			"onAbilityStart":
+			[
+				{
+					"$type":"ApplyModifier",
+					"modifierName":"Monster_Dahaka_EarthQuake_Attack_Normal_Fire",
+					"target":"Self",
+/*					"predicates": 
+					[
+						{
+		                 	"$type": "ByTargetGlobalValue",
+		                 	"target": "Self",
+		                 	"key": "_DAHAKA_ELEMENTTYPE_TAG_LOWER_",
+		                 	"value": 2,
+		                 	"compareType": "Equal",
+		                },
+					],*/
+				},
+				{
+					"$type":"ApplyModifier",
+					"modifierName":"Monster_Dahaka_EarthQuake_Attack_Normal_Water",
+					"target":"Self",
+					"predicates": 
+					[
+						{
+		                 	"$type": "ByTargetGlobalValue",
+		                 	"target": "Self",
+		                 	"key": "_DAHAKA_ELEMENTTYPE_TAG_LOWER_",
+		                 	"value": 3,
+		                 	"compareType": "Equal",
+		                },
+					],
+				},
+			],
+			"modifiers":
+			{
+				"Monster_Dahaka_EarthQuake_Attack_Normal_Fire":
+				{
+					"duration": 0.3,
+					"thinkInterval":0.2,
+					"onThinkInterval":
+					[
+						{
+							"$type" : "TriggerAttackEvent",
+							"targetType" : "Enemy",
+							"attackEvent": 
+							{
+								"attackPattern":
+								{
+									"$type": "ConfigAttackBox",
+									"triggerType": "TriggerNoRepeat",
+									"size":
+									{
+										"x": 20,
+										"y": 3,
+										"z": 20,
+									},
+									"born":
+									{
+										"$type": "ConfigBornBySelf",
+										"offset" :
+										{
+											"x" : 0,
+											"y" : 1.5,
+											"z" : -13.5,
+										},
+									},
+									"ignoreMassive":true,
+								},
+								"attackInfo":
+								{
+									"attackProperty":
+									{
+										"damagePercentage": 1,
+										"strikeType": "Blunt",
+										"attackType": "Default",
+										"elementType": "Ice",
+										"elementDurability": 25,
+										"enBreak": 999999.0,
+									},
+									"hitPattern" :
+									{
+										"hitImpulseType":"LV5",
+										"reboundRatio" : 0,
+										"hitHaltTime" : 0.0,
+										"hitHaltTimeScale" : 0.05,
+										"muteHitText" : false,
+										"retreatType":"ByHitDirection",
+									},
+								}
+							},			
+						},
+					],
+					"onAdded":
+					[
+						{
+							"$type":"FireEffect",
+							"effectPattern":"Eff_Monster_Dahaka_EarthQuake_Fire_FireWaveNormal",
+							"born":
+							{
+								"$type": "ConfigBornBySelf",
+								"offset" : 
+								{
+									"x": 0.0,
+									"y": 0.0,
+									"z": 0.0,
+								},
+							},
+						},
+					],
+				},
+				"Monster_Dahaka_EarthQuake_Attack_Normal_Water":
+				{
+					"duration": 0.3,
+					"thinkInterval":0.2,
+					"onThinkInterval":
+					[
+						{
+							"$type" : "TriggerAttackEvent",
+							"targetType" : "Enemy",
+							"attackEvent": 
+							{
+								"attackPattern":
+								{
+									"$type": "ConfigAttackBox",
+									"triggerType": "TriggerNoRepeat",
+									"size":
+									{
+										"x": 20,
+										"y": 3,
+										"z": 20,
+									},
+									"born":
+									{
+										"$type": "ConfigBornBySelf",
+										"offset" :
+										{
+											"x" : 0,
+											"y" : 1.5,
+											"z" : -13.5,
+										},
+									},
+									"ignoreMassive":true,
+								},
+								"attackInfo":
+								{
+									"attackProperty":
+									{
+										"damagePercentage": 1,
+										"strikeType": "Blunt",
+										"attackType": "Default",
+										"elementType": "Electric",
+										"elementDurability": 25,
+										"enBreak": 999999.0,
+									},
+									"hitPattern" :
+									{
+										"hitImpulseType":"LV5",
+										"reboundRatio" : 0,
+										"hitHaltTime" : 0.0,
+										"hitHaltTimeScale" : 0.05,
+										"muteHitText" : false,
+										"retreatType":"ByHitDirection",
+									},
+								}
+							},			
+						},
+					],
+					"onAdded":
+					[
+						{
+							"$type":"FireEffect",
+							"effectPattern":"Eff_Monster_Dahaka_EarthQuake_Water_WaterWaveNormal",
+							"born":
+							{
+								"$type": "ConfigBornBySelf",
+								"offset" : 
+								{
+									"x": 0.0,
+									"y": 0.0,
+									"z": 0.0,
+								},
+							},
+						},
+					],
+				},
+			},
+		},
+	},
+////////////////////////////////////////////////////////////////
+//
+//  Roar
+//
+////////////////////////////////////////////////////////////////
+	{
+		"Default" : 
+		{
+			"$type" : "ConfigAbility",
+			"abilityName" : "Monster_Dahaka_Roar_Fire",
+			"abilityMixins":
+			[
+				{
+					"$type":"AttachToStateIDMixin",
+					"stateIDs":["Roar"],
+					"modifierName":"Dahaka_Roar_Fire_Effect",
+				},
+				{
+					"$type":"AttachToAnimatorStateIDMixin",
+					"stateIDs":["Roar_Attack","Roar_AS"],
+					"modifierName":"Dahaka_Roar_Fire_MouthEffect",
+				},
+				{
+					"$type":"AttachToAnimatorStateIDMixin",
+					"stateIDs":["Roar_AS"],
+					"modifierName":"Dahaka_Roar_CreateMeteorHandler",
+				},
+			],
+			"modifiers":
+			{
+				"Dahaka_Roar_Fire_Effect":
+				{
+					"onAdded":
+					[
+						{
+							"$type":"AttachEffect",
+							"effectPattern":"Eff_Monster_Dahaka_Roar_Fire",
+						},
+					],
+				},
+				"Dahaka_Roar_Fire_MouthEffect":
+				{
+					"onAdded":
+					[
+						{
+							"$type":"AttachEffect",
+							"effectPattern":"Eff_Monster_Dahaka_Roar_Fire_Mouth",
+						},
+					],
+				},
+				"Dahaka_Roar_CreateMeteorHandler":
+				{
+					"onAdded":
+					[
+						{
+							"$type":"ApplyModifier",
+							"modifierName":"Dahaka_Roar_CreateMeteor",
+						},
+					],
+				},
+				"Dahaka_Roar_CreateMeteor":
+				{
+					"duration": 0.7,
+					"thinkInterval": 0.5,
+					"onAdded":
+					[
+						{
+							"$type": "CreateGadget",
+							"gadgetID": 42904012,
+							"campID": 4001,
+							"target": "SelfAttackTarget",
+							"campTargetType": "Enemy",
+							"born":
+							{
+								"$type": "ConfigBornByPredicatePoint",
+								"onGround": true,
+								"timeForPredictive": 0.75,
+								"direction":
+								{
+									"$type":"ConfigDirectionByDefault",
+									"angleOffset":
+									{
+										"x": 0.0,
+										"y": 0.0,		//角度偏移
+										"z": 0.0,
+									},
+								},
+							},
+						},
+						{
+							"$type": "CreateGadget",
+							"gadgetID": 42904012,
+							"campID": 4001,
+							"campTargetType": "Enemy",
+							"born":
+							{
+								"$type": "ConfigBornBySelf",
+								"onGround": true,
+								"offset" : 
+								{
+									"x": -15.0,
+									"y": 0.0,
+									"z": 0.0,
+								},
+								"direction":
+								{
+									"$type":"ConfigDirectionByDefault",
+									"angleOffset":
+									{
+										"x": 0.0,
+										"y": 0.0,		//角度偏移
+										"z": 0.0,
+									},
+								},
+								"bornRandom":
+								{
+									"$type":"BornRandomFromCenter",
+									"minRandomRange":0,
+									"maxRandomRange":5,
+								},
+							},
+						},
+						{
+							"$type": "CreateGadget",
+							"gadgetID": 42904012,
+							"campID": 4001,
+							"campTargetType": "Enemy",
+							"born":
+							{
+								"$type": "ConfigBornBySelf",
+								"onGround": true,
+								"offset" : 
+								{
+									"x": 15.0,
+									"y": 0.0,
+									"z": 0.0,
+								},
+								"direction":
+								{
+									"$type":"ConfigDirectionByDefault",
+									"angleOffset":
+									{
+										"x": 0.0,
+										"y": 0.0,		//角度偏移
+										"z": 0.0,
+									},
+								},
+								"bornRandom":
+								{
+									"$type":"BornRandomFromCenter",
+									"minRandomRange":0,
+									"maxRandomRange":5,
+								},
+							},
+						},
+					],
+					"onThinkInterval":
+					[
+						{
+							"$type": "CreateGadget",
+							"gadgetID": 42904028,
+							"campID": 4001,
+							"target": "SelfAttackTarget",
+							"campTargetType": "Enemy",
+							"born":
+							{
+								"$type": "ConfigBornByPredicatePoint",
+								"onGround": true,
+								"timeForPredictive": 0.75,
+								"direction":
+								{
+									"$type":"ConfigDirectionByDefault",
+									"angleOffset":
+									{
+										"x": 0.0,
+										"y": 0.0,		//角度偏移
+										"z": 0.0,
+									},
+								},
+							},
+						},
+						{
+							"$type": "CreateGadget",
+							"gadgetID": 42904012,
+							"campID": 4001,
+							"campTargetType": "Enemy",
+							"born":
+							{
+								"$type": "ConfigBornBySelf",
+								"onGround": true,
+								"offset" : 
+								{
+									"x": 0.0,
+									"y": 0.0,
+									"z": 15.0,
+								},
+								"direction":
+								{
+									"$type":"ConfigDirectionByDefault",
+									"angleOffset":
+									{
+										"x": 0.0,
+										"y": 0.0,		//角度偏移
+										"z": 0.0,
+									},
+								},
+								"bornRandom":
+								{
+									"$type":"BornRandomFromCenter",
+									"minRandomRange":0,
+									"maxRandomRange":5,
+								},
+							},
+						},
+						{
+							"$type": "CreateGadget",
+							"gadgetID": 42904012,
+							"campID": 4001,
+							"campTargetType": "Enemy",
+							"born":
+							{
+								"$type": "ConfigBornBySelf",
+								"onGround": true,
+								"offset" : 
+								{
+									"x": 0.0,
+									"y": 0.0,
+									"z": -15.0,
+								},
+								"direction":
+								{
+									"$type":"ConfigDirectionByDefault",
+									"angleOffset":
+									{
+										"x": 0.0,
+										"y": 0.0,		//角度偏移
+										"z": 0.0,
+									},
+								},
+								"bornRandom":
+								{
+									"$type":"BornRandomFromCenter",
+									"minRandomRange":0,
+									"maxRandomRange":5,
+								},
+							},
+						},
+					],
+				},
+			},
+		},
+	},
+	{
+		"Default" : 
+		{
+			"$type" : "ConfigAbility",
+			"abilityName" : "Monster_Dahaka_Roar_Water",
+			"abilityMixins":
+			[
+				{
+					"$type":"AttachToStateIDMixin",
+					"stateIDs":["Roar"],
+					"modifierName":"Dahaka_Roar_Water_Effect",
+				},
+				{
+					"$type":"AttachToAnimatorStateIDMixin",
+					"stateIDs":["Roar_Attack","Roar_AS"],
+					"modifierName":"Dahaka_Roar_Water_MouthEffect",
+				},
+				{
+					"$type":"AttachToAnimatorStateIDMixin",
+					"stateIDs":["Roar_AS"],
+					"modifierName":"Dahaka_Roar_CreateWaterBall",
+				},
+			],
+			"modifiers":
+			{
+				"Dahaka_Roar_Water_Effect":
+				{
+					"onAdded":
+					[
+						{
+							"$type":"AttachEffect",
+							"effectPattern":"Eff_Monster_Dahaka_Roar_Water",
+						},
+					],
+				},
+				"Dahaka_Roar_Water_MouthEffect":
+				{
+					"onAdded":
+					[
+						{
+							"$type":"AttachEffect",
+							"effectPattern":"Eff_Monster_Dahaka_Roar_Water_Mouth",
+						},
+					],
+				},
+				"Dahaka_Roar_CreateWaterBall":
+				{
+					"onAdded":
+					[
+						{
+							"$type": "TriggerBullet",
+							"target": "Self",
+							"lifeByOwnerIsAlive": true,
+							"trackTarget":"Self",
+							"bulletID": 42904014,
+							"born":
+							{
+								"$type": "ConfigBornBySelf",
+								"offset" : 
+								{
+									"x": 0.0,
+									"y": 2.0,
+									"z": 10,
+								},
+								"direction":
+								{
+									"$type": "ConfigDirectionByDefault"
+								}
+							},
+						},
+						{
+							"$type":"FireEffect",
+							"effectPattern":"Eff_Monster_Dahaka_Roar_Water_WaterBallAlert",
+							"born":
+							{
+								"$type": "ConfigBornBySelf",
+							},
+						},
+					],
+				},
+			},
+		},
+	},
+	// Meteor
+	{
+		"Default" : 
+		{
+			"$type" : "ConfigAbility",
+			"abilityName" : "Dahaka_Roar_Meteor_Pos",
+			"onAdded":
+			[
+				{
+					"$type":"ApplyModifier",
+					"modifierName":"Meteor_Timer",
+				},
+			],
+			"modifiers":
+			{
+				"Meteor_Timer":
+				{
+					"duration": 2,
+					"onAdded":
+					[
+						{
+							"$type":"FireEffect",
+							"effectPattern":"Eff_Monster_Dahaka_Roar_Fire_MeteorAlert",
+							"born":
+							{
+								"$type": "ConfigBornBySelf",
+								"offset":
+								{
+									"x": 0.0,
+									"y": 0.0,
+									"z": 0.0,
+								},
+							},
+						},
+					],
+					"onRemoved":
+					[
+						{
+							"$type": "TriggerBullet",
+							"bulletID": 42904013,
+							"born":
+							{
+								"$type": "ConfigBornBySelf",
+								"offset" : 
+								{
+									"x": 0.0,
+									"y": 10.0,
+									"z": -3.5,
+								},
+								"onGround":true,
+								"direction":
+								{
+									"$type": "ConfigDirectionByLookAtEntity"
+								}
+							},
+						},
+					],
+				},
+			},
+		},
+	},
+	{
+		"Default" : 
+		{
+			"$type" : "ConfigAbility",
+			"abilityName" : "Dahaka_Meteor_Hit",
+			"onAdded":
+			[
+				{
+					"$type":"AttachEffect",
+					"effectPattern":"Eff_Monster_Dahaka_Roar_Fire_MeteorLoop",
+				},
+			],
+			"onAbilityStart":
+			[
+				{
+					"$type" : "TriggerAttackEvent",
+					"targetType" : "Enemy",
+					"attackEvent": 
+					{
+						"attackPattern":
+						{
+							"$type" : "ConfigAttackSphere",
+							"triggerType" : "TriggerNoRepeat",
+							"radius": 0.5,
+							"born":
+							{
+								"$type": "ConfigBornByCollisionPoint",
+							},
+						},
+						"attackInfo":
+						{
+							"attackProperty":
+							{
+								"damagePercentage": 0.5,
+								"strikeType": "Default",
+								"attackType": "Default",
+								"elementType": "Fire",
+								"elementDurability": 25,
+								"enBreak": 100.0,
+							},
+							"hitPattern" :
+							{
+								"hitImpulseType":"LV3",
+								"reboundRatio" : 0,
+								"hitHaltTime" : 0.0,
+								"hitHaltTimeScale" : 0.05,
+								"muteHitText" : false,
+							},
+						},
+					}			
+				},
+				{
+					"$type": "Predicated",
+					"target": "Target",
+					"targetPredicates":
+					[
+						{
+							"$type": "ByEntityTypes",
+							"entityTypes": ["Level"],
+						},
+					],
+					"successActions":
+					[
+						{
+							"$type" : "TriggerAttackEvent",
+							"targetType" : "Enemy",
+							"attackEvent": 
+							{
+								"attackPattern":
+								{
+									"$type" : "ConfigAttackSphere",
+									"triggerType" : "TriggerNoRepeat",
+									"radius": 7.5,
+									"born":
+									{
+										"$type": "ConfigBornByCollisionPoint",
+									},
+								},
+								"attackInfo":
+								{
+									"attackProperty":
+									{
+										"damagePercentage": 1,
+										"strikeType": "Default",
+										"attackType": "Default",
+										"elementType": "Fire",
+										"elementDurability": 25,
+										"enBreak": 100.0,
+									},
+									"hitPattern" :
+									{
+										"hitImpulseType":"LV5",
+										"reboundRatio" : 0,
+										"hitHaltTime" : 0.0,
+										"hitHaltTimeScale" : 0.05,
+										"muteHitText" : false,
+									},
+								},
+							}			
+						},
+						{
+							"$type":"FireEffect",
+							"effectPattern":"Eff_Monster_Dahaka_Roar_Fire_MeteorAS",
+							"born":
+							{
+								"$type": "ConfigBornBySelf",
+							},
+						},
+					],
+				},
+			],
+		},
+	},
+	//WaterBall
+	{
+		"Default" : 
+		{
+			"$type" : "ConfigAbility",
+			"abilityName" : "Dahaka_WaterBall_Hit",
+			"onAdded":
+			[
+				{
+					"$type":"AttachEffect",
+					"effectPattern":"Eff_Monster_Dahaka_Roar_Water_WaterBall",
+				},
+			],
+			"onAbilityStart":
+			[
+				{
+					"$type" : "TriggerAttackEvent",
+					"targetType" : "Enemy",
+					"attackEvent": 
+					{
+						"attackPattern":
+						{
+							"$type" : "ConfigAttackSphere",
+							"triggerType" : "TriggerNoRepeat",
+							"radius": 0.5,
+							"born":
+							{
+								"$type": "ConfigBornByCollisionPoint",
+							},
+						},
+						"attackInfo":
+						{
+							"attackProperty":
+							{
+								"damagePercentage": 0.5,
+								"strikeType": "Default",
+								"attackType": "Default",
+								"elementType": "Fire",
+								"elementDurability": 25,
+								"enBreak": 100.0,
+							},
+							"hitPattern" :
+							{
+								"hitImpulseType":"LV3",
+								"reboundRatio" : 0,
+								"hitHaltTime" : 0.0,
+								"hitHaltTimeScale" : 0.05,
+								"muteHitText" : false,
+							},
+						},
+					}			
+				},
+			],
+		},
+	},
+////////////////////////////////////////////////////////////////
+//
+//  ElementSpring
+//
+////////////////////////////////////////////////////////////////
+	{
+		"Default" : 
+		{
+			"$type" : "ConfigAbility",
+			"abilityName" : "Monster_Dahaka_ElementSpring_Ice",
+			"abilityMixins":
+			[
+				{
+					"$type":"AttachToStateIDMixin",
+					"stateIDs":["ElementSpring"],
+					"modifierName":"Dahaka_ElementSpring_Ice_Effect",
+				},
+				{
+					"$type":"AttachToAnimatorStateIDMixin",
+					"stateIDs":["ElementSpring_AS"],
+					"modifierName":"Dahaka_ElementSpring_CreateIceConePos",
+				},
+			],
+			"modifiers":
+			{
+				"Dahaka_ElementSpring_Ice_Effect":
+				{
+					"onAdded":
+					[
+						{
+							"$type":"AttachEffect",
+							"effectPattern":"Eff_Monster_Dahaka_ElementSpring_Ice",
+						},
+					],
+				},
+				"Dahaka_ElementSpring_CreateIceConePos":
+				{
+					"onAdded":
+					[
+						{
+							"$type": "CreateGadget",
+							"gadgetID": 42904019,
+							"campID": 4001,
+							"campTargetType": "Enemy",
+							"lifeByOwnerIsAlive": true,
+							"byServer": true,
+							"born":
+							{
+								"$type": "ConfigBornBySelf",
+								"onGround": true,
+								"offset" : 
+								{
+									"x": 0.0,
+									"y": 15.0,
+									"z": 0.0,
+								},
+								"direction":
+								{
+									"$type":"ConfigDirectionByDefault",
+									"angleOffset":
+									{
+										"x": 45.0,
+										"y": 0.0,		//角度偏移
+										"z": 0.0,
+									},
+								},
+							},
+						},
+					],
+				},
+			},
+		},
+	},
+	{
+		"Default" : 
+		{
+			"$type" : "ConfigAbility",
+			"abilityName" : "Dahaka_Icecone_Pos",
+			"onAdded":
+			[
+				{
+					"$type":"ApplyModifier",
+					"modifierName":"IceCone_Timer",
+				},
+				{
+					"$type":"AttachEffect",
+					"effectPattern":"Eff_Monster_Dahaka_ElementSpring_IceconeLoop",
+					"born":
+					{
+						"$type": "ConfigBornBySelf",
+						"offset":
+						{
+							"x": 0.0,
+							"y": 0.0,
+							"z": 0.0,
+						},
+					},
+				},
+			],
+			"modifiers":
+			{
+				"IceCone_Timer":
+				{
+					"duration": 2,
+					"onRemoved":
+					[
+						{
+							"$type":"ApplyModifier",
+							"modifierName":"IceCone",
+						},
+					],
+				},
+				"IceCone":
+				{
+					"onAdded":
+					[
+						{
+							"$type":"AttachEffect",
+							"effectPattern":"Eff_Monster_Dahaka_ElementSpring_IceconeAttack",
+							"born":
+							{
+								"$type": "ConfigBornBySelf",
+								"offset":
+								{
+									"x": 0.0,
+									"y": 0.0,
+									"z": 0.0,
+								},
+							},
+						},
+					],
+				},
+			},
+		},
+	},
+	// Electric
+	{
+		"Default" : 
+		{
+			"$type" : "ConfigAbility",
+			"abilityName" : "Monster_Dahaka_ElementSpring_Electric",
+			"abilityMixins":
+			[
+				{
+					"$type":"AttachToStateIDMixin",
+					"stateIDs":["ElementSpring"],
+					"modifierName":"Dahaka_ElementSpring_Electric_Effect",
+				},
+				{
+					"$type":"AttachToAnimatorStateIDMixin",
+					"stateIDs":["ElementSpring_AS"],
+					"modifierName":"Dahaka_ElementSpring_CreateElectricBall",
+				},
+			],
+			"modifiers":
+			{
+				"Dahaka_ElementSpring_Electric_Effect":
+				{
+					"onAdded":
+					[
+						{
+							"$type":"AttachEffect",
+							"effectPattern":"Eff_Monster_Dahaka_ElementSpring_Electric",
+						},
+					],
+				},
+				"Dahaka_ElementSpring_CreateElectricBallPos":
+				{
+					"onAdded":
+					[
+						{
+							"$type": "CreateGadget",
+							"gadgetID": 42904021,
+							"campID": 4001,
+							"campTargetType": "Enemy",
+							"lifeByOwnerIsAlive": true,
+							"byServer": true,
+							"born":
+							{
+								"$type": "ConfigBornBySelf",
+								"onGround": true,
+								"offset" : 
+								{
+									"x": 0.0,
+									"y": 15.0,
+									"z": 0.0,
+								},
+								"direction":
+								{
+									"$type":"ConfigDirectionByDefault",
+									"angleOffset":
+									{
+										"x": 0.0,
+										"y": 0.0,		//角度偏移
+										"z": 0.0,
+									},
+								},
+							},
+						},
+					],
+				},
+			},
+		},
+	},
+	{
+		"Default" : 
+		{
+			"$type" : "ConfigAbility",
+			"abilityName" : "Dahaka_ElectricBall_Pos",
+			"onAdded":
+			[
+				{
+					"$type":"ApplyModifier",
+					"modifierName":"ElectricBall_Timer1",
+				},
+				{
+					"$type":"ApplyModifier",
+					"modifierName":"ElectricBall_Timer2",
+				},
+				{
+					"$type":"ApplyModifier",
+					"modifierName":"ElectricBall_Timer3",
+				},
+				{
+					"$type":"ApplyModifier",
+					"modifierName":"ElectricBall_Timer4",
+				},
+				{
+					"$type":"ApplyModifier",
+					"modifierName":"ElectricBall_Timer5",
+				},
+				{
+					"$type":"ApplyModifier",
+					"modifierName":"ElectricBall_Timer6",
+				},
+			],
+			"modifiers":
+			{
+				"ElectricBall_Timer1":
+				{
+					"duration": 2,
+					"onAdded":
+					[
+						{
+							"$type":"AttachEffect",
+							"effectPattern":"Eff_Monster_Dahaka_ElementSpring_IceconeLoop",
+							"born":
+							{
+								"$type": "ConfigBornBySelf",
+								"offset":
+								{
+									"x": 0.0,
+									"y": 0.0,
+									"z": 10.0,
+								},
+							},
+						},
+					],
+					"onRemoved":
+					[
+						{
+							"$type": "TriggerBullet",
+							"target": "SelfAttackTarget",
+							"trackTarget": "SelfAttackTarget",
+							"bulletID": 42904013,
+							"born":
+							{
+								"$type": "ConfigBornBySelf",
+								"offset":
+								{
+									"x": 0.0,
+									"y": 0.0,
+									"z": 10.0,
+								},
+							},
+						},
+					],
+				},
+				"ElectricBall_Timer2":
+				{
+					"duration": 2.3,
+					"onAdded":
+					[
+						{
+							"$type":"AttachEffect",
+							"effectPattern":"Eff_Monster_Dahaka_ElementSpring_IceconeLoop",
+							"born":
+							{
+								"$type": "ConfigBornBySelf",
+								"offset" : 
+								{
+									"x": 6,
+									"y": 0.0,
+									"z": 6,
+								},
+							},
+						},
+					],
+					"onRemoved":
+					[
+						{
+							"$type": "TriggerBullet",
+							"target": "SelfAttackTarget",
+							"trackTarget": "SelfAttackTarget",
+							"bulletID": 42904013,
+							"born":
+							{
+								"$type": "ConfigBornBySelf",
+								"offset" : 
+								{
+									"x": 6,
+									"y": 0.0,
+									"z": 6,
+								},
+							},
+						},
+					],
+				},
+				"ElectricBall_Timer3":
+				{
+					"duration": 2.6,
+					"onAdded":
+					[
+						{
+							"$type":"AttachEffect",
+							"effectPattern":"Eff_Monster_Dahaka_ElementSpring_IceconeLoop",
+							"born":
+							{
+								"$type": "ConfigBornBySelf",
+								"offset":
+								{
+									"x": 10.0,
+									"y": 0.0,
+									"z": 0.0,
+								},
+							},
+						},
+					],
+					"onRemoved":
+					[
+						{
+							"$type": "TriggerBullet",
+							"target": "SelfAttackTarget",
+							"trackTarget": "SelfAttackTarget",
+							"bulletID": 42904013,
+							"born":
+							{
+								"$type": "ConfigBornBySelf",
+								"offset":
+								{
+									"x": 10.0,
+									"y": 0.0,
+									"z": 0.0,
+								},
+							},
+						},
+					],
+				},
+				"ElectricBall_Timer4":
+				{
+					"duration": 4,
+					"onAdded":
+					[
+						{
+							"$type":"AttachEffect",
+							"effectPattern":"Eff_Monster_Dahaka_ElementSpring_IceconeLoop",
+							"born":
+							{
+								"$type": "ConfigBornBySelf",
+								"offset" : 
+								{
+									"x": -10.0,
+									"y": 0.0,
+									"z": 0,
+								},
+							},
+						},
+					],
+					"onRemoved":
+					[
+						{
+							"$type": "TriggerBullet",
+							"target": "SelfAttackTarget",
+							"trackTarget": "SelfAttackTarget",
+							"bulletID": 42904013,
+							"born":
+							{
+								"$type": "ConfigBornBySelf",
+								"offset" : 
+								{
+									"x": -10.0,
+									"y": 0.0,
+									"z": 0,
+								},
+							},
+						},
+					],
+				},
+				"ElectricBall_Timer5":
+				{
+					"duration": 4.3,
+					"onAdded":
+					[
+						{
+							"$type":"AttachEffect",
+							"effectPattern":"Eff_Monster_Dahaka_ElementSpring_IceconeLoop",
+							"born":
+							{
+								"$type": "ConfigBornBySelf",
+								"offset":
+								{
+									"x": -6.0,
+									"y": 0.0,
+									"z": -6.0,
+								},
+							},
+						},
+					],
+					"onRemoved":
+					[
+						{
+							"$type": "TriggerBullet",
+							"target": "SelfAttackTarget",
+							"trackTarget": "SelfAttackTarget",
+							"bulletID": 42904013,
+							"born":
+							{
+								"$type": "ConfigBornBySelf",
+								"offset":
+								{
+									"x": -6.0,
+									"y": 0.0,
+									"z": -6.0,
+								},
+							},
+						},
+					],
+				},
+				"ElectricBall_Timer6":
+				{
+					"duration": 4.6,
+					"onAdded":
+					[
+						{
+							"$type":"AttachEffect",
+							"effectPattern":"Eff_Monster_Dahaka_ElementSpring_IceconeLoop",
+							"born":
+							{
+								"$type": "ConfigBornBySelf",
+								"offset":
+								{
+									"x": 0.0,
+									"y": 0.0,
+									"z": -10.0,
+								},
+							},
+						},
+					],
+					"onRemoved":
+					[
+						{
+							"$type": "TriggerBullet",
+							"target": "SelfAttackTarget",
+							"trackTarget": "SelfAttackTarget",
+							"bulletID": 42904013,
+							"born":
+							{
+								"$type": "ConfigBornBySelf",
+								"offset":
+								{
+									"x": 0.0,
+									"y": 0.0,
+									"z": -10.0,
+								},
+							},
+						},
+					],
+				},
+			},
+		},
+	},
+	{
+		"Default" : 
+		{
+			"$type" : "ConfigAbility",
+			"abilityName" : "Dahaka_ElectricBall_Hit",
+			"onAdded":
+			[
+				{
+					"$type":"AttachEffect",
+					"effectPattern":"Eff_Monster_Dahaka_ElementSpring_ElectricBallLoop",
+				},
+			],
+			"onAbilityStart":
+			[
+				{
+					"$type" : "TriggerAttackEvent",
+					"targetType" : "Enemy",
+					"attackEvent": 
+					{
+						"attackPattern":
+						{
+							"$type" : "ConfigAttackSphere",
+							"triggerType" : "TriggerNoRepeat",
+							"radius": 0.5,
+							"born":
+							{
+								"$type": "ConfigBornByCollisionPoint",
+							},
+						},
+						"attackInfo":
+						{
+							"attackProperty":
+							{
+								"damagePercentage": 0.5,
+								"strikeType": "Default",
+								"attackType": "Default",
+								"elementType": "Fire",
+								"elementDurability": 25,
+								"enBreak": 100.0,
+							},
+							"hitPattern" :
+							{
+								"hitImpulseType":"LV3",
+								"reboundRatio" : 0,
+								"hitHaltTime" : 0.0,
+								"hitHaltTimeScale" : 0.05,
+								"muteHitText" : false,
+							},
+						},
+					}			
+				},
+				{
+					"$type":"FireEffect",
+					"effectPattern":"Eff_Monster_Dahaka_ElementSpring_ElectricBallAS",
+				},
+			],
+		},
+	},
+////////////////////////////////////////////////////////////////
+//
+//  ElementBurst
+//
+////////////////////////////////////////////////////////////////
+	{
+		"Default" : 
+		{
+			"$type" : "ConfigAbility",
+			"abilityName" : "Monster_Dahaka_ElementBurst_Ice",
+			"abilityMixins":
+			[
+				{
+					"$type":"AttachToAnimatorStateIDMixin",
+					"stateIDs":["ElementBurst_BS"],
+					"modifierName":"Dahaka_ElementBurstBS_Effect",
+				},
+				{
+					"$type":"AttachToAnimatorStateIDMixin",
+					"stateIDs":["ElementBurstLoop"],
+					"modifierName":"Dahaka_ElementBurst_Attack",
+				},
+			],
+			"modifiers":
+			{
+				"Dahaka_ElementBurstBS_Effect":
+				{
+					"onAdded":
+					[
+						{
+							"$type":"AttachEffect",
+							"effectPattern":"Eff_Monster_Dahaka_ElementBurst_IceBS",
+						},
+					],
+				},
+				"Dahaka_ElementBurst_Attack":
+				{
+					"onAdded":
+					[
+						{
+							"$type":"AttachEffect",
+							"effectPattern":"Eff_Monster_Dahaka_ElementBurst_Ice",
+						},
+					],
+					"thinkInterval": 1.5,
+					"onThinkInterval":
+					[
+						{
+							"$type":"Repeated",
+							"repeatTimes":3,
+							"actions":
+							[
+								{
+									"$type": "CreateGadget",
+									"gadgetID": 42904023,
+									"campID": 4001,
+									"campTargetType": "Enemy",
+									"born":
+									{
+										"$type": "ConfigBornBySelf",
+										"onGround": true,
+										"offset" : 
+										{
+											"x": 0.0,
+											"y": 0.0,
+											"z": 0.0,
+										},
+										"bornRandom":
+										{
+											"$type":"BornRandomFromCenter",
+											"minRandomRange":10,
+											"maxRandomRange":35,
+										},
+										"direction":
+										{
+											"$type":"ConfigDirectionByDefault",
+											"angleOffset":
+											{
+												"x": 0.0,
+												"y": 0.0,		//角度偏移
+												"z": 0.0,
+											},
+										},
+									},
+								},
+							],
+						},
+						{
+							"$type": "CreateGadget",
+							"gadgetID": 42904023,
+							"campID": 4001,
+							"target": "SelfAttackTarget",
+							"campTargetType": "Enemy",
+							"born":
+							{
+								"$type": "ConfigBornByPredicatePoint",
+								"onGround": true,
+								"timeForPredictive": 0.75,
+								"direction":
+								{
+									"$type":"ConfigDirectionByDefault",
+									"angleOffset":
+									{
+										"x": 0.0,
+										"y": 0.0,		//角度偏移
+										"z": 0.0,
+									},
+								},
+							},
+						},
+					],
+				},
+			},
+		},
+	},
+	{
+		"Default" : 
+		{
+			"$type" : "ConfigAbility",
+			"abilityName" : "Dahaka_IceBlock_Pos",
+			"onAdded":
+			[
+				{
+					"$type":"ApplyModifier",
+					"modifierName":"IceBlock_Timer",
+				},
+				{
+					"$type":"FireEffect",
+					"effectPattern":"Eff_Monster_Dahaka_ElementBurst_Ice_IceBlockAlert",
+					"born":
+					{
+						"$type": "ConfigBornBySelf",
+						"offset":
+						{
+							"x": 0.0,
+							"y": 0.0,
+							"z": 0.0,
+						},
+					},
+				},
+			],
+			"modifiers":
+			{
+				"IceBlock_Timer":
+				{
+					"duration": 2,
+					"onAdded":
+					[
+						{
+							"$type":"AttachEffect",
+							"effectPattern":"Eff_Monster_Dahaka_ElementBurst_Ice_IceBlockLoop",
+							"born":
+							{
+								"$type": "ConfigBornBySelf",
+								"offset":
+								{
+									"x": 0.0,
+									"y": 0.0,
+									"z": 0.0,
+								},
+							},
+						},
+					],
+					"onRemoved":
+					[
+						{
+							"$type": "TriggerBullet",
+							"bulletID": 42904024,
+							"born":
+							{
+								"$type": "ConfigBornBySelf",
+								"offset" : 
+								{
+									"x": 0.0,
+									"y": 10.0,
+									"z": -3.5,
+								},
+								"onGround":true,
+								"direction":
+								{
+									"$type": "ConfigDirectionByLookAtEntity"
+								}
+							},
+						},
+					],
+				},
+			},
+		},
+	},
+	{
+		"Default" : 
+		{
+			"$type" : "ConfigAbility",
+			"abilityName" : "Dahaka_IceBlock_Hit",
+			"onAdded":
+			[
+				{
+					"$type":"AttachEffect",
+					"effectPattern":"Eff_Monster_Dahaka_ElementBurst_Ice_IceBlockLoop",
+				},
+			],
+			"onAbilityStart":
+			[
+				{
+					"$type" : "TriggerAttackEvent",
+					"targetType" : "Enemy",
+					"attackEvent": 
+					{
+						"attackPattern":
+						{
+							"$type" : "ConfigAttackSphere",
+							"triggerType" : "TriggerNoRepeat",
+							"radius": 0.5,
+							"born":
+							{
+								"$type": "ConfigBornByCollisionPoint",
+							},
+						},
+						"attackInfo":
+						{
+							"attackProperty":
+							{
+								"damagePercentage": 0.5,
+								"strikeType": "Default",
+								"attackType": "Default",
+								"elementType": "Ice",
+								"elementDurability": 25,
+								"enBreak": 100.0,
+							},
+							"hitPattern" :
+							{
+								"hitImpulseType":"LV3",
+								"reboundRatio" : 0,
+								"hitHaltTime" : 0.0,
+								"hitHaltTimeScale" : 0.05,
+								"muteHitText" : false,
+							},
+						},
+					}			
+				},
+				{
+					"$type": "Predicated",
+					"target": "Target",
+					"targetPredicates":
+					[
+						{
+							"$type": "ByEntityTypes",
+							"entityTypes": ["Level"],
+						},
+					],
+					"successActions":
+					[
+						{
+							"$type" : "TriggerAttackEvent",
+							"targetType" : "Enemy",
+							"attackEvent": 
+							{
+								"attackPattern":
+								{
+									"$type" : "ConfigAttackSphere",
+									"triggerType" : "TriggerNoRepeat",
+									"radius": 7.5,
+									"born":
+									{
+										"$type": "ConfigBornByCollisionPoint",
+									},
+								},
+								"attackInfo":
+								{
+									"attackProperty":
+									{
+										"damagePercentage": 1,
+										"strikeType": "Default",
+										"attackType": "Default",
+										"elementType": "Ice",
+										"elementDurability": 25,
+										"enBreak": 100.0,
+									},
+									"hitPattern" :
+									{
+										"hitImpulseType":"LV5",
+										"reboundRatio" : 0,
+										"hitHaltTime" : 0.0,
+										"hitHaltTimeScale" : 0.05,
+										"muteHitText" : false,
+									},
+								},
+							}			
+						},
+						{
+							"$type":"FireEffect",
+							"effectPattern":"Eff_Monster_Dahaka_ElementBurst_Ice_IceBlockAS",
+							"born":
+							{
+								"$type": "ConfigBornBySelf",
+							},
+						},
+					],
+				},
+			],
+		},
+	},
+	//Electric
+	{
+		"Default" : 
+		{
+			"$type" : "ConfigAbility",
+			"abilityName" : "Monster_Dahaka_ElementBurst_Electric",
+			"abilityMixins":
+			[
+				{
+					"$type":"AttachToAnimatorStateIDMixin",
+					"stateIDs":["ElementBurst_BS"],
+					"modifierName":"Dahaka_ElementBurstBS_Effect",
+				},
+				{
+					"$type":"AttachToAnimatorStateIDMixin",
+					"stateIDs":["ElementBurstLoop"],
+					"modifierName":"Dahaka_ElementBurst_Attack",
+				},
+			],
+			"modifiers":
+			{
+				"Dahaka_ElementBurstBS_Effect":
+				{
+					"onAdded":
+					[
+						{
+							"$type":"AttachEffect",
+							"effectPattern":"Eff_Monster_Dahaka_ElementBurst_ElectricBS",
+						},
+					],
+				},
+				"Dahaka_ElementBurst_Attack":
+				{
+					"onAdded":
+					[
+						{
+							"$type":"AttachEffect",
+							"effectPattern":"Eff_Monster_Dahaka_ElementBurst_Electric",
+						},
+					],
+					"thinkInterval": 1.5,
+					"onThinkInterval":
+					[
+						{
+							"$type":"Repeated",
+							"repeatTimes":3,
+							"actions":
+							[
+								{
+									"$type": "CreateGadget",
+									"gadgetID": 42904026,
+									"campID": 4001,
+									"campTargetType": "Enemy",
+									"born":
+									{
+										"$type": "ConfigBornBySelf",
+										"onGround": true,
+										"offset" : 
+										{
+											"x": 0.0,
+											"y": 0.0,
+											"z": 0.0,
+										},
+										"bornRandom":
+										{
+											"$type":"BornRandomFromCenter",
+											"minRandomRange":10,
+											"maxRandomRange":35,
+										},
+										"direction":
+										{
+											"$type":"ConfigDirectionByDefault",
+											"angleOffset":
+											{
+												"x": 0.0,
+												"y": 0.0,		//角度偏移
+												"z": 0.0,
+											},
+										},
+									},
+								},
+							],
+						},
+					],
+				},
+			},
+		},
+	},
+	{
+		"Default" : 
+		{
+			"$type" : "ConfigAbility",
+			"abilityName" : "Dahaka_ElectricNet",
+			"onAdded":
+			[
+				{
+					"$type":"ApplyModifier",
+					"modifierName":"ElectricNet_Timer",
+				},
+				{
+					"$type":"FireEffect",
+					"effectPattern":"Eff_Monster_Dahaka_ElementBurst_ElectricNetAlert",
+					"born":
+					{
+						"$type": "ConfigBornBySelf",
+						"offset":
+						{
+							"x": 0.0,
+							"y": 0.0,
+							"z": 0.0,
+						},
+					},
+				},
+			],
+			"modifiers":
+			{
+				"ElectricNet_Timer":
+				{
+					"duration": 2,
+					"onRemoved":
+					[
+						{
+							"$type":"ApplyModifier",
+							"modifierName":"ElectricNet",
+						},
+					],
+				},
+				"ElectricNet":
+				{
+					"onAdded":
+					[
+						{
+							"$type":"AttachEffect",
+							"effectPattern":"Eff_Monster_Dahaka_ElementBurst_ElectricNet",
+							"born":
+							{
+								"$type": "ConfigBornBySelf",
+								"offset":
+								{
+									"x": 0.0,
+									"y": 0.0,
+									"z": 0.0,
+								},
+							},
+						},
+					],
+				},
+			},
+		},
+	},
+]

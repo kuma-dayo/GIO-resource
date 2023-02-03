@@ -1,0 +1,388 @@
+[	
+//////////////////////////////////
+//
+//  1.4风花节--献上蒲公英
+//
+//////////////////////////////////
+	{
+		"Default":
+		{
+			"$type": "ConfigAbility",
+			"abilityName": "SceneObj_Area_Common_Property_Foliage_Dandelion_01",
+
+			"abilityMixins" : 
+			[
+				{
+					"$type": "AttachToGadgetStateMixin",
+					"gadgetState": 0,
+					"modifierName": "DandelionHide",
+				},
+				{
+					"$type": "AttachToGadgetStateMixin",
+					"gadgetState": 201,
+					"modifierName": "DandelionShow",
+				},
+			],
+			"modifiers":
+			{
+				"DandelionHide":
+				{
+					"onAdded":
+					[
+						{
+							"$type":"EnableSceneTransformByName",
+							"transformNames":["DandelionFlower","DandelionBed"],
+							"setEnable":false,
+						},			
+					],
+				},
+				"DandelionShow":
+				{
+					"onAdded":
+					[
+						{
+							"$type":"EnableSceneTransformByName",
+							"transformNames":["DandelionFlower","DandelionBed"],
+							"setEnable":true,
+						},
+					],
+				},
+			},
+		},
+	},
+//////////////////////////////////
+//
+//  1.4风花节--献上风车菊
+//
+//////////////////////////////////
+	{
+		"Default":
+		{
+			"$type": "ConfigAbility",
+			"abilityName": "SceneObj_Area_Common_Property_Foliage_WindmilDaisy_01",
+
+			"abilityMixins" : 
+			[
+				{
+					"$type": "AttachToGadgetStateMixin",
+					"gadgetState": 0,
+					"modifierName": "WindmilDaisyHide",
+				},
+				{
+					"$type": "AttachToGadgetStateMixin",
+					"gadgetState": 201,
+					"modifierName": "WindmilDaisyShow",
+				},
+			],
+			"modifiers":
+			{
+				"WindmilDaisyHide":
+				{
+					"onAdded":
+					[
+						{
+							"$type":"EnableSceneTransformByName",
+							"transformNames":["WindmilDaisy"],
+							"setEnable":false,
+						},			
+					],
+				},
+				"WindmilDaisyShow":
+				{
+					"onAdded":
+					[
+						{
+							"$type":"EnableSceneTransformByName",
+							"transformNames":["WindmilDaisy"],
+							"setEnable":true,
+						},
+					],
+				},
+			},
+		},
+	},
+//////////////////////////////////
+//
+//  1.4风花节--献上塞西莉亚花
+//
+//////////////////////////////////
+	{
+		"Default":
+		{
+			"$type": "ConfigAbility",
+			"abilityName": "SceneObj_Area_Common_Property_Foliage_Cecilia_01",
+
+			"abilityMixins" : 
+			[
+				{
+					"$type": "AttachToGadgetStateMixin",
+					"gadgetState": 0,
+					"modifierName": "CeciliaHide",
+				},
+				{
+					"$type": "AttachToGadgetStateMixin",
+					"gadgetState": 201,
+					"modifierName": "CeciliaShow",
+				},
+			],
+			"modifiers":
+			{
+				"CeciliaHide":
+				{
+					"onAdded":
+					[
+						{
+							"$type":"EnableSceneTransformByName",
+							"transformNames":["Cecilia"],
+							"setEnable":false,
+						},			
+					],
+				},
+				"CeciliaShow":
+				{
+					"onAdded":
+					[
+						{
+							"$type":"EnableSceneTransformByName",
+							"transformNames":["Cecilia"],
+							"setEnable":true,
+						},
+					],
+				},
+			},
+		},
+	},
+//////////////////////////////////
+//
+//  1.4风花节--献上小灯草
+//
+//////////////////////////////////
+	{
+		"Default":
+		{
+			"$type": "ConfigAbility",
+			"abilityName": "SceneObj_Area_Common_Property_Foliage_ImitationGrass_01",
+
+			"abilityMixins" : 
+			[
+				{
+					"$type": "AttachToGadgetStateMixin",
+					"gadgetState": 0,
+					"modifierName": "ImitationGrassHide",
+				},
+				{
+					"$type": "AttachToGadgetStateMixin",
+					"gadgetState": 201,
+					"modifierName": "ImitationGrassShow",
+				},
+			],
+			"modifiers":
+			{
+				"ImitationGrassHide":
+				{
+					"onAdded":
+					[
+						{
+							"$type":"EnableSceneTransformByName",
+							"transformNames":["ImitationGrass"],
+							"setEnable":false,
+						},			
+					],
+				},
+				"ImitationGrassShow":
+				{
+					"onAdded":
+					[
+						{
+							"$type":"EnableSceneTransformByName",
+							"transformNames":["ImitationGrass"],
+							"setEnable":true,
+						},
+					],
+				},
+			},
+		},
+	},
+//////////////////////////////////
+//
+//  1.4风花节--献上甜甜花
+//
+//////////////////////////////////
+	{
+		"Default":
+		{
+			"$type": "ConfigAbility",
+			"abilityName": "SceneObj_Area_Common_Property_Foliage_Whiteballet_01",
+
+			"abilityMixins" : 
+			[
+				{
+					"$type": "AttachToGadgetStateMixin",
+					"gadgetState": 0,
+					"modifierName": "WhiteballetHide",
+				},
+				{
+					"$type": "AttachToGadgetStateMixin",
+					"gadgetState": 201,
+					"modifierName": "WhiteballetShow",
+				},
+			],
+			"modifiers":
+			{
+				"WhiteballetHide":
+				{
+					"onAdded":
+					[
+						{
+							"$type":"EnableSceneTransformByName",
+							"transformNames":["Whiteballet"],
+							"setEnable":false,
+						},			
+					],
+				},
+				"WhiteballetShow":
+				{
+					"onAdded":
+					[
+						{
+							"$type":"EnableSceneTransformByName",
+							"transformNames":["Whiteballet"],
+							"setEnable":true,
+						},
+					],
+				},
+			},
+		},
+	}, 
+//////////////////////////////////
+//
+//  1.4风花节--献上钩钩果
+//
+//////////////////////////////////
+	{
+		"Default":
+		{
+			"$type": "ConfigAbility",
+			"abilityName": "SceneObj_Area_Common_Property_Foliage_GogoFruit_01",
+
+			"abilityMixins" : 
+			[
+				{
+					"$type": "AttachToGadgetStateMixin",
+					"gadgetState": 0,
+					"modifierName": "GogoFruitHide",
+				},
+				{
+					"$type": "AttachToGadgetStateMixin",
+					"gadgetState": 201,
+					"modifierName": "GogoFruitShow",
+				},
+			],
+			"modifiers":
+			{
+				"GogoFruitHide":
+				{
+					"onAdded":
+					[
+						{
+							"$type":"EnableSceneTransformByName",
+							"transformNames":["GogoFruit"],
+							"setEnable":false,
+						},			
+					],
+				},
+				"GogoFruitShow":
+				{
+					"onAdded":
+					[
+						{
+							"$type":"EnableSceneTransformByName",
+							"transformNames":["GogoFruit"],
+							"setEnable":true,
+						},
+					],
+				},
+			},
+		},
+	}, 
+	
+	//////////////////////////////////////////////////////////////
+	//
+	// 诺艾尔Coop用岩元素含量高的碎石堆
+	//
+	//////////////////////////////////////////////////////////////
+	{
+		"Default": 
+		{
+			"$type": "ConfigAbility",
+			"abilityName": "SceneObj_Environment_Rock_StonePileQuest_Hard",
+			"onAdded":
+			[
+				{
+					"$type": "AttachModifier",
+					"modifierName": "BeHitBlunt",
+				},
+			],
+			"modifiers":
+			{
+				"BeHitBlunt":
+				{
+					"elementType": "Rock",
+					"elementDurability": 100,
+					"modifierMixins":
+					[
+						{
+							"$type": "ShieldBarMixin",
+						},
+					],
+					"onBeingHit":
+					[
+						{
+							"$type": "FireEffect",
+							"effectPattern": "Eff_SceneObj_StoneWall_01_Broken",
+							"born":
+							{
+								"$type": "ConfigBornByTarget",
+							},
+							"predicates":
+							[
+								{
+									"$type":"ByNot",
+									"predicates":
+									[
+										{
+											"$type": "ByHitStrikeType",
+											"strikeType": "Default",
+										},
+										{
+											"$type": "ByHitStrikeType",
+											"strikeType": "Pierce",
+										},
+										{
+											"$type": "ByHitStrikeType",
+											"strikeType": "None",
+										},
+									],
+								},
+							],
+						},
+					],
+					"onRemoved":
+					[
+						{
+							"$type": "FireEffect",
+							"effectPattern": "Eff_SceneObj_StoneWall_01_Destroy",
+							"born":
+							{
+								"$type": "ConfigBornByTarget",
+							},
+						},
+						{
+							"$type": "KillSelf",
+						},
+					],
+				},
+			},
+		},
+	},
+]

@@ -1,0 +1,1 @@
+类型ID	1级分类名称$text_name_FurnitureTypeName	2级分类名称$text_name_FurnitureSmallTypeName	所属场景	镜头配置ID

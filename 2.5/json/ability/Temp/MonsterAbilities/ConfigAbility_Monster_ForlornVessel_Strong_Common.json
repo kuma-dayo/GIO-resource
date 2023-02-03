@@ -1,0 +1,116 @@
+[
+////////////////////////////////////////////////////////////////
+//
+//  EndureDelta
+//
+////////////////////////////////////////////////////////////////
+{
+    "Default": 
+    {
+        "$type": "ConfigAbility",
+        "abilityName": "Monster_ForlornVessel_EndureDelta_Add",
+        "onAbilityStart": 
+        [
+            {
+                "$type": "ApplyModifier",
+                "modifierName": "UNIQUE_ForlornVessel_EndureDelta",
+                "predicates": 
+                [
+                    {
+                        "$type": "ByTargetGlobalValue",
+                        "key": "ForlornVessel_ElementShield",
+                        "value": 0,
+                        "compareType": "NoneOrEqual",
+                    },
+                ],
+            },
+        ],
+        "modifiers": 
+        {
+            "UNIQUE_ForlornVessel_EndureDelta":
+            {
+                "isUnique": true,
+                "stacking": "Unique",
+                "properties": 
+                {
+                    "Actor_EndureDelta": "%ForlornVessel_Endure",
+                },
+            },
+        },
+        "abilitySpecials": 
+        {
+            "ForlornVessel_Endure": 0.5,
+        },
+    },
+},
+{
+    "Default": 
+    {
+        "$type": "ConfigAbility",
+        "abilityName": "Monster_ForlornVessel_EndureDelta_Remove",
+        "onAbilityStart": 
+        [
+            {
+                "$type": "RemoveUniqueModifier",
+                "modifierName": "UNIQUE_ForlornVessel_EndureDelta",
+            },
+        ],
+    },
+},
+////////////////////////////////////////////////////////////////
+//
+//  BeHitThrow
+//
+////////////////////////////////////////////////////////////////
+{
+    "Default": 
+    {
+        "$type": "ConfigAbility",
+        "abilityName": "Monster_ForlornVessel_BeHitThrow",
+        "abilityMixins": 
+        [
+            {
+                "$type":"AttachToStateIDMixin",
+                "stateIDs":["BeHitThrow"],
+                "modifierName":"ForlornVessel_HitThrowHandler",
+            },
+        ],
+        "modifiers": 
+        {
+            "ForlornVessel_HitThrowHandler":
+            {
+                "onAdded": 
+                [
+                    {
+                        "$type":"ClearEndura",
+                    },
+					{
+						"$type": "RemoveVelocityForce",
+						"forces": ["WindZoneType"],
+					},
+                ],
+            },
+        },
+    },
+},
+////////////////////////////////////////////////////////////////
+//
+//  Lance Heal
+//
+////////////////////////////////////////////////////////////////
+{
+    "Default": 
+    {
+        "$type": "ConfigAbility",
+        "abilityName": "Monster_ForlornVessel_BeHeal",
+        "onAdded": 
+        [
+            {
+                "$type": "SetGlobalValue",
+                "key": "ForlornVessel_Lance_Heal",
+                "value": 0,
+            },
+        ],
+    },
+},
+]

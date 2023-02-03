@@ -1,0 +1,191 @@
+ID	默认阵营	类型	描述	JSON名称	能否移动	是否有音响	是否能装备	能否交互	视距等级	服务器脚本	ItemJSON名称	联机动态属性ID
+50004001	0	9	木棍	MonEquip_WoodenClub_01			1				Default_MonsterWeapon	
+50004002	0	9	木盾	MonEquip_Shield_01			1				Default_MonsterWeapon	
+50004003	0	9	火木棍(代枪)	MonEquip_WoodenClub_Fire_01			1				Default_MonsterWeapon	
+50004004	0	9	怪的弩	MonEquip_Crossbow_01			1				Default_MonsterWeapon	
+50004006	0	9	深渊法杖-火	MonEquip_Staff_Fire_01			1				Default_MonsterWeapon	
+50004007	0	9	深渊法杖-冰	MonEquip_Staff_Ice_01			1				Default_MonsterWeapon	
+50004008	0	9	深渊法杖-水	MonEquip_Staff_Water_01			1				Default_MonsterWeapon	
+50004009	0	9	萨满法杖-水	MonEquip_Wand_Water_01			1				Default_MonsterWeapon	
+50004010	0	9	萨满法杖-草	MonEquip_Wand_Grass_01			1				Default_MonsterWeapon	
+50004011	0	9	长木棍	MonEquip_WoodenClub_02			1				Default_MonsterWeapon	
+50004012	0	9	木大盾	MonEquip_Shield_02			1				Default_MonsterWeapon	
+50004013	0	9	巨斧	MonEquip_Axe_01			1				Default_MonsterWeapon	
+50004014	0	9	萨满法杖-风	MonEquip_Wand_Wind_01			1				Default_MonsterWeapon	
+50004015	0	9	火丘丘-小火把	MonEquip_Torch_01			1				Default_MonsterWeapon	
+50004016	0	9	草丘丘-毒棍	MonEquip_WoodenClub_Grass_01			1				Default_MonsterWeapon	
+50004017	0	9	火丘丘-弩	MonEquip_Crossbow_Fire_01			1				Default_MonsterWeapon	
+50004018	0	9	冰丘丘-弩	MonEquip_Crossbow_Ice_01			1				Default_MonsterWeapon	
+50004019	0	9	电丘丘-弩	MonEquip_Crossbow_Thunder_01			1				Default_MonsterWeapon	
+50004020	0	9	火丘丘-大火把	MonEquip_Torch_02			1				Default_MonsterWeapon	
+50004021	0	9	债务处理人-战刃	MonEquip_Warglaive_Fire_01			1				Default_MonsterWeapon	
+50004022	0	9	暴徒-岩盾	MonEquip_Shield_02_Rock			1				Default_MonsterWeapon	
+50004023	0	9	丘丘人-岩盾	MonEquip_Shield_01_Rock			1				Default_MonsterWeapon	
+50004024	0	9	丘丘人-岩棒	MonEquip_RockClub_01			1				Default_MonsterWeapon	
+50004025	0	9	盗宝团-弩	MonEquip_Crossbow_02			1				Default_MonsterWeapon	
+50004026	0	9	盗宝团-手斧	MonEquip_Hatchet_01			1				Default_MonsterWeapon	
+50004027	0	9	盗宝团-铲子	MonEquip_Shovel_01			1				Default_MonsterWeapon	
+50004028	0	9	千岩军-枪	MonEquip_Pole_01			1				Default_MonsterWeapon	
+50004029	0	9	萨满法杖-岩	MonEquip_Wand_Rock_01			1				Default_MonsterWeapon	
+50004030	0	9	千岩军-队长枪	MonEquip_Pole_02			1				Default_MonsterWeapon	
+50004031	0	9	雪山暴徒核心	MonEquip_Core_Ice			1				Default_MonsterWeapon	
+50004032	0	9	公子-弓	MonEquip_Tartaglia_Bow			1				Default_MonsterWeapon	
+50004033	0	9	公子-剑-雷-右	MonEquip_Tartaglia_Blade_Electric_R			1				Default_MonsterWeapon	
+50004034	0	9	公子-剑-雷-左	MonEquip_Tartaglia_Blade_Electric_L			1				Default_MonsterWeapon	
+50004035	0	9	公子-剑-水-右	MonEquip_Tartaglia_Blade_Water_R			1				Default_MonsterWeapon	
+50004036	0	9	公子-剑-水-左	MonEquip_Tartaglia_Blade_Water_L			1				Default_MonsterWeapon	
+50004037	0	9	公子-枪	MonEquip_Tartaglia_DualBlade			1				Default_MonsterWeapon	
+50004038	0	9	盗宝团-单手锤	MonEquip_Hammer_01			1				Default_MonsterWeapon	
+50004039	0	9	盗宝团-船橹	MonEquip_Paddle_01			1				Default_MonsterWeapon	
+50004040	0	9	先遣队-胖男-喷枪-冰	MonEquip_Skirmisher_Spraygun_Ice_01			1				Default_MonsterWeapon	
+50004041	0	9	先遣队-胖男-背包-冰	MonEquip_Skirmisher_Backpack_Ice_01			1				Default_MonsterWeapon	
+50004042	0	9	先遣队-胖男-喷枪-冰	MonEquip_Skirmisher_Spraygun_Water_01			1				Default_MonsterWeapon	
+50004043	0	9	先遣队-胖男-背包-冰	MonEquip_Skirmisher_Backpack_Water_01			1				Default_MonsterWeapon	
+50004044	0	9	先遣队-壮男-大锤-雷	MonEquip_Skirmisher_GreatHammer_Electric_01			1				Default_MonsterWeapon	
+50004045	0	9	先遣队—标准—双手杖-岩	MonEquip_Skirmisher_Staff_Rock_01			1				Default_MonsterWeapon	
+50004046	0	9	先遣队—壮男-拳套-风-左手	MonEquip_Skirmisher_Gloves_01_Left			1				Default_MonsterWeapon	
+50004047	0	9	先遣队—壮男-拳套-风-右手	MonEquip_Skirmisher_Gloves_01_Right			1				Default_MonsterWeapon	
+50004048	0	9	先遣队-标准-火枪	MonEquip_Skirmisher_Rifle_Fire_01			1				Default_MonsterWeapon	
+50004049	0	9	冰丘丘萨满法杖	MonEquip_Wand_Ice_01			1				Default_MonsterWeapon	
+50004050	0	9	公子-装甲-弓	MonEquip_Tartaglia_Harbinger_Bow			1				Default_MonsterWeapon	
+50004051	0	9	公子-装甲-剑-右	MonEquip_Tartaglia_Harbinger_Blade_R			1				Default_MonsterWeapon	
+50004052	0	9	公子-装甲-剑-左	MonEquip_Tartaglia_Harbinger_Blade_L			1				Default_MonsterWeapon	
+50004053	0	9	公子-装甲-枪-右	MonEquip_Tartaglia_Harbinger_DualBlade_R			1				Default_MonsterWeapon	
+50004054	0	9	冰盾暴徒-单手盾	MonEquip_Shield_02_Ice			1				Default_MonsterWeapon	
+50004055	0	9	丘丘人-冰盾	MonEquip_Shield_01_Ice			1				Default_MonsterWeapon	
+50004056	0	9	公子-装甲-枪-左	MonEquip_Tartaglia_Harbinger_DualBlade_L			1				Default_MonsterWeapon	
+50004057	0	9	丘丘人-冰棒	MonEquip_IceClub_01			1				Default_MonsterWeapon	
+50010007	0	8	木剑	Weapon_Sword_Wood_Normal		1	1				Default_Weapon	
+50011101	0	8	Equip_Sword_Blunt	Weapon_Sword_Metal		1	1				Lv1_Weapon	
+50011201	0	8	Equip_Sword_Silver	Weapon_Sword_Metal		1	1				Lv2_Weapon	
+50011301	0	8	Equip_Sword_Steel	Weapon_Sword_Metal		1	1				Lv3_Weapon	
+50011302	0	8	Equip_Sword_Dawn	Weapon_Sword_Metal		1	1				Lv3_Weapon	
+50011303	0	8	Equip_Sword_Traveler	Weapon_Sword_Metal		1	1				Lv3_Weapon	
+50011304	0	8	Equip_Sword_Darker	Weapon_Sword_Metal		1	1				Lv3_Weapon	
+50011305	0	8	Equip_Sword_Sashimi	Weapon_Sword_Metal		1	1				Lv3_Weapon	
+50011306	0	8	Equip_Sword_Mitsurugi	Weapon_Sword_Metal		1	1				Lv3_Weapon	
+50011401	0	8	Equip_Sword_Zephyrus	Weapon_Sword_Metal		1	1				Lv4_Weapon	
+50011402	0	8	Equip_Sword_Troupe	Weapon_Sword_Metal		1	1				Lv4_Weapon	
+50011403	0	8	Equip_Sword_Fossil	Weapon_Sword_Metal		1	1				Lv4_Weapon	
+50011404	0	8	Equip_Sword_Theocrat	Weapon_Sword_Metal		1	1				Lv4_Weapon	
+50011405	0	8	Equip_Sword_Rockkiller	Weapon_Sword_Metal		1	1				Lv4_Weapon	
+50011406	0	8	Equip_Sword_Proto	Weapon_Sword_Metal		1	1				Lv4_Weapon	
+50011407	0	8	Equip_Sword_Exotic	Weapon_Sword_Metal		1	1				Lv4_Weapon	
+50011408	0	8	Equip_Sword_Blackrock	Weapon_Sword_Metal		1	1				Lv4_Weapon	
+50011409	0	8	Equip_Sword_Bloodstained	Weapon_Sword_Metal		1	1				Lv4_Weapon	
+50011410	0	8	Equip_Sword_Outlaw	Weapon_Sword_Metal		1	1				Lv4_Weapon	
+50011411	0	8	Equip_Sword_Heartseeker	Weapon_Sword_Metal		1	1				Lv4_Weapon	
+50011412	0	8	Equip_Sword_Psalmus	Weapon_Sword_Metal		1	1				Lv4_Weapon	
+50011413	0	8	Equip_Sword_Magnum	Weapon_Sword_Metal		1	1				Lv4_Weapon	
+50011501	0	8	Equip_Sword_Falcon	Weapon_Sword_Metal		1	1				Lv5_Weapon	
+50011502	0	8	Equip_Sword_Dvalin	Weapon_Sword_Metal		1	1				Lv5_Weapon	
+50011503	0	8	Equip_Sword_Widsith	Weapon_Sword_Metal		1	1				Lv5_Weapon	
+50011504	0	8	Equip_Sword_Kunwu	Weapon_Sword_Metal		1	1				Lv5_Weapon	
+50011505	0	8	Equip_Sword_Morax	Weapon_Sword_Metal		1	1				Lv5_Weapon	
+50011506	0	8	Equip_Sword_Transcend	Weapon_Sword_Metal		1	1				Lv5_Weapon	
+50011507	0	8	Equip_Sword_Boreas	Weapon_Sword_Metal		1	1				Lv5_Weapon	
+50011508	0	8	Equip_Sword_Pillars	Weapon_Sword_Metal		1	1				Lv5_Weapon	
+50012101	0	8	Equip_Claymore_Aniki	Weapon_Claymore_Metal		1	1				Lv1_Weapon	
+50012201	0	8	Equip_Claymore_Oyaji	Weapon_Claymore_Metal		1	1				Lv2_Weapon	
+50012301	0	8	Equip_Claymore_Glaive	Weapon_Claymore_Metal		1	1				Lv3_Weapon	
+50012302	0	8	Equip_Claymore_Siegfry	Weapon_Claymore_Metal		1	1				Lv3_Weapon	
+50012303	0	8	Equip_Claymore_Tin	Weapon_Claymore_Metal		1	1				Lv3_Weapon	
+50012304	0	8	Equip_Claymore_Quartz	Weapon_Claymore_Metal		1	1				Lv3_Weapon	
+50012305	0	8	Equip_Claymore_Reasoning	Weapon_Claymore_Metal		1	1				Lv3_Weapon	
+50012306	0	8	Equip_Claymore_Mitsurugi	Weapon_Claymore_Metal		1	1				Lv3_Weapon	
+50012401	0	8	Equip_Claymore_Zephyrus	Weapon_Claymore_Metal		1	1				Lv4_Weapon	
+50012402	0	8	Equip_Claymore_Troupe	Weapon_Claymore_Metal		1	1				Lv4_Weapon	
+50012403	0	8	Equip_Claymore_Fossil	Weapon_Claymore_Metal		1	1				Lv4_Weapon	
+50012404	0	8	Equip_Claymore_Theocrat	Weapon_Claymore_Metal		1	1				Lv4_Weapon	
+50012405	0	8	Equip_Claymore_Perdue	Weapon_Claymore_Metal		1	1				Lv4_Weapon	
+50012406	0	8	Equip_Claymore_Proto	Weapon_Claymore_Metal		1	1				Lv4_Weapon	
+50012407	0	8	Equip_Claymore_Exotic	Weapon_Claymore_Metal		1	1				Lv4_Weapon	
+50012408	0	8	Equip_Claymore_Blackrock	Weapon_Claymore_Metal		1	1				Lv4_Weapon	
+50012409	0	8	Equip_Claymore_Kione	Weapon_Claymore_Metal		1	1				Lv4_Weapon	
+50012410	0	8	Equip_Claymore_Lapis	Weapon_Claymore_Metal		1	1				Lv4_Weapon	
+50012411	0	8	Equip_Claymore_Dragonfell	Weapon_Claymore_Metal		1	1				Lv4_Weapon	
+50012501	0	8	Equip_Claymore_Dvalin	Weapon_Claymore_Metal		1	1				Lv5_Weapon	
+50012502	0	8	Equip_Claymore_Wolfmound	Weapon_Claymore_Metal		1	1				Lv5_Weapon	
+50012503	0	8	Equip_Claymore_Widsith	Weapon_Claymore_Metal		1	1				Lv5_Weapon	
+50012504	0	8	Equip_Claymore_Kunwu	Weapon_Claymore_Metal		1	1				Lv5_Weapon	
+50012505	0	8	Equip_Claymore_Morax	Weapon_Claymore_Metal		1	1				Lv5_Weapon	
+50012506	0	8	Equip_Claymore_Appease	Weapon_Claymore_Metal		1	1				Lv5_Weapon	
+50012508	0	8	Equip_Claymore_Moonlight	Weapon_Claymore_Metal		1	1				Lv5_Weapon	
+50013101	0	8	Equip_Pole_Gewalt	Weapon_Pole_Metal		1	1				Lv1_Weapon	
+50013201	0	8	Equip_Pole_Rod	Weapon_Pole_Metal		1	1				Lv2_Weapon	
+50013301	0	8	Equip_Pole_Ruby	Weapon_Pole_Metal		1	1				Lv3_Weapon	
+50013302	0	8	Equip_Pole_Halberd	Weapon_Pole_Metal		1	1				Lv3_Weapon	
+50013303	0	8	Equip_Pole_Noire	Weapon_Pole_Metal		1	1				Lv3_Weapon	
+50013304	0	8	Equip_Pole_Flagpole	Weapon_Pole_Metal		1	1				Lv3_Weapon	
+50013401	0	8	Equip_Pole_Stardust	Weapon_Pole_Metal		1	1				Lv4_Weapon	
+50013402	0	8	Equip_Pole_Proto	Weapon_Pole_Metal		1	1				Lv4_Weapon	
+50013403	0	8	Equip_Pole_Exotic	Weapon_Pole_Metal		1	1				Lv4_Weapon	
+50013404	0	8	Equip_Pole_Blackrock	Weapon_Pole_Metal		1	1				Lv4_Weapon	
+50013405	0	8	Equip_Pole_Gladiator	Weapon_Pole_Metal		1	1				Lv4_Weapon	
+50013406	0	8	Equip_Pole_Lapis	Weapon_Pole_Metal		1	1				Lv4_Weapon	
+50013407	0	8	Equip_Pole_Zephyrus	Weapon_Pole_Metal		1	1				Lv4_Weapon	
+50013408	0	8	Equip_Pole_Theocrat	Weapon_Pole_Metal		1	1				Lv4_Weapon	
+50013409	0	8	Equip_Pole_Everfrost	Weapon_Pole_Metal		1	1				Lv4_Weapon	
+50013501	0	8	Equip_Pole_Homa	Weapon_Pole_Metal		1	1				Lv5_Weapon	
+50013502	0	8	Equip_Pole_Dvalin	Weapon_Pole_Metal		1	1				Lv5_Weapon	
+50013503	0	8	Equip_Pole_Widsith	Weapon_Pole_Metal		1	1				Lv5_Weapon	
+50013504	0	8	Equip_Pole_Kunwu	Weapon_Pole_Metal		1	1				Lv5_Weapon	
+50013505	0	8	Equip_Pole_Morax	Weapon_Pole_Metal		1	1				Lv5_Weapon	
+50013506	0	8	Equip_Pole_Regicide	Weapon_Pole_Metal		1	1				Lv5_Weapon	
+50013507	0	8	Equip_Pole_Santika	Weapon_Pole_Metal		1	1				Lv5_Weapon	
+50014101	0	8	Equip_Catalyst_Apprentice	Catalyst_Book		1	1				Lv1_Catalyst	
+50014201	0	8	Equip_Catalyst_Pocket	Catalyst_Book		1	1				Lv2_Catalyst	
+50014301	0	8	Equip_Catalyst_Intro	Catalyst_Book		1	1				Lv3_Catalyst	
+50014302	0	8	Equip_Catalyst_Pulpfic	Catalyst_Book		1	1				Lv3_Catalyst	
+50014303	0	8	Equip_Catalyst_Lightnov	Catalyst_Book		1	1				Lv3_Catalyst	
+50014304	0	8	Equip_Catalyst_Jade	Catalyst_Ball		1	1				Lv3_Weapon	
+50014305	0	8	Equip_Catalyst_Phoney	Catalyst_Ball		1	1				Lv3_Weapon	
+50014306	0	8	Equip_Catalyst_Amber	Catalyst_Ball		1	1				Lv3_Weapon	
+50014401	0	8	Equip_Catalyst_Zephyrus	Catalyst_Book		1	1				Lv4_Catalyst	
+50014402	0	8	Equip_Catalyst_Troupe	Catalyst_Book		1	1				Lv4_Catalyst	
+50014403	0	8	Equip_Catalyst_Fossil	Catalyst_Book		1	1				Lv4_Catalyst	
+50014404	0	8	Equip_Catalyst_Theocrat	Catalyst_Book		1	1				Lv4_Catalyst	
+50014405	0	8	Equip_Catalyst_Resurrection	Catalyst_Ball		1	1				Lv4_Weapon	
+50014406	0	8	Equip_Catalyst_Proto	Catalyst_Ball		1	1				Lv4_Weapon	
+50014407	0	8	Equip_Catalyst_Exotic	Catalyst_Book		1	1				Lv4_Weapon	
+50014408	0	8	Equip_Catalyst_Blackrock	Catalyst_Ball		1	1				Lv4_Weapon	
+50014409	0	8	Equip_Catalyst_Truelens	Catalyst_Ball		1	1				Lv4_Weapon	
+50014410	0	8	Equip_Catalyst_Outlaw	Catalyst_Book		1	1				Lv4_Weapon	
+50014411	0	8	Equip_Catalyst_Lanternrite	Catalyst_Ball		1	1				Lv4_Weapon	
+50014412	0	8	Equip_Catalyst_Everfrost	Catalyst_Ball		1	1				Lv4_Weapon	
+50014501	0	8	Equip_Catalyst_Dvalin	Catalyst_Book		1	1				Lv5_Catalyst	
+50014502	0	8	Equip_Catalyst_Fourwinds	Catalyst_Book		1	1				Lv5_Catalyst	
+50014503	0	8	Equip_Catalyst_Widsith	Catalyst_Book		1	1				Lv5_Catalyst	
+50014504	0	8	Equip_Catalyst_Kunwu	Catalyst_Ball		1	1				Lv5_Weapon	
+50014505	0	8	Equip_Catalyst_Morax	Catalyst_Ball		1	1				Lv5_Weapon	
+50014506	0	8	Equip_Catalyst_Kaleido	Catalyst_Ball		1	1				Lv5_Weapon	
+50014508	0	8	Equip_Catalyst_Hypostasis	Catalyst_Book		1	1				Lv5_Weapon	
+50015101	0	8	Equip_Bow_Hunters	Weapon_Bow_Metal		1	1				Lv1_Weapon	
+50015201	0	8	Equip_Bow_Old	Weapon_Bow_Metal		1	1				Lv2_Weapon	
+50015301	0	8	Equip_Bow_Crowfeather	Weapon_Bow_Metal		1	1				Lv3_Weapon	
+50015302	0	8	Equip_Bow_Arjuna	Weapon_Bow_Metal		1	1				Lv3_Weapon	
+50015303	0	8	Equip_Bow_Curve	Weapon_Bow_Metal		1	1				Lv3_Weapon	
+50015304	0	8	Equip_Bow_Sling	Weapon_Bow_Metal		1	1				Lv3_Weapon	
+50015305	0	8	Equip_Bow_Msg	Weapon_Bow_Metal		1	1				Lv3_Weapon	
+50015306	0	8	Equip_Bow_Hardwood	Weapon_Bow_Metal		1	1				Lv3_Weapon	
+50015401	0	8	Equip_Bow_Zephyrus	Weapon_Bow_Metal		1	1				Lv4_Weapon	
+50015402	0	8	Equip_Bow_Troupe	Weapon_Bow_Metal		1	1				Lv4_Weapon	
+50015403	0	8	Equip_Bow_Fossil	Weapon_Bow_Metal		1	1				Lv4_Weapon	
+50015404	0	8	Equip_Bow_Theocrat	Weapon_Bow_Metal		1	1				Lv4_Weapon	
+50015405	0	8	Equip_Bow_Recluse	Weapon_Bow_Metal		1	1				Lv4_Weapon	
+50015406	0	8	Equip_Bow_Proto	Weapon_Bow_Metal		1	1				Lv4_Weapon	
+50015407	0	8	Equip_Bow_Exotic	Weapon_Bow_Metal		1	1				Lv4_Weapon	
+50015408	0	8	Equip_Bow_Blackrock	Weapon_Bow_Metal		1	1				Lv4_Weapon	
+50015409	0	8	Equip_Bow_Viridescent	Weapon_Bow_Metal		1	1				Lv4_Weapon	
+50015410	0	8	Equip_Bow_Outlaw	Weapon_Bow_Metal		1	1				Lv4_Weapon	
+50015411	0	8	Equip_Bow_Fallensun	Weapon_Bow_Metal		1	1				Lv4_Weapon	
+50015412	0	8	Equip_Bow_Nachtblind	Weapon_Bow_Metal		1	1				Lv4_Weapon	
+50015413	0	8	Equip_Bow_Fleurfair	Weapon_Bow_Metal		1	1				Lv4_Weapon	
+50015501	0	8	Equip_Bow_Dvalin	Weapon_Bow_Metal		1	1				Lv5_Weapon	
+50015502	0	8	Equip_Bow_Amos	Weapon_Bow_Metal		1	1				Lv5_Weapon	
+50015503	0	8	Equip_Bow_Widsith	Weapon_Bow_Metal		1	1				Lv5_Weapon	
+50015504	0	8	Equip_Bow_Kunwu	Weapon_Bow_Metal		1	1				Lv5_Weapon	
+50015505	0	8	Equip_Bow_Morax	Weapon_Bow_Metal		1	1				Lv5_Weapon	
+50015506	0	8	Equip_Bow_Moonfall	Weapon_Bow_Metal		1	1				Lv5_Weapon	
+50015508	0	8	Equip_Bow_Kirin	Weapon_Bow_Metal		1	1				Lv5_Weapon	
+50100001	0	8	绯烟-副武器-杆秤	SubEquip_Feiyan_Steelyard		1	1				Default_Weapon	

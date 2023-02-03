@@ -1,0 +1,711 @@
+[
+////////////////////////////////////////////////////////////////
+//
+//  Attack_Enhance
+//
+////////////////////////////////////////////////////////////////
+	{
+		"Default":
+		{
+			"$type": "ConfigAbility",
+			"abilityName": "MonsterEliteAffix_Attack_Enhance",
+			"isDynamicAbility": true,
+			"onAdded":
+			[
+				{
+					"$type" : "ApplyModifier",
+					"modifierName"  : "UNIQUE_MonsterEliteAffix_Attack_Enhance",
+				},
+			],
+			"modifiers":
+			{
+				"UNIQUE_MonsterEliteAffix_Attack_Enhance":
+				{
+					"isUnique": true,
+					"onAdded":
+					[
+						{
+							"$type": "UseSkillEliteSet",
+							"skillEliteSetID": 2,
+						},
+						{
+							"$type" : "AddGlobalValue",
+							"value"  : 1,
+							"key"  : "_ELITEAFFIX_TAG",
+							"useLimitRange"  : true,
+							"maxValue"  : 1,
+							"minValue"  : 0,
+						},
+						{
+							"$type" : "AddGlobalValue",
+							"value"  : 1,
+							"key"  : "_ELITEAFFIX_ATTACK_ENHANCE",
+							"useLimitRange"  : true,
+							"maxValue"  : 1,
+							"minValue"  : 0,
+						},
+					],
+				},
+			},
+		},
+	},
+////////////////////////////////////////////////////////////////
+//
+//  Defend_Enhance
+//
+////////////////////////////////////////////////////////////////
+	{
+		"Default":
+		{
+			"$type": "ConfigAbility",
+			"abilityName": "MonsterEliteAffix_Defence_Enhance",
+			"isDynamicAbility": true,
+			"onAdded":
+			[
+				{
+					"$type" : "ApplyModifier",
+					"modifierName"  : "UNIQUE_MonsterEliteAffix_Defence_Enhance",
+				},
+			],
+			"modifiers":
+			{
+				"UNIQUE_MonsterEliteAffix_Defence_Enhance":
+				{
+					"isUnique": true,
+					"onAdded":
+					[
+						{
+							"$type": "UseSkillEliteSet",
+							"skillEliteSetID": 3,
+						},
+						{
+							"$type" : "AddGlobalValue",
+							"value"  : 1,
+							"key"  : "_ELITEAFFIX_TAG",
+							"useLimitRange"  : true,
+							"maxValue"  : 1,
+							"minValue"  : 0,
+						},
+						{
+							"$type" : "AddGlobalValue",
+							"value"  : 1,
+							"key"  : "_ELITEAFFIX_DEFENCE_ENHANCE",
+							"useLimitRange"  : true,
+							"maxValue"  : 1,
+							"minValue"  : 0,
+						},
+					],
+				},
+			},
+		},
+	},
+////////////////////////////////////////////////////////////////
+//
+//  Agility_Enhance
+//
+////////////////////////////////////////////////////////////////
+	{
+		"Default":
+		{
+			"$type": "ConfigAbility",
+			"abilityName": "MonsterEliteAffix_Agility_Enhance",
+			"isDynamicAbility": true,
+			"onAdded":
+			[
+				{
+					"$type" : "ApplyModifier",
+					"modifierName"  : "UNIQUE_MonsterEliteAffix_Agility_Enhance",
+				},
+			],
+			"modifiers":
+			{
+				"UNIQUE_MonsterEliteAffix_Agility_Enhance":
+				{
+					"isUnique": true,
+					"onAdded":
+					[						
+						{
+							"$type": "UseSkillEliteSet",
+							"skillEliteSetID": 4,
+						},
+						{
+							"$type" : "AddGlobalValue",
+							"value"  : 1,
+							"key"  : "_ELITEAFFIX_TAG",
+							"useLimitRange"  : true,
+							"maxValue"  : 1,
+							"minValue"  : 0,
+						},
+						{
+							"$type" : "AddGlobalValue",
+							"value"  : 1,
+							"key"  : "_ELITEAFFIX_AGILITY_ENHANCE",
+							"useLimitRange"  : true,
+							"maxValue"  : 1,
+							"minValue"  : 0,
+						},
+					],
+				},
+			},
+		},
+	},
+////////////////////////////////////////////////////////////////
+//
+//  Support_Enhance
+//
+////////////////////////////////////////////////////////////////
+	{
+		"Default":
+		{
+			"$type": "ConfigAbility",
+			"abilityName": "MonsterEliteAffix_Support_Enhance",
+			"isDynamicAbility": true,
+			"onAdded":
+			[
+				{
+					"$type" : "ApplyModifier",
+					"modifierName"  : "UNIQUE_MonsterEliteAffix_Support_Enhance",
+				},
+			],
+			"modifiers":
+			{
+				"UNIQUE_MonsterEliteAffix_Support_Enhance":
+				{
+					"isUnique": true,
+					"onAdded":
+					[
+						{
+							"$type": "UseSkillEliteSet",
+							"skillEliteSetID": 5,
+						},
+						{
+							"$type" : "AddGlobalValue",
+							"value"  : 1,
+							"key"  : "_ELITEAFFIX_TAG",
+							"useLimitRange"  : true,
+							"maxValue"  : 1,
+							"minValue"  : 0,
+						},
+						{
+							"$type" : "AddGlobalValue",
+							"value"  : 5,
+							"key"  : "_ELITEAFFIX_SUPPORT_ENHANCE",
+							"useLimitRange"  : true,
+							"maxValue"  : 1,
+							"minValue"  : 0,
+						},
+					],
+				},
+			},
+		},
+	},
+////////////////////////////////////////////////////////////////
+//
+//  AgilityEnhance_Abyss_Plugin
+//
+////////////////////////////////////////////////////////////////
+	{
+		"Default":
+		{
+			"$type": "ConfigAbility",
+			"abilityName": "MonsterEliteAffix_AgilityEnhance_Abyss_Plugin",
+			"isDynamicAbility": true,
+			"abilityMixins":
+			[
+				{
+					"$type": "AttachToStateIDMixin",
+					"stateIDs": ["Blink"],
+					"modifierName": "Abyss_BlinkResetOthers",
+				},
+				{
+					"$type": "AttachToStateIDMixin",
+					"stateIDs": ["NormalAtk", "SpecialAtk"],
+					"modifierName": "Abyss_OthersResetBlink",
+				},
+			],
+			"modifiers":
+			{
+				"Abyss_BlinkResetOthers":
+				{
+					"onAdded":
+					[
+						{
+							"$type" : "AddGlobalValue",
+							"value"  : -9,
+							"key"  : "_ABYSS_RESETRANDOM",
+							"useLimitRange"  : true,
+							"maxValue"  : 3,
+							"minValue"  : 0,
+						},
+						{
+							"$type" : "AddGlobalValue",
+							"key"  : "_ABYSS_RESETRANDOM",
+							"useLimitRange"  : true,
+							"randomInRange"  : true,
+							"maxValue"  : 3,
+							"minValue"  : 0,
+						},
+						{
+							"$type" : "SetPoseBool",
+							"boolID"  : "CDReset",
+							"value"  : false,
+						},
+					],
+					"onRemoved":
+					[
+						{
+							"$type" : "ApplyModifier",
+							"modifierName"  : "Abyss_BlinkResetOthers_Latency",
+						},
+					],
+				},
+				"Abyss_BlinkResetOthers_Latency":
+				{
+					"duration": 0.1,
+					"onRemoved":
+					[
+						{
+							"$type" : "SetPoseBool",
+							"boolID"  : "CDReset",
+							"value"  : true,
+						},
+						{
+							"$type" : "ReTriggerAISkillInitialCD",
+							"skillIDs"  : [502, 303, 304],
+							"predicates":
+							[
+								{
+									"$type" : "ByTargetGlobalValue",
+									"key"  : "_ABYSS_RESETRANDOM",
+									"value"  : 2,
+									"compareType"  : "LessAndEqual",
+								},
+								{
+									"$type" : "ByTargetGlobalValue",
+									"key"  : "_ABYSS_RESETRANDOM",
+									"value"  : 0,
+									"compareType"  : "MoreThanAndEqual",
+								},
+							],
+						},
+						{
+							"$type" : "ReTriggerAISkillInitialCD",
+							"skillIDs"  : [403, 303, 304],
+							"predicates":
+							[
+								{
+									"$type" : "ByTargetGlobalValue",
+									"key"  : "_ABYSS_RESETRANDOM",
+									"value"  : 3,
+									"compareType"  : "LessAndEqual",
+								},
+								{
+									"$type" : "ByTargetGlobalValue",
+									"key"  : "_ABYSS_RESETRANDOM",
+									"value"  : 2,
+									"compareType"  : "MoreThan",
+								},
+							],
+						},
+					],
+				},
+				"Abyss_OthersResetBlink":
+				{
+					"onAdded":
+					[
+						{
+							"$type" : "SetPoseBool",
+							"boolID"  : "CDReset",
+							"value"  : false,
+						},
+					],
+					"onRemoved":
+					[
+						{
+							"$type" : "ApplyModifier",
+							"modifierName"  : "Abyss_OthersResetBlink_Latency",
+						},
+					],
+				},
+				"Abyss_OthersResetBlink_Latency":
+				{
+					"duration": 0.1,
+					"onRemoved":
+					[
+						{
+							"$type" : "SetPoseBool",
+							"boolID"  : "CDReset",
+							"value"  : true,
+						},
+						{
+							"$type" : "ReTriggerAISkillInitialCD",
+							"skillIDs"  : [403, 502],
+						},
+					],
+				},
+			},
+		},
+	},
+////////////////////////////////////////////////////////////////
+//
+//  Effigy_Act（无相挑战活动）
+//
+////////////////////////////////////////////////////////////////
+	{
+		"Default":
+		{
+			"$type": "ConfigAbility",
+			"abilityName": "MonsterAffix_Effigy_Elite",
+			"isDynamicAbility": true,
+			"onAdded":
+			[
+				{
+					"$type" : "ApplyModifier",
+					"modifierName"  : "UNIQUE_MonsterAffix_Effigy_Elite",
+					"target": "Self",
+				},
+			],
+			"modifiers":
+			{
+				"UNIQUE_MonsterAffix_Effigy_Elite":
+				{
+					"isUnique": true,
+					"onAdded":
+					[
+						{
+							"$type" : "AddGlobalValue",
+							"value"  : 1,
+							"key"  : "_EFFIGY_ELITE_TAG",
+							"useLimitRange"  : true,
+							"maxValue"  : 1,
+							"minValue"  : 0,
+						},
+					],
+				},
+			},
+		},
+	},
+////////////////////////////////////////////////////////////////
+//
+//  Regisvine_Ice_Activity (急冻树雪山活动)
+//
+////////////////////////////////////////////////////////////////
+	{
+		"Default" : 
+		{
+			"$type" : "ConfigAbility",
+			"abilityName" : "MonsterAffix_Regisvine_Ice_Activity",
+			"isDynamicAbility": true,
+			"abilityMixins":
+			[
+				{
+					"$type": "ServerUpdateGlobalValueMixin",
+					"key": "_SERVER_REGISVINE_ICE_ACTIVITY_PHASE",
+					"useLimitRange": true,
+					"maxValue": 8.0,
+					"minValue": 0.0,
+				},
+				{
+					"$type": "ServerUpdateGlobalValueMixin",
+					"key": "_SERVER_REGISVINE_ICE_ACTIVITY_FLAG_PHASE01",
+					"useLimitRange": true,
+					"maxValue": 1.0,
+					"minValue": 0.0,
+				},	
+				{
+					"$type": "ServerUpdateGlobalValueMixin",
+					"key": "_SERVER_REGISVINE_ICE_ACTIVITY_FLAG_PHASE02",
+					"useLimitRange": true,
+					"maxValue": 1.0,
+					"minValue": 0.0,
+				},			
+			],
+			"onAdded":
+			[
+				{
+					"$type": "AttachModifier",
+					"modifierName": "UNIQUE_MonsterAffix_Regisvine_Ice_Activity",
+					"target": "Self",
+				},
+			],
+			"modifiers" : 
+			{
+				"UNIQUE_MonsterAffix_Regisvine_Ice_Activity":
+				{
+					"isUnique": true,
+					"onAdded":
+					[
+						{
+							"$type" : "AddGlobalValue",
+							"value"  : 1,
+							"key"  : "_MONSTERAFFIX_Regisvine_Ice_ActivityBoss",
+							"useLimitRange"  : true,
+							"maxValue"  : 1,
+							"minValue"  : 0,
+						},
+						{
+							"$type": "AddGlobalValue",
+							"key" : "_MONSTER_REGISVINE_FRUIT_BEGIN_DISABLEDONALERT",
+							"value" : 10,
+							"useLimitRange" : true,
+							"maxValue" : 1,
+							"minValue" : 0,
+						},
+					],
+				},
+			},
+		},
+	},
+////////////////////////////////////////////////////////////////
+//
+//  Mimik_Ice_Activity (骗骗花雪山活动)
+//
+////////////////////////////////////////////////////////////////
+	{
+		"Default" : 
+		{
+			"$type" : "ConfigAbility",
+			"abilityName" : "MonsterAffix_Mimik_Ice_Activity",
+			"isDynamicAbility": true,
+			"onAdded":
+			[
+				{
+					"$type": "AttachModifier",
+					"modifierName": "UNIQUE_MonsterAffix_Mimik_Ice_Activity",
+					"target": "Self",
+				},
+			],
+			"modifiers" : 
+			{
+				"UNIQUE_MonsterAffix_Mimik_Ice_Activity":
+				{
+					"isUnique": true,
+					"onAdded":
+					[
+						{
+							"$type" : "AddGlobalValue",
+							"value"  : 1,
+							"key"  : "_MONSTERAFFIX_Mimik_Ice_ActivitySummoned",
+							"useLimitRange"  : true,
+							"maxValue"  : 1,
+							"minValue"  : 0,
+						},
+						{
+							"$type": "UseSkillEliteSet",
+							"skillEliteSetID": 101,
+						},
+					],
+				},
+			},
+		},
+	},
+////////////////////////////////////////////////////////////////
+//
+//  Monster_Oceanid_Animal_ActivityMask (泉水精灵boss召唤物活动标记)
+//
+////////////////////////////////////////////////////////////////
+{
+	"Default":
+	{
+		"$type": "ConfigAbility",
+		"abilityName": "MonsterAffix_Oceanid_Animal_ActivityMask",
+		"isDynamicAbility": true,
+		"onAdded":
+		[
+			{
+				"$type" : "AddGlobalValue",
+				"value"  : 1,
+				"key"  : "_MONSTERAFFIX_OCEANID_ANIMAL_SPMASK",
+				"useLimitRange"  : true,
+				"randomInRange"  : false,
+				"maxValue"  : 1,
+				"minValue"  : 0,
+			},
+			{
+				"$type":"ApplyModifier",
+				"modifierName":"MonsterAffix_Oceanid_Animal_CanBeStruggle"
+			},
+			{
+				"$type":"HideUIBillBoard",
+				"hide":true
+			}
+		],
+		"modifiers":
+		{
+			"MonsterAffix_Oceanid_Animal_CanBeStruggle":
+			{
+				"onAdded":
+				[
+					{
+						"$type":"SetAnimatorBool",
+						"boolID":"CanBeStruggle",
+						"value":false
+					}
+				]
+			}
+		}
+	}
+},
+////////////////////////////////////////////////////////////////
+//
+//  MonsterAffix_Oceanid_Animal_PropertyFIX (纯水动物属性修正)
+//
+////////////////////////////////////////////////////////////////
+{
+	"Default":
+	{
+		"$type": "ConfigAbility",
+		"abilityName": "MonsterAffix_Oceanid_Animal_PropertyFix",
+		"isDynamicAbility": true,
+		"onAdded":
+		[
+			{
+				"$type":"ApplyModifier",
+				"modifierName":"MonsterAffix_Oceanid_Animal_PropertyFix"
+			}
+		],
+		"modifiers":
+		{
+			"MonsterAffix_Oceanid_Animal_PropertyFix":
+			{
+				"properties":
+				{
+					"Actor_MaxHPRatio":1,
+					"Actor_AttackRatio":-0.8
+				}
+			},
+		}
+	}
+},
+////////////////////////////////////////////////////////////////
+//
+//  MonsterAffix_AIHitFeeling_LevelTrigger (关卡激活遗迹系怪物)
+//
+////////////////////////////////////////////////////////////////
+{
+	"Default": 
+	{
+		"$type": "ConfigAbility",
+		"abilityName": "MonsterAffix_AIHitFeeling_LevelTrigger",
+		"isDynamicAbility": true,
+		"onAdded":
+		[
+			{
+				"$type" : "AddGlobalValue",
+				"value"  : 0,
+				"key"  : "_MONSTERAFFIX_AIHITFEELING_LEVELTRIGGER",
+				"useLimitRange"  : true,
+				"randomInRange"  : false,
+				"maxValue"  : 2,
+				"minValue"  : 0,
+			},
+		],
+		"abilityMixins":
+		[
+			{
+				"$type": "AttachModifierToSelfGlobalValueMixin",
+				"globalValueKey": "_MONSTERAFFIX_AIHITFEELING_LEVELTRIGGER",
+				// "defaultGlobalValueOnCreate": 0,
+				"valueSteps" : [-0.5, 0.5, 2],
+				"removeAppliedModifier":true,
+				"modifierNameSteps" : ["UNIQUE_MonsterAffix_AIHitFeeling_Disable","UNIQUE_MonsterAffix_AIHitFeeling_LevelTrigger"],
+			},
+			{
+				"$type": "ServerUpdateGlobalValueMixin",
+				"key": "_MONSTERAFFIX_AIHITFEELING_LEVELTRIGGER",
+				"useLimitRange": true,
+				"maxValue": 2.0,
+				"minValue": 0.0,
+			},
+		],
+
+		"modifiers":
+		{
+			"UNIQUE_MonsterAffix_AIHitFeeling_Disable":
+			{
+				"isUnique": true,
+				"onAdded":
+				[
+					{
+						"$type": "SetAIHitFeeling",
+						"enable": false,
+					},
+					{
+						"$type": "ResetAIThreatBroadcastRange",
+						"range": 0,
+						"canBeHandledOnRecover": true,
+					},
+					{
+						"$type": "AttachModifier",
+						"modifierName": "State_DenyLockOn",
+						"target": "Self",
+					},
+				],
+			},
+			"UNIQUE_MonsterAffix_AIHitFeeling_LevelTrigger":
+			{
+				"isUnique": true,
+				"onAdded":
+				[
+					{
+						"$type": "SetAIHitFeeling",
+						"enable": true,
+					},
+					{
+						"$type": "ResetAIThreatBroadcastRange",
+						"range": 120,
+						"canBeHandledOnRecover": true,
+					},
+					{
+						"$type" : "SetAnimatorTrigger",
+						"triggerID"  : "LevelEnterBattle",
+					},
+				],
+			},
+			"State_DenyLockOn" :
+			{
+				"state": "DenyLockOn",
+			},
+		},
+	},
+},	
+////////////////////////////////////////////////////////////////
+//
+//  AlternativeSkillSet_101
+//
+////////////////////////////////////////////////////////////////
+	{
+		"Default":
+		{
+			"$type": "ConfigAbility",
+			"abilityName": "MonsterAffix_AlternativeSkillSet_101",
+			"isDynamicAbility": true,
+			"onAdded":
+			[
+				{
+					"$type" : "ApplyModifier",
+					"modifierName"  : "UNIQUE_MonsterAffix_AlternativeSkillSet_101",
+				},
+			],
+			"modifiers":
+			{
+				"UNIQUE_MonsterAffix_AlternativeSkillSet_101":
+				{
+					"isUnique": true,
+					"onAdded":
+					[
+						{
+							"$type": "UseSkillEliteSet",
+							"skillEliteSetID": 101,
+						},
+						{
+							"$type": "SetGlobalValue",
+							"key": "_AFFIX_ALTSKILLSET101_TAG",
+							"value": 1,
+						},
+					],
+				},
+			},
+		},
+	},
+]
