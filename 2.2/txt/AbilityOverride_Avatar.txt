@@ -1,0 +1,25 @@
+ID	AbilityName	[参数信息]1参数名	[参数信息]1参数	[参数信息]2参数名	[参数信息]2参数	[参数信息]3参数名	[参数信息]3参数	[参数信息]4参数名	[参数信息]4参数	[参数信息]5参数名	[参数信息]5参数
+10001	Activity_Rogue_ElementAddHurt_SSR	Rogue_ElementAddHurt_SSR	0.3								
+10002	Activity_Rogue_ElementAddHurt_SR	Rogue_ElementAddHurt_SR_Level01	0.1	Rogue_ElementAddHurt_SR_Level02	0.2	Rogue_ElementAddHurt_SR_Level03	0.3				
+10003	Activity_Rogue_ElementReactionAttack_Explode	Explode_CJB_CD	10	CJB_Damage	5						
+10004	Activity_Rogue_ElementReactionAttack_Superconductor	Explode_CJB_CD	10	CJB_Damage	5						
+10005	Activity_Rogue_ElementReactionAttack_Melt	Explode_CJB_CD	10	CJB_Damage	5						
+10006	Activity_Rogue_ElementReactionAttack_Stream	Explode_CJB_CD	10	CJB_Damage	5						
+10007	Activity_Rogue_ElementReactionAttack_Shock	Explode_CJB_CD	10	CJB_Damage	5						
+10008	Activity_Rogue_AreaNoEnemyAtkSpeedUp	AtkSpeed	0.2	EnemyCount	3						
+10009	Activity_Rogue_NormalAttackDamageUp_R	PER_NormalAttackDamageUp	0.08	NormalAttackDamageUp_MAXLV	2						
+10010	Activity_Rogue_ExtraAttackDamageUp_R	PER_ExtraAttackDamageUp	0.08	ExtraAttackDamageUp_MAXLV	2						
+10011	Activity_Rogue_FallingAttackDamageUp_R	PER_FallingAttackDamageUp	0.12	FallingAttackDamageUp_MAXLV	2						
+10012	Activity_Rogue_Elemental_ArtDamageUp_R	PER_Elemental_ArtDamageUp	0.08	Elemental_ArtDamageUp_MAXLV	2						
+10013	Activity_Rogue_DefenceRatio_R	PER_DefenceRatio	0.15	DefenceRatio_MAXLV	2						
+10015	Activity_Rogue_HighHp_DamageUp_SR	HighHp_Threshold	0.7	HighHp_NormalExtraFallingDamageUp_Rate	0.1	HighHp_ElementalArtDamageUp_Rate	0.1	HighHp_ElementalBurstDamageUp_Rate	0.1		
+10016	Activity_Rogue_LowHp_DamageUp_SR	LowHp_Threshold	0.5	LowHp_NormalExtraFallingDamageUp_Rate	0.1	LowHp_ElementalArtDamageUp_Rate	0.1	LowHp_ElementalBurstDamageUp_Rate	0.1		
+10017	Activity_Rogue_DamageUp_SubHurtDown_SR	SubHurtDown_Rate	-0.1	DamageUp_Rate	0.15						
+10018	Activity_Rogue_OtherNumerical_R	NormalAttack_MAXLV	0	PER_NormalAttack	0	NormalAttack_LV	0				
+10019	LevelEntityTowerBuff_HighEnergyAtkUp_Multiple	ThinkTime	1	MoreEnergyRatio	0.5	LessEnergyRatio	0.3	Actor_AttackRatio	0.065	MaxLayer	10
+10021	LevelEntityTowerBuff_HighEnergyTriggerAoe	CJB_MoreEnergyRatio	0.5	Damage01	5	Damage02	8.33				
+10022	LevelEntity_ElementAddHurt_Water_V22	ElementAddHurt_Water	0.6								
+10023	Activity_Rogue_ElemnentalArt_GenerateBall	Rougue_GenerateBall_CD	4								
+10024	Activity_Rogue_ElementAddHurt_R	PER_ElementAddHurt	0.02	ElementAddHurt_MAXLV_R	10						
+10025	Activity_Rogue_HighStaminaAreaAttack_SR	StaminaRatio	0.7	CJB_Damage	8.4	Rougue_HighStamina_CD	5				
+10026	Activity_Rogue_DownPhysicalSubHurt_SR	Bufftime	12	PhysicalSubHurt	-0.2						

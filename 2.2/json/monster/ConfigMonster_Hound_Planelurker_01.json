@@ -1,0 +1,280 @@
+{
+	"$type" : "ConfigMonster",
+	"common":
+	{
+		"mass" : 1000000000.0,
+		"height": 3,
+		"affectedByWorld" : true,
+		"checkInSurface" : true,
+		"scale": 1,
+		"viewSize": 1,
+		"effectAttachShape" :
+		{
+			"$type" : "ConfigEffectAttachSkinnedMesh",
+			"mesh" : "Body",
+			"normalOffset" : 0,
+			"scaleX": 1,
+			"scaleY": 1,
+			"scaleZ": 1,
+		},
+	},
+	"dither":
+	{
+		"showDitherDuration": 2.0,
+		"normalBetweenCamera":
+		{
+			"detectDitherRange": 0.0,
+		},
+	},
+	"model":
+	{
+		"canBakeMesh": false,
+	},
+	"billboard":
+	{
+		"$type" : "ConfigCombatBillboard",
+		"offset":
+		{
+			"x": 0,
+			"y": 2.5,
+			"z": 0,
+		},
+		"radiusOffset": 1.0,
+		"enableSelfAdapt": true,
+		"showHPBar": true,
+		"size": "Big",
+	},
+	"move":
+	{
+		"$type": "ConfigAnimatorMove",
+		"velocityForce":
+		{
+			"muteAll": true,
+		},		
+		"positionModifyState":"None",
+		"destroyRockWhenInit": true,
+	},
+	"combat" :
+	{
+		"property":
+		{
+			"endureType": "Monster_Boss_Other",
+			"weight" : 1000,
+		},
+		"combatLock":
+ 		{
+ 			"denyLockOn": false,
+ 			"lockType": "Avatar&Monster_Lv4",
+ 		},
+		"beHit" :
+		{
+			"hitBloodEffect": "",
+			"hitAutoRedirect": false,
+			"muteAllHit": false,
+			"muteAllHitEffect": false,
+			"muteAllHitText": false,
+		},
+		"die":
+		{
+			"hasAnimatorDie": true,
+			"dieDisappearEffect":"Eff_Death_Common",
+			"dieDisappearEffectDelay": 0.0,
+			"dieEndTime" : 2.0,
+			"dieForceDisappearTime" : 4,
+			"dieModelFadeDelay": 0.5,
+			"dieShaderData": "MonsterDie",
+		},
+	},
+	"inputKeys":
+	[
+		{
+			"keyID": 501,
+			"inputKeyCode": 257,
+		},
+		{
+			"keyID": 603,
+			"inputKeyCode": 258,
+		},
+		{
+			"keyID": 703,
+			"inputKeyCode": 259,
+		},
+		{
+			"keyID": 1002,
+			"inputKeyCode": 260,
+		},
+		{
+			"keyID": 204,
+			"inputKeyCode": 261,
+		},
+		{
+			"keyID": 304,
+			"inputKeyCode": 262,
+		},
+		{
+			"keyID": 1101,
+			"inputKeyCode": 263,
+		},
+		{
+			"keyID": 1201,
+			"inputKeyCode": 264,
+		},
+		{
+			"keyID": 803,
+			"inputKeyCode": 265,
+		},
+	],
+	"stateLayers":
+	{
+		"defaultLayer":
+		{
+			"$type" : "ConfigNormalStateLayer",
+			"stateIDs" :
+			{
+				"Born" :
+				{
+					"$type": "ConfigMonsterStateIDInfo",
+					"animatorStates":
+					{
+						"Born": ["Audio_Effigy_Rock_Born"],
+					},
+					"combatMove": true,
+					"canDoSkill" : true,
+					"canSyncMove" : true,
+					"resetAnimatorTriggerOnExit": ["DoSkill"],
+				},
+				"NormalMove" :
+				{
+					"$type": "ConfigMonsterStateIDInfo",
+					"animatorStates":
+					{
+						"MoveForward": [],
+					},
+					"combatMove": true,
+					"canDoSkill" : true,
+					"canSyncMove" : true,
+					"cullingModelAlwaysAnimate": true,
+					"resetAnimatorTriggerOnExit" : ["DoSkill"],
+				},
+				"Die":
+				{
+					"$type": "ConfigMonsterStateIDInfo",
+					"animatorStates":
+					{
+						"Die": [],
+					},
+					"combatMove": true,
+					"resetAnimatorTriggerOnEnter": ["DyingState"],
+					"resetAnimatorTriggerOnExit": ["BeHit", "DoSkill"],
+				},
+			},
+		},
+	},
+	"abilities":
+	[
+	],
+	"initialPoses":
+	{
+		"Default":
+		{
+			"initialPoseID": 0,
+		},
+	},
+	"aibeta":
+	{
+		"enable": true,
+		"network":
+		{
+			"syncSkill": true,
+		},
+		"moveSetting":
+		{
+			"useNavMesh":  false,
+		},
+		"skillGCD": 0,
+		"profiling":
+		{
+			"lodStrategy": "Best",
+		},
+		"sensing":
+		{
+			"settings":
+			{
+				"DefaultSetting":
+				{
+					"viewPanoramic": true,
+					"viewRange": 15,
+					"feelRange": 7.5,
+				},
+			},
+			"templates":
+			{
+				"DefaultTemplate":
+				{
+					"DefaultPoses": "DefaultSetting",
+				},
+			},
+		},
+		"defendArea":
+		{
+			"defendRange": 50.0,
+		},
+		"threat":
+		{
+			"clearThreatTargetDistance": 70.0,
+			"clearThreatEdgeDistance": 7.5,
+			"clearThreatByTargetOutOfZone": true,
+			"viewThreatGrow": 35.0,
+			"feelThreatGrow": 500.0,
+			"threatDecreaseSpeed": 200,
+			"clearThreatTimerByTargetOutOfZone": 3,
+			"resistTauntLevel": "Monster_TauntLevel_4",
+		},
+		"returnToBornTactic":
+		{
+			"enable": true,
+			"condition":
+			{
+				"pose": [1,101,102,1101,1102],
+			},
+			"defaultSetting":
+			{
+				"speedLevel": 0,
+				"fadeoutBeginTime": 3.0,
+				"fadeoutEndTime": 3.5,
+			},
+		},
+		"wanderTactic":
+		{
+			"enable": false,
+		},
+		"skillGroupCDConfigs":
+		[
+			{"skillGroupCDID":0, "skillGroupCDTime":15,},
+			{"skillGroupCDID":1, "skillGroupCDTime":10,},
+			{"skillGroupCDID":2, "skillGroupCDTime":15,},
+			{"skillGroupCDID":3, "skillGroupCDTime":10,},
+			{"skillGroupCDID":4, "skillGroupCDTime":10,},
+			{"skillGroupCDID":5, "skillGroupCDTime":10,},
+			{"skillGroupCDID":6, "skillGroupCDTime":10,},
+			{"skillGroupCDID":7, "skillGroupCDTime":10,},
+		],
+		"skills":
+		{
+			"100":
+			{
+				"name": "OnAlert",
+				"stateIDs": ["Warning"],
+				"skillType": "OnAlert",
+				"skillQueryingTime":3.5,
+				"triggerGCD": false,
+				"faceTarget": true,
+				"ignoreGCD": true,
+				"castCondition":
+				{
+					"pose": [1],
+				},
+			},
+		},
+	},
+}

@@ -1,0 +1,11 @@
+ID	AbilityName	[参数信息]1参数名	[参数信息]1参数	[参数信息]2参数名	[参数信息]2参数	[参数信息]3参数名	[参数信息]3参数	[参数信息]4参数名	[参数信息]4参数	[参数信息]5参数名	[参数信息]5参数
+200001	Activity_Rogue_Monster_HPUp_Stage1	HPUpRatio	0.25								
+200002	Activity_Rogue_Monster_HPUp_Stage2	HPUpRatio	0.5								
+200003	Activity_Rogue_Monster_HPUp_Stage3	HPUpRatio	1								
+200004	Activity_Rogue_Monster_HPUp_Stage4	HPUpRatio	0.5								
+200005	Activity_Rogue_Monster_HPUp_Stage5	HPUpRatio	1								
+200006	Activity_Rogue_Monster_HPUp_Stage6	HPUpRatio	1								
+200007	Activity_Rogue_Monster_HPUp_Stage7	HPUpRatio	1.5								
+200008	Activity_Rogue_Monster_SelfHeal	Threshold	0.3	HealLatency	10	HealRatio	0.3				
+200011	Activity_Rogue_Monster_HPUp_Stage8	HPUpRatio	2	AtkUpRatio	0.25						
+200012	Activity_Rogue_Monster_HPUp_Stage9	HPUpRatio	3	AtkUpRatio	0.25						

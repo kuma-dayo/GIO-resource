@@ -1,0 +1,229 @@
+[
+////////////////////////////////////////////////////////////////
+//
+//  Special State
+//
+////////////////////////////////////////////////////////////////
+{
+	"Default": 
+	{
+		"$type": "ConfigAbility",
+		"abilityName": "Monster_Sylph_SpecialState",
+		"onAdded": 
+		[
+			{
+				"$type":"SetGlobalValue",
+				"key":"_SYLPH_SPECIAL_STATE_",
+				"useLimitRange":true,
+				"randomInRange":true,
+				"minValue":0,
+				"maxValue":1,
+			},
+			{
+				"$type": "SetGlobalValueToOverrideMap",
+				"globalValueKey": "_SYLPH_SPECIAL_STATE_",
+				"overrideMapKey": "Override_Sylph_RandomAction",
+			},
+			{
+				"$type": "SetAnimatorFloat",
+				"floatID": "RandomAction",
+				"value": "%Override_Sylph_RandomAction",
+			},
+		],
+		"abilityMixins": 
+		[
+			{
+				"$type": "AttachToStateIDMixin",
+				"stateIDs": ["SpecialState"],
+				"modifierName": "SpecialState",
+			}, 
+		],
+		"modifiers": 
+		{
+			"SpecialState":
+			{
+				"onAdded": 
+				[
+					{
+						"$type":"SetPoseBool",
+						"boolID":"RandomAction",
+						"value":false,
+					},
+				],
+				"onRemoved": 
+				[
+					{
+						"$type":"SetPoseBool",
+						"boolID":"RandomAction",
+						"value":true,
+					},
+					{
+						"$type":"SetGlobalValue",
+						"key":"_SYLPH_SPECIAL_STATE_",
+						"useLimitRange":true,
+						"randomInRange":true,
+						"minValue":0,
+						"maxValue":1,
+					},
+					{
+						"$type": "SetGlobalValueToOverrideMap",
+						"globalValueKey": "_SYLPH_SPECIAL_STATE_",
+						"overrideMapKey": "Override_Sylph_RandomAction",
+					},
+					{
+						"$type": "SetAnimatorFloat",
+						"floatID": "RandomAction",
+						"value": "%Override_Sylph_RandomAction",
+					},
+				],
+			},
+		},
+		"abilitySpecials":
+		{
+			"Override_Sylph_RandomAction": 0,
+		},
+	},
+},
+////////////////////////////////////////////////////////////////
+//
+// Element State
+//
+////////////////////////////////////////////////////////////////
+{
+	"Default": 
+	{
+		"$type": "ConfigAbility",
+		"abilityName": "Monster_Sylph_ElementState",
+		"onAdded": 
+		[
+			{
+				"$type": "SetGlobalValue",
+				"key": "_SYLPH_ELEMENT_STATE_",
+				"value": 0,
+			},
+		],
+		"abilityMixins":
+		[
+			{
+				"$type": "AttachToAbilityStateMixin",
+				"abilityStates": ["ElementPetrifaction","ElementFreeze"],
+				"modifierName": "ElementState",
+			},
+		],
+		"modifiers": 
+		{
+			"ElementState" :
+			{
+				"onAdded": 
+				[
+					{
+						"$type": "SetGlobalValue",
+						"key": "_SYLPH_ELEMENT_STATE_",
+						"value": 1,
+					},
+				],
+				"onRemoved":
+				[
+					{
+						"$type": "SetGlobalValue",
+						"key": "_SYLPH_ELEMENT_STATE_",
+						"value": 0,
+					},
+					// b1246683 保护
+					{
+						"$type":"SetAnimatorBool",
+						"boolID":"DeathTag",
+						"value":true,
+						"predicates": 
+						[
+							{
+								"$type": "ByTargetGlobalValue",
+								"key": "_SYLPH_DEATH_TAG_",
+								"value": 1,
+								"compareType": "Equal",
+							},
+							{
+								"$type": "ByTargetGlobalValue",
+								"key": "_SYLPH_POSE_TAG_",
+								"value": 0,
+								"compareType": "Equal",
+							},
+							{
+								"$type": "ByTargetGlobalValue",
+								"key": "_SYLPH_ELEMENT_STATE_",
+								"value": 0,
+								"compareType": "Equal",
+							},
+						],
+					},
+					{
+						"$type":"SetAnimatorBool",
+						"boolID":"ActivatedDeathTag",
+						"value":true,
+						"predicates": 
+						[
+							{
+								"$type": "ByTargetGlobalValue",
+								"key": "_SYLPH_DEATH_TAG_",
+								"value": 1,
+								"compareType": "Equal",
+							},
+							{
+								"$type": "ByTargetGlobalValue",
+								"key": "_SYLPH_POSE_TAG_",
+								"value": 1,
+								"compareType": "Equal",
+							},
+							{
+								"$type": "ByTargetGlobalValue",
+								"key": "_SYLPH_ELEMENT_STATE_",
+								"value": 0,
+								"compareType": "NoneOrEqual",
+							},
+						],
+					},
+				],
+			},
+		},
+	},
+},
+////////////////////////////////////////////////////////////////
+//
+// Face
+//
+////////////////////////////////////////////////////////////////
+{
+	"Default": 
+	{
+		"$type": "ConfigAbility",
+		"abilityName": "Monster_Sylph_Activated_FaceChange",
+		"onAbilityStart": 
+		[
+			{
+				"$type": "ApplyModifier",
+				"modifierName": "UNIQUE_Sylph_Face",
+			},
+		],
+		"modifiers": 
+		{
+			"UNIQUE_Sylph_Face":
+			{
+				"isUnique": true,
+				"modifierMixins":
+				[
+					{
+						"$type": "ReplaceFaceAnimationMixin",
+						"oldFaceAnimations": ["Default"],
+						"newFaceAnimations": ["Activated"],
+					},
+					{
+						"$type": "ReplaceFaceAnimationMixin",
+						"oldFaceAnimations": ["Blink"],
+						"newFaceAnimations": ["Activated"],
+					},
+				],
+			},
+		},
+	},
+},
+]

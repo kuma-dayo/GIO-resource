@@ -1,0 +1,3 @@
+活动ID	广告页类型	奖励预览ID	Json配置名	Prefab路径
+5042	1	15174	ConfigEffigyWater	ART/UI/Menus/Widget/Activity/Activity_EffigyWater
+5043	1	15175	ConfigRaijin	ART/UI/Menus/Widget/Activity/Activity_Raijin

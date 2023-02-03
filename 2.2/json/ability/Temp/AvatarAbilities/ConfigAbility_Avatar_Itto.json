@@ -1,0 +1,2795 @@
+[
+///////////////////////////////////////////////////////////////
+//
+//  普攻和重击
+//
+////////////////////////////////////////////////////////////////
+    {
+        "Default":
+        {
+            "$type": "ConfigAbility",
+            "abilityName": "Avatar_Itto_ExtraAttack",
+            "abilityMixins":
+            [
+                {
+                    "$type": "ButtonHoldChargeMixin",
+                    "skillID": 10571,
+                    "chargeTime": 0.12,
+                    "secondChargeTime": 0.08,  //这个是临界值 否则容易误触
+                    "OnBeginUncharged":
+                    [
+                        {
+                            "$type": "SetAnimatorTrigger",
+                            "triggerID": "DoSkill",
+                        },
+                        {
+                            "$type": "SetAnimatorInt",
+                            "intID": "SkillID",
+                            "value": 1,
+                        },
+                        {
+                            "$type": "SetAnimatorBool",
+                            "boolID": "IsCharging",
+                            "value": false,
+                        },
+                        {
+                            "$type": "SetAnimatorTrigger",
+                            "triggerID": "PRIVATE_DoSpecialExtra",  //特殊重击循环
+                            "predicates":
+                            [
+                                {
+                                    "$type": "ByTargetGlobalValue",
+                                    "key": "_ABILITY_Itto_Symbol",
+                                    "value": 1,
+                                    "compareType": "MoreThan",
+                                },
+                            ],
+                        },
+                        {
+                            "$type": "SetAnimatorTrigger",
+                            "triggerID": "PRIVATE_DoLastSpecialExtra",  //特殊重击最后一段
+                            "predicates":
+                            [
+                                {
+                                    "$type": "ByTargetGlobalValue",
+                                    "key": "_ABILITY_Itto_Symbol",
+                                    "value": 1,
+                                    "compareType": "Equal",
+                                },
+                            ],
+                        },
+                    ],
+                    "OnReleaseUncharged":
+                    [
+                    ],
+                    "OnBeginCharged":
+                    [
+                        {
+                            "$type": "SetAnimatorBool",
+                            "boolID": "IsCharging",
+                            "value": true,
+                        },
+                    ],
+                    "OnReleaseCharged":
+                    [
+                        {
+                            "$type": "SetAnimatorBool",
+                            "boolID": "IsCharging",
+                            "value": false,
+                        },
+                        {
+                            "$type": "SetAnimatorInt",
+                            "intID": "SkillID",
+                            "value": 1,
+                        },
+                    ],
+                    "OnBeginSecondCharged":   //真正的蓄力进入判定点 chargeTime+secondChargeTime
+                    [
+                        {
+                            "$type": "SetAnimatorBool",
+                            "boolID": "IsCharging",
+                            "value": false,
+                        },
+                        {
+                            "$type": "Predicated",
+                            "targetPredicates":
+                            [
+                                {
+                                    "$type": "ByTargetGlobalValue",
+                                    "key": "_ABILITY_Itto_Symbol",
+                                    "value": 0,
+                                    "compareType": "MoreThan",
+                                },
+                            ],
+                            "successActions":   //有印记释放特殊重击
+                            [
+                                {
+                                    "$type": "SetAnimatorTrigger",
+                                    "triggerID": "DoSkill",
+                                },
+                                {
+                                    "$type": "SetAnimatorInt",
+                                    "intID": "SkillID",
+                                    "value": 7,
+                                },
+                            ],
+                            "failActions":    //无印记释放普通重击（消耗体力）
+                            [
+                                {
+                                    "$type": "SetAnimatorTrigger",
+                                    "triggerID": "DoSkill",
+                                    "predicates":
+                                    [
+                                        {
+                                            "$type": "ByLocalAvatarStamina",
+                                            "stamina": "%ExtraAttack_Claymore_Stamina_Cost+%Flexible_Stamina",
+                                            "logic": "GreaterOrEqual",
+                                        },
+                                    ],
+                                },
+                                {
+                                    "$type": "SetAnimatorInt",
+                                    "intID": "SkillID",
+                                    "value": 6,
+                                    "predicates":
+                                    [
+                                        {
+                                            "$type": "ByLocalAvatarStamina",
+                                            "stamina": "%ExtraAttack_Claymore_Stamina_Cost+%Flexible_Stamina",
+                                            "logic": "GreaterOrEqual",
+                                        },
+                                    ],
+                                },
+                            ],
+                        },
+                    ],
+                    "chargeStateIDs":
+                    [
+                        "Attack01_BS", "Attack01", "Attack02", "Attack03", "Attack04", "Run",
+                    ],
+                },
+                {
+                    "$type": "AttachToStateIDMixin",
+                    "stateIDs": ["ExtraAttack1_BS"],  //这个ExtraAttack_BS可能有问题，因为其他人没这个State
+                    "modifierName": "ExtraAttack1_DoLastExtra",
+                },
+                {
+                    "$type": "AttachToStateIDMixin",
+                    "stateIDs": ["ExtraAttack"],
+                    "modifierName": "ExtraAttack_StaminaCost",
+                },
+                {
+                    "$type": "AttachToStateIDMixin",
+                    "stateIDs": ["ExtraAttack1"],
+                    "modifierName": "ExtraAttack_SymbolCost",
+                },
+                {
+                    "$type": "AttachToStateIDMixin",
+                    "stateIDs": ["ExtraAttack2"],
+                    "modifierName": "ExtraAttack_SymbolCost",
+                },
+                {
+                    "$type": "AttachToStateIDMixin",
+                    "stateIDs": ["ExtraAttack3"],
+                    "modifierName": "ExtraAttack_SymbolCost",
+                },
+                {
+                    "$type": "AttachToNormalizedTimeMixin",
+                    "stateID": "ExtraAttack1",
+                    "modifierName": "ExtraAttack_ClearTrigger",
+                    "normalizeStart": 0.0, 
+                    "normalizeEnd": 0.2,
+                },
+                {
+                    "$type": "AttachToNormalizedTimeMixin",
+                    "stateID": "ExtraAttack2",
+                    "modifierName": "ExtraAttack_ClearTrigger",
+                    "normalizeStart": 0.0, 
+                    "normalizeEnd": 0.2,
+                },
+                {
+                    "$type": "AttachToNormalizedTimeMixin",
+                    "stateID": "Attack04",
+                    "modifierName": "NormalAttack_04_Effect",
+                    "normalizeStart": 0.042, 
+                    "normalizeEnd": 1.0,
+                },
+            ],
+            "modifiers":
+            {
+                "Blank":{},
+                "ExtraAttack1_DoLastExtra":   //进入特殊重击BS时根据当前印记数量决定是否使出最终一击
+                {
+                    "duration": 0.2,
+                    "onAdded":
+                    [
+                        {
+                            "$type": "SetAnimatorTrigger",
+                            "triggerID": "PRIVATE_DoLastSpecialExtra",
+                            "predicates":
+                            [
+                                {
+                                    "$type": "ByTargetGlobalValue",
+                                    "key": "_ABILITY_Itto_Symbol",
+                                    "value": 1,
+                                    "compareType": "Equal",
+                                },
+                            ],
+                        },
+                    ],
+                },
+                "ExtraAttack_StaminaCost":   //普通重击消耗体力
+                {
+                    "duration": 0.2,
+                    "onAdded":
+                    [
+                        {
+                            "$type" : "AvatarSkillStart",
+                            "skillID" : 10001,  //临时填这个值
+                            "costStaminaRatio":"%ExtraAttack_Claymore_Stamina_Cost",
+                        },
+                    ],
+                },
+                "ExtraAttack_SymbolCost":    //特殊重击消耗印记
+                {
+                    "duration": 0.2,
+                    "stacking": "Multiple",
+                    "onAdded":
+                    [
+                        {
+                            "$type": "Predicated",
+                            "targetPredicates":
+                            [
+                                {
+                                    "$type": "ByTargetGlobalValue",
+                                    "key": "_ABILITY_Itto_ElementalBurst_Flag",
+                                    "value": 1,
+                                    "compareType": "Equal",
+                                },
+                            ],
+                            "successActions":
+                            [
+                                {
+                                    "$type": "Randomed",
+                                    "chance": 0.5,
+                                    "successActions":
+                                    [
+                                        {
+                                            "$type": "AddGlobalValue",
+                                            "key": "_ABILITY_Itto_Symbol",
+                                            "value": -1,
+                                            "useLimitRange": true,
+                                            "minValue": 0,
+                                            "maxValue": 5,
+                                            "doOffStage": true,
+                                        },
+                                    ],
+                                },
+                            ],
+                            "failActions":
+                            [
+                                {
+                                    "$type": "AddGlobalValue",
+                                    "key": "_ABILITY_Itto_Symbol",
+                                    "value": -1,
+                                    "useLimitRange": true,
+                                    "minValue": 0,
+                                    "maxValue": 5,
+                                    "doOffStage": true,
+                                },
+                            ],
+                        },
+                    ],
+                },
+                "ExtraAttack_ClearTrigger":  //特殊重击前段固定时刻ResetTrigger
+                {
+                    "onRemoved":
+                    [
+                        {
+                            "$type": "ResetAnimatorTrigger",
+                            "triggerID": "PRIVATE_DoSpecialExtra",       //特殊重击Trigger
+                            "doOffStage": true,
+                        },
+                        {
+                            "$type": "ResetAnimatorTrigger",
+                            "triggerID": "PRIVATE_DoLastSpecialExtra",   //特殊重击最后一击Trigger
+                            "doOffStage": true,
+                        },
+                    ],
+                },
+                "NormalAttack_04_Effect":    //普攻第四击踢刀特效
+                {
+                    "onAdded":
+                    [
+                        {
+                            "$type": "FireEffect",
+                            "effectPattern": "Eff_Avatar_Male_Claymore_Itto_Attack_04_Cast",
+                        },
+                        {
+                            "$type": "FireEffect",
+                            "effectPattern": "Eff_Avatar_Male_Claymore_Itto_Attack_04_Weapon",
+                            "otherTargets":
+                            {
+                                "$type": "SelectTargetsByEquipParts",
+                                "equipPartNames" : ["equip01", "equip02", "sheathPoint"],
+                            },
+                        },
+                    ],
+                },
+            },
+            "abilitySpecials":
+            {
+                "ExtraAttack_Claymore_Stamina_Cost": 0,
+                "Flexible_Stamina": -2,  //照顾延迟放宽一些判定条件
+            },  
+        },
+    },
+
+///////////////////////////////////////////////////////////////w
+//
+//  攻击印记管理中枢
+//
+////////////////////////////////////////////////////////////////
+    {
+        "Default":
+        {
+            "$type": "ConfigAbility",
+            "abilityName": "Avatar_Itto_Symbol_Handler",
+            "onAdded":
+            [
+                {
+                    "$type": "AttachModifier",
+                    "modifierName": "Avatar_Itto_ComboAddSymbol_Handler",
+                },
+                {
+                    "$type": "AttachModifier",
+                    "modifierName": "Avatar_Itto_ElementalArtAddSymbol_Handler",
+                },
+                {
+                    "$type": "AttachModifier",
+                    "modifierName": "Avatar_Itto_SymbolEffect_Handler",
+                },
+            ],
+            "abilityMixins":
+            [
+                {
+                    "$type": "AttachToStateIDMixin",
+                    "stateIDs": [ "ExtraAttack1" ],
+                    "modifierName": "Avatar_Itto_Calculate_ExtraCombo",
+                },
+                {
+                    "$type": "AttachToStateIDMixin",
+                    "stateIDs": [ "ExtraAttack2" ],
+                    "modifierName": "Avatar_Itto_Calculate_ExtraCombo",
+                },
+                {
+                    "$type": "AttachToStateIDMixin",
+                    "stateIDs": [ "ExtraAttack3" ],
+                    "modifierName": "Avatar_Itto_Calculate_ExtraCombo",
+                },
+                {
+                    "$type": "AttachToAnimatorStateIDMixin",
+                    "stateIDs":
+                    [
+                        "ExtraAttack1",
+                        "ExtraAttack2",
+                        "ExtraAttack3",
+                    ],
+                    "modifierName": "Avatar_Itto_Calculate_ClearExtraCombo",
+                },
+                {
+                    "$type": "AttachToStateIDMixin",
+                    "stateIDs": [ "ExtraAttack1", "ExtraAttack2", "ExtraAttack3"],
+                    "modifierName": "Avatar_Itto_ExtraAttack_ComboSpeed",
+                },
+                {
+                    "$type": "AttachToNormalizedTimeMixin", 
+                    "stateID": "ExtraAttack1_BS",
+                    "normalizeStart": 0.3,
+                    "normalizeEnd": 1,
+                    "modifierName": "Avatar_Itto_SpecialExtra_TipEffect",
+                },
+            ],
+            "modifiers":
+            {
+                "Avatar_Itto_ComboAddSymbol_Handler":  //普通攻击增添印记
+                {
+                    "onAttackLanded": 
+                    [
+                        {
+                            "$type" : "Predicated",     //第四击增添2枚
+                            "target" : "Target",
+                            "targetPredicates":
+                            [
+                                {
+                                    "$type" : "ByAttackTags",
+                                    "attackTags" : ["NormalAttack_04"],
+                                },
+                                {
+                                    "$type" : "ByEntityTypes",
+                                    "entityTypes" : ["Monster"],
+                                },
+                                {
+                                    "$type": "ByTargetGlobalValue",
+                                    "key": "_ANIMAL_ENTITY_TYPE",
+                                    "value": 0,
+                                    "compareType": "NoneOrEqual",
+                                },
+                            ],
+                            "successActions":
+                            [
+                                {
+                                    "$type": "ApplyModifier",
+                                    "modifierName": "Avatar_Itto_LastNormalAttack_AddSymbol",
+                                    "target" : "Self",
+                                },
+                            ],
+                        },
+                        {
+                            "$type" : "Predicated",    //大招状态前三击各增添1枚
+                            "target" : "Target",
+                            "targetPredicates":
+                            [
+                                {
+                                    "$type" : "ByAttackTags",
+                                    "attackTags" : ["NormalAttack_01", "NormalAttack_02", "NormalAttack_03"],
+                                },
+                                {
+                                    "$type" : "ByEntityTypes",
+                                    "entityTypes" : ["Monster"],
+                                },
+                                {
+                                    "$type": "ByTargetGlobalValue",
+                                    "key": "_ANIMAL_ENTITY_TYPE",
+                                    "value": 0,
+                                    "compareType": "NoneOrEqual",
+                                },
+                                {
+                                    "$type": "ByTargetGlobalValue",
+                                    "key": "_ABILITY_Itto_ElementalBurst_Flag",
+                                    "value": 1,
+                                    "compareType": "Equal",
+                                    "target": "Self",
+                                },
+                            ],
+                            "successActions":
+                            [
+                                {
+                                    "$type": "ApplyModifier",
+                                    "modifierName": "Avatar_Itto_ForeNormalAttack_AddSymbol",
+                                    "target" : "Self",
+                                },
+                            ],
+                        },
+                    ],
+                },
+                "Avatar_Itto_LastNormalAttack_AddSymbol":  //普攻第四击增添2枚印记
+                {
+                    "duration": 0.1,
+                    "stacking": "Unique",
+                    "onAdded":
+                    [
+                        {
+                            "$type": "AddGlobalValue",
+                            "key": "_ABILITY_Itto_Symbol",
+                            "value": 2,
+                            "useLimitRange": true,
+                            "minValue": 0,
+                            "maxValue": 5,
+                            "doOffStage": true,
+                        },
+                    ],
+                },
+                "Avatar_Itto_ForeNormalAttack_AddSymbol":  //普攻前三击各增添1枚印记
+                {
+                    "duration": 0.1,
+                    "stacking": "Unique",
+                    "onAdded":
+                    [
+                        {
+                            "$type": "AddGlobalValue",
+                            "key": "_ABILITY_Itto_Symbol",
+                            "value": 1,
+                            "useLimitRange": true,
+                            "minValue": 0,
+                            "maxValue": 5,
+                            "doOffStage": true,
+                        },
+                    ],
+                },
+                "Avatar_Itto_ElementalArtAddSymbol_Handler":  //元素战技增添印记
+                {
+                    "onAttackLanded":
+                    [
+                        {
+                            "$type" : "Predicated",
+                            "target" : "Target",
+                            "targetPredicates":
+                            [
+                                {
+                                    "$type" : "ByAttackTags",
+                                    "attackTags" : ["Elemental_Art"],
+                                },
+                                {
+                                    "$type" : "ByEntityTypes",
+                                    "entityTypes" : ["Monster"],
+                                },
+                                {
+                                    "$type": "ByTargetGlobalValue",
+                                    "key": "_ANIMAL_ENTITY_TYPE",
+                                    "value": 0,
+                                    "compareType": "NoneOrEqual",
+                                },
+                                {
+                                    "$type": "ByAttackType",
+                                    "attackType": "Melee",   //需要与持续的技能伤害作出区分
+                                },
+                            ],
+                            "successActions":
+                            [
+                                {
+                                    "$type": "ApplyModifier",
+                                    "modifierName": "ElementalArt_Add_Symbol",
+                                    "target" : "Self",
+                                },
+                            ],
+                        },
+                    ],
+                },
+                "ElementalArt_Add_Symbol":  //元素战技增添印记
+                {
+                    "duration": 0.2,
+                    "stacking": "Unique",
+                    "onAdded":
+                    [
+                        {
+                            "$type": "AddGlobalValue",
+                            "key": "_ABILITY_Itto_Symbol",
+                            "value": 1,
+                            "useLimitRange": true,
+                            "minValue": 0,
+                            "maxValue": 5,
+                            "doOffStage": true,
+                        },
+                    ],
+                },
+                "Avatar_Itto_ExtraAttack_ComboSpeed":   //特殊重击越打越快，暂时去掉
+                {
+                    "modifierMixins":
+                    [
+                        {
+                            "$type": "AttachModifierToSelfGlobalValueMixin",
+                            "globalValueKey": "_ABILITY_Itto_SpecialExtra_Combo",
+                            "valueSteps": [-0.5, 1.5, 2.5, 3.5, 4.5, 100],
+                            "modifierNameSteps":
+                            [
+                                "Blank",
+                                "Itto_ExtraAttack_ComboSpeed_01",
+                                "Itto_ExtraAttack_ComboSpeed_02",
+                                "Itto_ExtraAttack_ComboSpeed_03",
+                                "Itto_ExtraAttack_ComboSpeed_04",
+                            ],
+                        },
+                    ],
+                },
+                "Itto_ExtraAttack_ComboSpeed_01":
+                {
+                    "isLimitedProperties": true,
+                    "properties":
+                    {
+                        "Animator_AttackSpeedRatio": 0.05,
+                    },
+                },
+                "Itto_ExtraAttack_ComboSpeed_02":
+                {
+                    "isLimitedProperties": true,
+                    "properties":
+                    {
+                        "Animator_AttackSpeedRatio": 0.1,
+                    },
+                },
+                "Itto_ExtraAttack_ComboSpeed_03":
+                {
+                    "isLimitedProperties": true,
+                    "properties":
+                    {
+                        "Animator_AttackSpeedRatio": 0.15,
+                    },
+                },
+                "Itto_ExtraAttack_ComboSpeed_04":
+                {
+                    "isLimitedProperties": true,
+                    "properties":
+                    {
+                        "Animator_AttackSpeedRatio": 0.2,
+                    },
+                },
+                "Avatar_Itto_SpecialExtra_TipEffect":  //进入特殊重击的提示效果（隐身+特效）
+                {
+                    "onAdded":
+                    [
+                        {
+                            "$type": "FireEffect",
+                            "effectPattern": "Eff_Avatar_Male_Claymore_Itto_ExtraAttack_TipEffect_01",
+                        },
+                        {
+                            "$type": "FireEffect",
+                            "effectPattern": "Eff_Avatar_Male_Claymore_Itto_ExtraAttack_TipEffect_02",
+                        },
+                        {
+                            "$type": "TriggerSetVisible",
+                            "visible": false,
+                        },
+                        {
+                            "$type": "TriggerSetPassThrough",
+                            "passThrough": true,
+                        },
+                    ],
+                    "onRemoved":
+                    [
+                        {
+                            "$type": "TriggerSetVisible",
+                            "doOffStage": true,
+                            "canBeHandledOnRecover": true,
+                            "visible": true,
+                        },
+                        {
+                            "$type": "TriggerSetPassThrough",
+                            "passThrough": false,
+                            "doOffStage": true,
+                            "canBeHandledOnRecover": true,
+                        },
+                    ],
+                },
+                "Avatar_Itto_SymbolEffect_Handler":  //印记特效处理中枢
+                {
+                    "modifierMixins":
+                    [
+                        {
+                            "$type": "AttachModifierToSelfGlobalValueMixin",
+                            "globalValueKey": "_ABILITY_Itto_Symbol",
+                            "valueSteps": [ -0.5, 0.5, 1.5, 2.5, 3.5, 4.5, 5.5 ],
+                            "removeAppliedModifier": true,
+                            "modifierNameSteps": 
+                            [
+                                "Blank", 
+                                "Itto_Symbol_Eff_01", 
+                                "Itto_Symbol_Eff_02", 
+                                "Itto_Symbol_Eff_03",
+                                "Itto_Symbol_Eff_04",
+                                "Itto_Symbol_Eff_05",
+                            ],
+                        },
+                    ],
+                },
+                "Blank":{},
+                "Itto_Symbol_Eff_01":
+                {
+                    "onAdded":
+                    [
+                        {
+                            "$type": "AttachEffect",
+                            "effectPattern": "Eff_Weapon_Kunwu_Stack_01",  //临时特效
+                        },
+                    ],
+                },
+                "Itto_Symbol_Eff_02":
+                {
+                    "onAdded":
+                    [
+                        {
+                            "$type": "AttachEffect",
+                            "effectPattern": "Eff_Weapon_Kunwu_Stack_02",  //临时特效
+                        },
+                    ],
+                },
+                "Itto_Symbol_Eff_03":
+                {
+                    "onAdded":
+                    [
+                        {
+                            "$type": "AttachEffect",
+                            "effectPattern": "Eff_Weapon_Kunwu_Stack_03",  //临时特效
+                        },
+                    ],
+                },
+                "Itto_Symbol_Eff_04":
+                {
+                    "onAdded":
+                    [
+                        {
+                            "$type": "AttachEffect",
+                            "effectPattern": "Eff_Weapon_Kunwu_Stack_04",  //临时特效
+                        },
+                    ],
+                },
+                "Itto_Symbol_Eff_05":
+                {
+                    "onAdded":
+                    [
+                        {
+                            "$type": "AttachEffect",
+                            "effectPattern": "Eff_Weapon_Kunwu_Stack_05",  //临时特效
+                        },
+                    ],
+                },
+                "Avatar_Itto_Calculate_ExtraCombo":  //计算特殊重击打击次数，用于判断何时进最后一击
+                {
+                    "duration": 0.1,
+                    "stacking": "Multiple",
+                    "onAdded":
+                    [
+                        {
+                            "$type": "AddGlobalValue",
+                            "key": "_ABILITY_Itto_SpecialExtra_Combo",
+                            "value": 1,
+                            "useLimitRange": true,
+                            "minValue": 0,
+                            "maxValue": 10,
+                            "doOffStage": true,
+                        },
+                    ],
+                },
+                "Avatar_Itto_Calculate_ClearExtraCombo":  //退出特殊重击循环时清空Combo段数
+                {
+                    "onRemoved":
+                    [
+                        {
+                            "$type": "SetGlobalValue",
+                            "key": "_ABILITY_Itto_SpecialExtra_Combo",
+                            "value": 0,
+                            "doOffStage": true,
+                        },
+                    ],
+                    "onAvatarOut":
+                    [
+                        {
+                            "$type": "SetGlobalValue",
+                            "key": "_ABILITY_Itto_SpecialExtra_Combo",
+                            "value": 0,
+                            "doOffStage": true,
+                        },
+                    ],
+                },
+            },
+        },
+    },
+
+    //Gadget_41057002  一斗重击印记美术表现处理
+    {
+        "Default":
+        {
+            "$type": "ConfigAbility",
+            "abilityName": "Avatar_Itto_ExtraAttack_Mask",
+            "onAdded":
+            [
+                // {
+                //     "$type": "AttachEffect",
+                //     "effectPattern": "",
+                // },
+            ],
+        },
+    },
+///////////////////////////////////////////////////////////////
+//
+//  元素战技
+//
+////////////////////////////////////////////////////////////////
+    {
+        "Default":
+        {
+            "$type": "ConfigAbility",
+            "abilityName": "Avatar_Itto_ElementalArt",
+            "onAdded":
+            [
+                // {
+                //     "$type": "AttachModifier",
+                //     "modifierName": "Avatar_Itto_ElementalArt_GangPlank_Boom",
+                // },
+            ],
+            "onAbilityStart":
+            [
+                {
+                    "$type": "AvatarSkillStart",
+                    "skillID": 10572,
+                    "cdRatio": 1,
+                },
+                {
+                    "$type": "ApplyModifier",
+                    "modifierName": "Avatar_Itto_ElementalArt_Damage",
+                },
+                {
+                    "$type": "ApplyModifier",
+                    "modifierName": "Avatar_Itto_ElementalArt_GangPlank",
+                },
+            ],
+            "abilityMixins":
+            [
+                {
+                    "$type": "AttachToStateIDMixin",
+                    "stateIDs": [ "ExtraAttack1", "ExtraAttack2", "ExtraAttack3" ],
+                    "modifierName": "Avatar_Itto_SpecialExtra_Mark",
+                },
+            ],
+            "modifiers":
+            {
+                "Avatar_Itto_ElementalArt_Damage":   //元素战技打伤害
+                {
+                    "duration": 0.2,
+                    "onAdded":
+                    [
+                        {
+                            "$type": "FireEffect",
+                            "effectPattern": "Eff_Avatar_Boy_Pole_Xiao_ExtraAttack",  //临时特效
+                        },
+                        {
+                            "$type": "TriggerAttackEvent",
+                            "targetType": "Enemy",
+                            "attackEvent": 
+                            {
+                                "attackPattern": 
+                                {
+                                    "$type": "ConfigAttackCircle",
+                                    "triggerType": "TriggerNoRepeat",
+                                    "height": 3.5,
+                                    "fanAngle": 360.0,
+                                    "detectDirection": "CenterToSide",
+                                    "radius": 3.5,
+                                    "born": 
+                                    {
+                                        "$type": "ConfigBornBySelf",
+                                        "offset": 
+                                        {
+                                            "x": 0.0,
+                                            "y": -1.0,
+                                            "z": 1.0,
+                                        }
+                                    },
+                                },
+                                "attackInfo": 
+                                {
+                                    "attackTag": "Elemental_Art",
+                                    "attackProperty": 
+                                    {
+                                        "damagePercentage": 3,
+                                        "strikeType": "Blunt",
+                                        "attackType": "Melee",
+                                        "elementType": "Rock",
+                                        "elementDurability": 25,
+                                        "enBreak": 100,
+                                    },
+                                    "hitPattern": 
+                                    {
+                                        "onHitEffectName": "default",
+                                        "hitImpulseType":"LV7",
+                                        "overrideHitImpulse":
+                                        {
+                                            "hitLevel": "Air",
+                                            "hitImpulseX": 0,
+                                            "hitImpulseY": 700,
+                                        },
+                                        "reboundRatio": 0,
+                                        "hitHaltTime": 0.02,
+                                        "hitHaltTimeScale": 0.01,
+                                        "muteHitText": false,
+                                        "retreatType": "ByAttacker",
+                                    },
+                                    "forceCameraShake": false,
+                                    "cameraShake": 
+                                    {
+                                        "shakeType": "Center",
+                                        "shakeRange": 0.3,
+                                        "shakeTime": 0.12,
+                                        "shakeDistance": 30,
+                                        "extension":
+                                        {
+                                            "baseOnCamera": true,
+                                        },
+                                    },
+                                }
+                            }
+                        },
+                    ],
+                },
+                "Avatar_Itto_ElementalArt_GangPlank":  //控制跳板创生
+                {
+                    "duration": 0.2,
+                    "onAdded":
+                    [
+                        {
+                            "$type": "KillGadget",
+                            "gadgetInfo":
+                            {
+                                "$type": "SelectTargetsByChildren",
+                                "configID": 41057001,
+                                "sortType": "Default",
+                            },
+                        },
+                        {
+                            "$type": "CreateGadget",
+                            "gadgetID": 41057001,
+                            "campID": 1001,
+                            "campTargetType": "Enemy",
+                            "born":
+                            {
+                                "$type": "ConfigBornBySelf",
+                                "offset": 
+                                {
+                                    "x": 0.0,
+                                    "y": 0.0,
+                                    "z": 4.0,
+                                },
+                                "onGround": true,
+                                "alongGround": false,
+                                "onGroundIgnoreWater": true,
+                                "onGroundRaycastUpDist": 3,
+                            },
+                        },
+                    ],
+                },
+                "Avatar_Itto_SpecialExtra_Mark":  //增添特殊重击标志位
+                {
+                    "onAdded":
+                    [
+                        {
+                            "$type": "SetGlobalValue",
+                            "key": "_ABILITY_Itto_SpecialExtra_Mark",
+                            "value": 1,
+                            "doOffStage": true,
+                        },
+                    ],
+                    "onRemoved":
+                    [
+                        {
+                            "$type": "SetGlobalValue",
+                            "key": "_ABILITY_Itto_SpecialExtra_Mark",
+                            "value": 0,
+                            "doOffStage": true,
+                        },
+                    ],
+                },
+                "Avatar_Itto_ElementalArt_GangPlank_Boom":   //处于指定范围的额外跳板伤害
+                {
+                    "onAttackLanded":
+                    [
+                        {
+                            "$type" : "Predicated",
+                            "target" : "Target",
+                            "targetPredicates":
+                            [
+                                {
+                                    "$type" : "ByAttackTags",
+                                    "attackTags" : ["ExtraAttack"],
+                                },
+                                {
+                                    "$type" : "ByEntityTypes",
+                                    "entityTypes" : ["Monster"],
+                                },
+                                {
+                                    "$type": "ByTargetGlobalValue",
+                                    "key": "_ANIMAL_ENTITY_TYPE",
+                                    "value": 0,
+                                    "compareType": "NoneOrEqual",
+                                },
+                                {
+                                    "$type": "ByTargetGlobalValue",
+                                    "key": "_ABILITY_Itto_GangPlank_BattleMark",  //处于领域内
+                                    "value": 1,
+                                    "compareType": "Equal",
+                                    "target": "Self",
+                                },
+                                {
+                                    "$type": "ByTargetGlobalValue",
+                                    "key": "_ABILITY_Itto_SpecialExtra_Mark",   //处于特殊重击动作中
+                                    "value": 1,
+                                    "compareType": "Equal",
+                                    "target": "Self",
+                                },
+                            ],
+                            "successActions":
+                            [
+                                {
+                                    "$type": "ApplyModifier",
+                                    "modifierName": "GangPlank_Boom_Damage",
+                                    "target" : "Self",
+                                },
+                            ],
+                        },
+                    ],
+                },
+                "GangPlank_Boom_Damage":  //跳板的爆炸伤害
+                {
+                    "duration": 0.1,
+                    "stacking": "Unique",
+                    "onAdded":
+                    [
+                        {
+                            "$type": "FireEffect",
+                            "effectPattern": "Eff_Avatar_Boy_Sword_Albedo_AlchemyTrap_Explode",
+                            "born":
+                            {
+                                "$type": "ConfigBornBySelf",
+                                "offset" :
+                                {
+                                    "x": 0.0,
+                                    "y": 0.7,
+                                    "z": 1.5,
+                                },
+                            },
+                        },
+                        {
+                            "$type": "TriggerAttackEvent",
+                            "targetType": "Enemy",
+                            "attackEvent": 
+                            {
+                                "attackPattern": 
+                                {
+                                    "$type": "ConfigAttackCircle",
+                                    "triggerType": "TriggerNoRepeat",
+                                    "height": 3.5,
+                                    "fanAngle": 360.0,
+                                    "detectDirection": "CenterToSide",
+                                    "radius": 4.0,
+                                    "born": 
+                                    {
+                                        "$type": "ConfigBornBySelf",
+                                        "offset" :
+                                        {
+                                            "x": 0.0,
+                                            "y": -1.0,
+                                            "z": 1.5,
+                                        },
+                                    },
+                                },
+                                "attackInfo": 
+                                {
+                                    "attackTag": "Elemental_Art",
+                                    "attackProperty": 
+                                    {
+                                        "damagePercentage": 1,
+                                        "strikeType": "Blunt",
+                                        "attackType": "Default",
+                                        "elementType": "Rock",
+                                        "elementDurability": 25,
+                                        "enBreak": 50,
+                                    },
+                                    "hitPattern": 
+                                    {
+                                        "onHitEffectName": "default",
+                                        "hitImpulseType":"LV2",
+                                        "reboundRatio": 0,
+                                        "hitHaltTime": 0.0,
+                                        "hitHaltTimeScale": 0.01,
+                                        "muteHitText": false,
+                                        "retreatType": "ByAttacker",
+                                    },
+                                    "forceCameraShake": false,
+                                    "cameraShake": 
+                                    {
+                                        "shakeType": "Center",
+                                        "shakeRange": 0.2,
+                                        "shakeTime": 0.1,
+                                        "shakeDistance": 30,
+                                        "extension":
+                                        {
+                                            "baseOnCamera": true,
+                                        },
+                                    },
+                                }
+                            }
+                        },
+                    ],
+                },
+
+            },
+        },
+    },
+
+    //Gadget_41057001  跳板的弹跳效果(测试_被动弹跳)
+    // {
+    //     "Default":
+    //     {
+    //         "$type": "ConfigAbility",
+    //         "abilityName": "Avatar_Itto_Gadget_GangPlank",
+    //         "onAdded":
+    //         [
+    //             {
+    //                 "$type": "AttachModifier",
+    //                 "modifierName": "GangPlank_RockDurability_Handler",
+    //             },
+    //             {
+    //                 "$type": "AttachModifier",
+    //                 "modifierName": "GangPlank_CheckAvatarState_Handler",
+    //             },
+    //         ],
+    //         "onAbilityStart":  //与创生物碰撞进的Trigger
+    //         [
+    //             {
+    //                 "$type": "Predicated",
+    //                 "target": "Target",
+    //                 "targetPredicates":
+    //                 [
+    //                     {
+    //                         "$type": "ByEntityTypes",
+    //                         "entityTypes": ["Avatar"],
+    //                     },
+    //                     {
+    //                         "$type": "ByTargetGlobalValue",
+    //                         "key": "_ABILITY_Itto_GangPlank_StateMark",
+    //                         "value": 1,
+    //                         "compareType": "Equal",
+    //                     },
+    //                 ],
+    //                 "successActions":
+    //                 [
+    //                     {
+    //                         "$type": "ApplyModifier",
+    //                         "modifierName": "UNIQUE_Itto_GangPlank_RocketJump",
+    //                         "target": "Target",
+    //                     },
+    //                     {
+    //                         "$type": "FireEffect",  
+    //                         "effectPattern": "Eff_Avatar_Boy_Sword_Albedo_FuriousMonolith_Smash",  //临时资源
+    //                         "target": "Self",
+    //                         "born":
+    //                         {
+    //                             "$type": "ConfigBornBySelf",
+    //                             "offset":
+    //                             {
+    //                                 "x": 0,
+    //                                 "y": 0.8,
+    //                                 "z": 0,
+    //                             },
+    //                         },
+    //                     },
+    //                     {
+    //                         "$type": "DebugLog",
+    //                         "content": "进来了还不跳???",
+    //                     },
+    //                 ],
+    //             },
+    //         ],
+    //         "modifiers":
+    //         {
+    //             "GangPlank_RockDurability_Handler":  //元素含量处理器
+    //             {
+    //                 "elementType":"Rock",
+    //                 "elementDurability":100,
+    //                 "onBeingHit":
+    //                 [
+    //                     {
+    //                         "$type":"ApplyModifier",
+    //                         "modifierName":"GangPlank_Recover_RockDurability",
+    //                     },
+    //                 ],
+    //                 "onRemoved":
+    //                 [
+    //                     {
+    //                         "$type": "KillSelf",
+    //                         "hideEntity": true,
+    //                     },
+    //                 ],
+    //             },
+    //             "GangPlank_Recover_RockDurability":   //每次受到攻击会慢慢回复
+    //             {
+    //                 "duration":0.5,
+    //                 "onAdded":
+    //                 [
+    //                     {
+    //                         "$type" : "AddElementDurability",
+    //                         "value" : 100,
+    //                         "modifierName":"GangPlank_RockDurability_Handler",
+    //                         "elementType" : "Rock",
+    //                         "useLimitRange": true,
+    //                         "maxValue": 100.0,
+    //                     },
+    //                 ],
+    //             },
+    //             "GangPlank_CheckAvatarState_Handler":   //白名单检测
+    //             {
+    //                 "thinkInterval": 0.3,
+    //                 "onThinkInterval":
+    //                 [
+    //                     {
+    //                         "$type": "AttachModifier",
+    //                         "modifierName": "UNIQUE_Itto_GangPlank_CheckAvatarState",  //检测状态白名单
+    //                         "otherTargets":
+    //                         {
+    //                             "$type": "SelectTargetsByShape",
+    //                             "shapeName": "CircleR10H20",
+    //                             "centerBasedOn": "Self",
+    //                             "campTargetType": "Alliance",
+    //                             "campBasedOn": "Self",
+    //                         },
+    //                         "predicates":
+    //                         [
+    //                             {
+    //                                 "$type": "ByEntityTypes",
+    //                                 "entityTypes": ["Avatar"],
+    //                             },
+    //                         ],
+    //                     },
+    //                 ],
+    //             },
+    //             "UNIQUE_Itto_GangPlank_CheckAvatarState":  //对应Avatar，仅对场上角色生效
+    //             {
+    //                 "isUnique": true,
+    //                 "stacking": "Refresh",  //持续刷新时间
+    //                 "duration": 0.5,
+    //                 "modifierMixins":
+    //                 [
+    //                     {
+    //                         "$type": "AttachToStateIDMixin",
+    //                         "stateIDs": ["Jump", "Fall"],
+    //                         "modifierName": "UNIQUE_Itto_GangPlank_Mark",
+    //                     },
+    //                 ],
+    //             },
+    //             "UNIQUE_Itto_GangPlank_Mark":   //对应角色添加标记
+    //             {
+    //                 "isUnique": true,
+    //                 "onAdded":
+    //                 [
+    //                     {
+    //                         "$type": "SetGlobalValue",
+    //                         "key": "_ABILITY_Itto_GangPlank_StateMark",
+    //                         "value": 1,
+    //                         "doOffStage": true,
+    //                     },
+    //                 ],
+    //                 "onRemoved":
+    //                 [
+    //                     {
+    //                         "$type": "SetGlobalValue",
+    //                         "key": "_ABILITY_Itto_GangPlank_StateMark",
+    //                         "value": 0,
+    //                         "doOffStage": true,
+    //                     },
+    //                 ],
+    //             },
+    //             "UNIQUE_Itto_GangPlank_RocketJump":  //跳板对目标施加火箭跳
+    //             {
+    //                 "isUnique": true,
+    //                 "stacking": "Unique",
+    //                 "duration": 0.5,
+    //                 "onAdded":
+    //                 [
+    //                     {
+    //                         "$type": "EnableRocketJump",
+    //                         "canBeHandledOnRecover": true,
+    //                         "type": "XiaoUlt",
+    //                         "enable": true,
+    //                         "extention":
+    //                         {
+    //                             "xzMultiplier": 2.0,
+    //                             "yMultiplier": 2.3,
+    //                         },
+    //                     },
+    //                     {
+    //                         "$type": "SetAnimatorTrigger",
+    //                         "triggerID": "PRIVATE_DoJump",
+    //                     },
+    //                 ],
+    //                 "onRemoved":
+    //                 [
+    //                     {
+    //                         "$type": "EnableRocketJump",
+    //                         "canBeHandledOnRecover": true,
+    //                         "type": "XiaoUlt",
+    //                         "enable": false,
+    //                         "doOffStage": true,
+    //                     },
+    //                 ],
+    //                 "properties":
+    //                 {
+    //                     "Actor_FallingDamageRatio": -1,   //起跳瞬间的撞击保护，以免跳起来被撞死
+    //                 },
+    //             },
+    //         },
+    //     },
+    // },
+
+    //Gadget_41057001  跳板的弹跳效果(测试_主动弹跳)
+    {
+        "Default":
+        {
+            "$type": "ConfigAbility",
+            "abilityName": "Avatar_Itto_Gadget_GangPlank",
+            "onAdded":
+            [
+                {
+                    "$type": "AttachModifier",
+                    "modifierName": "GangPlank_RockDurability_Handler",
+                },
+            ],
+            "onAbilityStart":  //与创生物碰撞进的Trigger
+            [
+                // {
+                //     "$type": "Predicated",
+                //     "target": "Target",
+                //     "targetPredicates":
+                //     [
+                //         {
+                //             "$type": "ByEntityTypes",
+                //             "entityTypes": ["Avatar"],
+                //         },
+                //     ],
+                //     "successActions":
+                //     [
+                //         {
+                //             "$type": "ApplyModifier",
+                //             "modifierName": "UNIQUE_Itto_GangPlank_RocketJump",
+                //             "target": "Target",
+                //         },
+                //     ],
+                // },
+            ],
+            "modifiers":
+            {
+                "GangPlank_RockDurability_Handler":  //元素含量处理器
+                {
+                    "elementType":"Rock",
+                    "elementDurability":100,
+                    "onBeingHit":
+                    [
+                        {
+                            "$type":"ApplyModifier",
+                            "modifierName":"GangPlank_Recover_RockDurability",
+                        },
+                    ],
+                    "onRemoved":
+                    [
+                        {
+                            "$type": "KillSelf",
+                            "hideEntity": true,
+                        },
+                    ],
+                },
+                "GangPlank_Recover_RockDurability":   //每次受到攻击会慢慢回复
+                {
+                    "duration":0.5,
+                    "onAdded":
+                    [
+                        {
+                            "$type" : "AddElementDurability",
+                            "value" : 100,
+                            "modifierName":"GangPlank_RockDurability_Handler",
+                            "elementType" : "Rock",
+                            "useLimitRange": true,
+                            "maxValue": 100.0,
+                        },
+                    ],
+                },
+                "UNIQUE_Itto_GangPlank_RocketJump":  //跳板对目标施加火箭跳_Avatar上加了个跳高Buff
+                {
+                    "isUnique": true,
+                    "stacking": "Refresh",
+                    "duration": 0.3,
+                    "onAdded":
+                    [
+                        {
+                            "$type": "EnableRocketJump",
+                            "canBeHandledOnRecover": true,
+                            "type": "XiaoUlt",
+                            "enable": true,
+                            "extention":
+                            {
+                                "xzMultiplier": 2.0,
+                                "yMultiplier": 2.3,
+                            },
+                        },
+                    ],
+                    "onRemoved":
+                    [
+                        {
+                            "$type": "EnableRocketJump",
+                            "canBeHandledOnRecover": true,
+                            "type": "XiaoUlt",
+                            "enable": false,
+                            "doOffStage": true,
+                        },
+                    ],
+                    "properties":
+                    {
+                        "Actor_FallingDamageRatio": -1,   //起跳瞬间的撞击保护，以免跳起来被撞死
+                    },
+                    "modifierMixins":
+                    [
+                        {
+                            "$type": "AttachToStateIDMixin",
+                            "stateIDs": ["Jump"],
+                            "modifierName": "RocketJump_Effect",
+                        },
+                    ],
+                },
+                "RocketJump_Effect":  //跳板火箭跳时的特效表现
+                {
+                    "duration": 0.3,
+                    "onAdded":
+                    [
+                        {
+                            "$type": "FireEffect",  
+                            "effectPattern": "Eff_Avatar_Boy_Sword_Albedo_FuriousMonolith_Smash",  //临时资源
+                            "target": "Self",
+                            "born":
+                            {
+                                "$type": "ConfigBornBySelf",
+                                "offset":
+                                {
+                                    "x": 0,
+                                    "y": 0.4,
+                                    "z": 0,
+                                },
+                            },
+                        },
+                    ],
+                },
+            },
+        },
+    },
+
+    //Gadget_41057001  跳板的战斗效果
+    {
+        "Default":
+        {
+            "$type": "ConfigAbility",
+            "abilityName": "Avatar_Itto_Gadget_GangPlank_Field",
+            "onAdded":
+            [
+                // {
+                //     "$type": "AttachModifier",
+                //     "modifierName": "GangPlank_Battle_Field",
+                // },
+                {
+                    "$type": "AttachModifier",
+                    "modifierName": "GangPlank_Battle_TriggerTaunt",
+                },
+            ],
+            "onAbilityStart":  //与创生物碰撞进的Trigger
+            [
+
+            ],
+            "modifiers":
+            {
+                "GangPlank_Battle_Field":  //战斗领域
+                {
+                    "onAdded":
+                    [
+                        {
+                            "$type": "AttachEffect",
+                            "effectPattern": "Eff_Avatar_Boy_Sword_Albedo_FuriousMonolith_FieldAlert",
+                        },
+                        {
+                            "$type": "AttachModifier",
+                            "modifierName": "UNIQUE_GangPlank_Battle_Field_Mark",
+                            "otherTargets":
+                            {
+                                "$type": "SelectTargetsByShape",
+                                "shapeName": "CircleR10H20",
+                                "centerBasedOn": "Self",
+                                "campTargetType": "Alliance",
+                                "campBasedOn": "Self",
+                            },
+                            "predicates":
+                            [
+                                {
+                                    "$type": "ByEntityTypes",
+                                    "entityTypes": ["Avatar"],
+                                },
+                                {
+                                    "$type": "ByTargetType",
+                                    "targetType": "OriginOwner",
+                                    "isTarget": true,
+                                },
+                            ],
+                        },
+                    ],
+                    "thinkInterval": 0.3,
+                    "onThinkInterval":
+                    [
+                        {
+                            "$type": "AttachModifier",
+                            "modifierName": "UNIQUE_GangPlank_Battle_Field_Mark",
+                            "otherTargets":
+                            {
+                                "$type": "SelectTargetsByShape",
+                                "shapeName": "CircleR10H20",
+                                "centerBasedOn": "Self",
+                                "campTargetType": "Alliance",
+                                "campBasedOn": "Self",
+                            },
+                            "predicates":
+                            [
+                                {
+                                    "$type": "ByEntityTypes",
+                                    "entityTypes": ["Avatar"],
+                                },
+                                {
+                                    "$type": "ByTargetType",
+                                    "targetType": "OriginOwner",
+                                    "isTarget": true,
+                                },
+                            ],
+                        },
+                    ],
+                },
+                "UNIQUE_GangPlank_Battle_Field_Mark":  //战斗领域添加标记
+                {
+                    "isUnique": true,
+                    "duration": 0.5,
+                    "onAdded":
+                    [
+                        {
+                            "$type": "SetGlobalValue",
+                            "key": "_ABILITY_Itto_GangPlank_BattleMark",  //用于处理额外重击伤害
+                            "value": 1,
+                            "doOffStage": true,
+                        },
+                    ],
+                    "onRemoved":
+                    [
+                        {
+                            "$type": "SetGlobalValue",
+                            "key": "_ABILITY_Itto_GangPlank_BattleMark",
+                            "value": 0,
+                            "doOffStage": true,
+                        },
+                    ]
+                },
+                "GangPlank_Battle_TriggerTaunt":   //嘲讽
+                {
+                    "duration": 8.0,
+                    "onAdded":
+                    [
+                        // {
+                        //     "$type": "AttachEffect",
+                        //     "effectPattern": "Eff_Avatar_Girl_Catalyst_Mona_LiquidStrike_Phantom",
+                        //     "born":
+                        //     {
+                        //         "$type": "ConfigBornBySelf",
+                        //         "offset":
+                        //         {
+                        //             "x": 0,
+                        //             "y": -0.3,
+                        //             "z": 0,
+                        //         },
+                        //     },
+                        // },
+                    ],
+                    "thinkInterval": 0.25,
+                    "onThinkInterval":
+                    [
+                        {
+                            "$type": "TriggerTaunt",
+                            "otherTargets":
+                            {
+                                "$type": "SelectTargetsByShape",
+                                "shapeName": "CircleR5H10",
+                                "centerBasedOn": "Self",
+                                "campTargetType": "Enemy",
+                                "campBasedOn": "Self",
+                            },
+                            "predicates":
+                            [
+                                {
+                                    "$type" : "ByEntityTypes",
+                                    "entityTypes" : ["Monster"],
+                                },
+                                {
+                                    "$type": "ByTargetGlobalValue",
+                                    "key": "_ANIMAL_ENTITY_TYPE",
+                                    "value": 0,
+                                    "compareType": "NoneOrEqual",
+                                },
+                            ],
+                        },
+                        {
+                            "$type": "AttachModifier",
+                            "modifierName": "Taunted_FX",
+                            "otherTargets":
+                            {
+                                "$type": "SelectTargetsByShape",
+                                "shapeName": "CircleR5H10",
+                                "centerBasedOn": "Self",
+                                "campTargetType": "Enemy",
+                                "campBasedOn": "Self",
+                            },
+                            "predicates":
+                            [
+                                {
+                                    "$type" : "ByEntityTypes",
+                                    "entityTypes" : ["Monster"],
+                                },
+                                {
+                                    "$type": "ByTargetGlobalValue",
+                                    "key": "_ANIMAL_ENTITY_TYPE",
+                                    "value": 0,
+                                    "compareType": "NoneOrEqual",
+                                },
+                                {
+                                    "$type": "ByNot",
+                                    "predicates":
+                                    [
+                                        {
+                                            "$type": "ByHasAbilityState",
+                                            "abilityState": "MuteTaunt",
+                                        },
+                                    ],
+                                },
+                            ],
+                        },
+                    ],
+                    "onBeingHit":
+                    [
+                        {
+                            "$type": "AddGlobalValue",
+                            "key": "_ABILITY_Itto_Symbol",
+                            "value": 1,
+                            "useLimitRange": true,
+                            "minValue": 0,
+                            "maxValue": 5,
+                            "target": "OriginOwner",
+                            "doOffStage": true,
+                        },
+                    ],
+                    "onRemoved":
+                    [
+                        {
+                            "$type": "KillSelf",
+                        },
+                    ],
+                },
+                "Taunted_FX":
+                {
+                    "stacking": "Refresh",
+                    "onAdded":
+                    [
+                        {
+                            "$type": "AttachEffect",
+                            "effectPattern": "Eff_Ganyu_Dummy_Taunted",
+                        },
+                    ],
+                    "onKill":
+                    [
+                        {
+                            "$type": "RemoveModifier",
+                            "modifierName": "Taunted_FX",
+                        },
+                    ],
+                },
+            },
+        },
+    },    
+
+///////////////////////////////////////////////////////////////
+//
+//  元素爆发
+//
+////////////////////////////////////////////////////////////////
+    {
+        "Default":
+        {
+            "$type": "ConfigAbility",
+            "abilityName": "Avatar_Itto_ElementalBurst",
+            "onAbilityStart":
+            [
+                {
+                    "$type": "AttachModifier",
+                    "modifierName": "Avatar_Itto_ElementalBurst_Buff",
+                },
+            ],
+            "abilityMixins":
+            [
+                {
+                    "$type": "AttachToStateIDMixin",
+                    "stateIDs": ["Itto_ElementalBurst"],
+                    "modifierName": "Avatar_Itto_ElementalBurst_Initialize",
+                },
+                {
+                    "$type": "AttachToStateIDMixin",
+                    "stateIDs": ["Itto_ElementalBurst"],
+                    "modifierName": "Avatar_Itto_ElementalBurst_Camera_Handler",
+                },
+                {
+                    "$type": "AttachToStateIDMixin",
+                    "stateIDs": ["Itto_ElementalBurst"],
+                    "modifierName": "Avatar_Itto_ElementalBurst_Camera_PushTarget",
+                },
+                {
+                    "$type": "AttachToStateIDMixin",
+                    "stateIDs": ["Itto_ElementalBurst"],
+                    "modifierName": "Avatar_Itto_ElementalBurst_EmotionControl",
+                },
+                {
+                    "$type": "AttachToStateIDMixin",
+                    "stateIDs": ["Itto_ElementalBurst","Itto_ElementalBurst_AS"],
+                    "modifierName": "Avatar_Itto_ElementalBurst_WeatherChange",
+                },
+                {
+                    "$type":"AttachToStateIDMixin",
+                    "stateIDs": ["Itto_ElementalBurst","Itto_ElementalBurst_AS"],
+                    "modifierName": "Avatar_Itto_ElementalBurst_Invincible",
+                },
+            ],
+            "modifiers":
+            {
+                "Avatar_Itto_ElementalBurst_Initialize":   //大招初始化
+                {
+                    "onAdded":
+                    [
+                        {
+                            "$type":"AvatarSkillStart",
+                            "skillID":10575,
+                            "cdRatio":1.0,
+                            "predicates":
+                            [
+                                {
+                                    "$type": "BySkillReady",
+                                    "skillID": 10575,
+                                },
+                            ],
+                        },
+                    ],
+                },
+                "Avatar_Itto_ElementalBurst_Camera_Handler":  //控制镜头动画播放及检测
+                {
+                    "onAdded":
+                    [
+                        {
+                            "$type":"AddGlobalValue",
+                            "key": "_ABILITY_Itto_NoCamera",
+                            "value": 0,
+                            "useLimitRange":true,
+                            "maxValue":0,
+                            "minValue":0,
+                        },
+                        {
+                            //周围碰撞检测，近身有障碍时将不播放镜头动画
+                            "$type":"Predicated",
+                            "targetPredicates":
+                            [
+                                {
+                                    "$type":"ByAttackNotHitScene",
+                                    "attackPattern":
+                                    {
+                                        "$type": "ConfigAttackCircle",
+                                        "triggerType": "TriggerNoRepeat",
+                                        "height":0.4,
+                                        "fanAngle": 30.0,
+                                        "radius": 1.4,
+                                        "born":
+                                        {
+                                            "$type": "ConfigBornBySelf",
+                                            "offset":
+                                            {
+                                                "x" : 0.0,
+                                                "y" : 1.5,
+                                                "z" : 0.0,
+                                            },
+                                        },
+                                    },
+                                    "checkWaterLayer":true,
+                                },
+                                {
+                                    "$type": "ByAvatarInWaterDepth",
+                                    "compareType": "LessAndEqual",
+                                    "depth": 0.5,
+                                },
+                            ],
+                            "successActions":
+                            [
+                                {
+                                    "$type":"AvatarEnterCameraShot",
+                                    "cameraMoveCfgPath":"Camera_Xiao_HowlingSoul", 
+                                },
+                            ],
+                            "failActions":
+                            [
+                                {
+                                    "$type":"AddGlobalValue",
+                                    "key": "_ABILITY_Itto_NoCamera",
+                                    "value": 1,
+                                },
+                            ],
+                        },
+                        {
+                            "$type": "EnableHeadControl",
+                            "enable": false,
+                            "blend": false,
+                        },
+                    ],
+                    "onRemoved":
+                    [
+                        {
+                            "$type" : "AvatarExitCameraShot",
+                            "doOffStage" : true,
+                        },
+                        {
+                            "$type": "AvatarCameraParam",
+                            "cameraParam":
+                            {
+                                "forceRadius": 6,
+                                "forceRadiusDuration": 0.5,
+                                "shouldKeepForceRadius":true,
+                            },
+                        },
+                        {
+                            "$type": "EnableHeadControl",
+                            "enable": true,
+                        },
+                    ],
+                    "onAvatarOut":   //释放过程中换人也会重置镜头参数  （加层保护）
+                    [
+                        {
+                            "$type" : "AvatarExitCameraShot",
+                            "doOffStage" : true,
+                        },
+                        {
+                            "$type": "AvatarCameraParam",
+                            "doOffStage":true,
+                            "cameraParam":
+                            {
+                                "forceRadius": 6,
+                                "forceRadiusDuration": 0.5,
+                                "shouldKeepForceRadius":true,
+                            },
+                        },
+                        {
+                            "$type": "EnableHeadControl",
+                            "enable": true,
+                        },
+                    ],
+                },
+                "Avatar_Itto_ElementalBurst_Camera_PushTarget":   //把怪推出镜头
+                {
+                    "modifierMixins":
+                    [
+                        {
+                            "$type": "WindZoneMixin",
+                            "shapeName": "CircleR3",
+                            "strength" : -3,
+                            "attenuation" : 2,
+                            "born":
+                            {
+                                "$type": "ConfigBornByTarget",
+                                "offset" :
+                                {
+                                    "x": 0.0,
+                                    "y": 0.0,
+                                    "z": 0.0,
+                                },
+                            },
+                            "targetType": "Enemy",
+                            "predicates":
+                            [
+                                {
+                                    "$type" : "ByEntityTypes",
+                                    "entityTypes" : ["Monster","Grass"],
+                                },
+                                {
+                                    "$type" : "ByTargetWeight", //WindZoneLevel = 2
+                                    "logic" : "LesserOrEqual",  //WindZoneLevel = 2
+                                    "weight" : 250.0,   //WindZoneLevel = 2
+                                },
+                            ],
+                        },
+                    ],
+                },
+                "Avatar_Itto_ElementalBurst_EmotionControl":  //表情管理
+                {
+                    "onAdded":
+                    [
+                        {
+                            "$type" : "ControlEmotion",
+                            "toggleBlink" : false,
+                            "toggleEyeKey": false,
+                            "toggleEmoSync": false,
+                        },
+                    ],
+                    "onRemoved":
+                    [
+                        {
+                            "$type" : "ControlEmotion",
+                            "doOffStage": true,
+                            "toggleBlink" : true,
+                            "toggleEyeKey": true,
+                            "toggleEmoSync": true,
+                        },
+                    ],
+                    "onAvatarOut":
+                    [
+                        {
+                            "$type" : "ControlEmotion",
+                            "doOffStage": true,
+                            "toggleBlink" : true,
+                            "toggleEyeKey": true,
+                            "toggleEmoSync": true,
+                        },
+                    ],
+                },
+                "Avatar_Itto_ElementalBurst_WeatherChange":  //天气控制
+                {
+                    "duration" : 1.5,
+                    "modifierMixins" :
+                    [
+                        {
+                            "$type":"TriggerWeatherMixin",
+                            "type":"Skill",
+                            "weatherPattern":"Weather_Xiao_HowlingSoul_Pre",  //临时
+                            "transDuration":0.3,
+                            "duration":1.5,
+                        },
+                    ],
+                },
+                "Avatar_Itto_ElementalBurst_Invincible":   //大招无敌保护
+                {
+                    "duration": 2.0,    //加个限定时间，防止摆pose很久了还无敌
+                    "state": "Invincible",
+                    "onAdded":
+                    [
+                        {
+                            "$type" : "AttachAbilityStateResistance",
+                            "resistanceListID": 11002,
+                        },
+                    ],
+                },
+                "Avatar_Itto_ElementalBurst_Buff":   //大招Buff效果
+                {
+                    "duration": 15,
+                    "state": "AttackUp",
+                    "isLimitedProperties": true,
+                    "properties":
+                    {
+                        "Animator_AttackSpeedRatio": 0,
+                        "Actor_DefenceRatio": -0.3,
+                        "Actor_RockAddHurtExtraDelta": 0.3,
+                    },
+                    "modifierMixins":
+                    [
+                        {
+                            "$type": "ReplaceEventPatternMixin",  //Eventpattern强制切换攻击属性及特效
+                            "oldPatterns": 
+                            [
+                                "Itto_Attack01",
+                                "Itto_Attack02",
+                                "Itto_Attack03",
+                                "Itto_Attack04",
+                                "Itto_ExtraAttack",
+                            ],
+                            "newPatterns": 
+                            [
+                                "Itto_Attack01_Ghost",
+                                "Itto_Attack02_Ghost",
+                                "Itto_Attack03_Ghost",
+                                "Itto_Attack04_Ghost",
+                                "Itto_ExtraAttack_Ghost",
+                            ],
+                        },
+                    ],
+                    "onAdded":
+                    [
+                        {
+                            "$type": "SetGlobalValue",
+                            "key": "_ABILITY_Itto_ElementalBurst_Flag",  //标记大招状态
+                            "value": 1,
+                            "doOffStage": true,
+                        },
+                        {
+                            "$type": "AttachEffect",
+                            "effectPattern": "Eff_Avatar_Male_Claymore_Itto_ElementalBurst_Ghost_Body",
+                        },
+                        {
+                            "$type": "AttachModifier",
+                            "modifierName": "Avatar_Itto_ElementalBurst_WeaponEffect",
+                            "otherTargets":
+                            {
+                                "$type": "SelectTargetsByEquipParts",
+                                "equipPartNames" : ["equip01", "equip02", "sheathPoint"],
+                            },
+                        },
+                    ],
+                    "onRemoved":
+                    [
+                        {
+                            "$type": "SetGlobalValue",
+                            "key": "_ABILITY_Itto_ElementalBurst_Flag",
+                            "value": 0,
+                            "doOffStage": true,
+                        },
+                    ],
+                },
+                "Avatar_Itto_ElementalBurst_WeaponEffect":   //武器特效
+                {
+                    "onAdded":
+                    [
+                        {
+                            "$type":"AttachEffect",
+                            "effectPattern":"Eff_Avatar_Male_Claymore_Itto_ElementalBurst_Ghost_Weapon",
+                        },
+                    ],
+                },
+            },
+        }
+    },
+
+////////////////////////////////////////////////////////////////
+//
+//  空中攻击
+//
+////////////////////////////////////////////////////////////////
+    {
+        "Default":
+        {
+            "$type": "ConfigAbility",
+            "abilityName": "Avatar_Itto_FallingAnthem",
+            "abilityMixins":
+            [
+                {
+                    "$type": "AvatarChangeSkillMixin",
+                    "priority":"AvatarCommon",
+                    "jumpSkillID": 5057010,
+                    "flySkillID": 5057010,
+                },
+                {
+                    "$type": "AttachToStateIDMixin",
+                    "stateIDs":
+                    [
+                        "FallingAnthem_BS"
+                    ],
+                    "modifierName": "FallingAnthem_BS_Material",
+                },
+                {
+                    "$type": "AttachToStateIDMixin",
+                    "stateIDs": ["FallingAnthem_Loop"],
+                    "modifierName": "FallingAnthem_Loop_Normal",
+                },
+                {
+                    "$type": "AttachToAnimatorStateIDMixin",
+                    "stateIDs":
+                    [
+                        "FallingAnthem_BS_2",
+                        "FallingAnthem_Loop",
+                        "FallingAnthem_Loop_Low",
+                    ],
+                    "modifierName": "FallingAnthem_LoopDamage",
+                },
+                {
+                    "$type": "AttachToStateIDMixin",
+                    "stateIDs":
+                    [
+                        "FallingAnthem_BS"
+                    ],
+                    "modifierName": "FallingAnthem_BS_VelocityForce_Initialize",
+                },
+                {
+                    "$type": "AttachToStateIDMixin",
+                    "stateIDs":
+                    [
+                        "FallingAnthem_BS",
+                        "FallingAnthem_Loop",
+                        "FallingAnthem_AS_1",
+                        "FallingAnthem_AS_2"
+                    ],
+                    "modifierName": "FallingAnthem_Height_Detect",
+                },
+                {
+                    "$type": "AttachToStateIDMixin",
+                    "stateIDs":
+                    [
+                        "FallingAnthem_BS",
+                        "FallingAnthem_Loop",
+                        "FallingAnthem_AS_1",
+                        "FallingAnthem_AS_2"
+                    ],
+                    "modifierName": "FallingAnthem_FallingDamageImmune_01",
+                },
+                {
+                    "$type": "AttachToStateIDMixin",
+                    "stateIDs":
+                    [
+                        "FallingAnthem_BS",
+                        "FallingAnthem_Loop"
+                    ],
+                    "modifierName": "Inertia",
+                },
+                {
+                    "$type": "AttachToStateIDMixin",
+                    "stateIDs":
+                    [
+                        "FallingAnthem_BS",
+                        "FallingAnthem_Loop",
+                        "FallingAnthem_AS_1",
+                        "FallingAnthem_AS_2"
+                    ],
+                    "modifierName": "FallingAnthem_OverHead_Camera",
+                },
+                {
+                    "$type": "AttachToStateIDMixin",
+                    "stateIDs":
+                    [
+                        "FallingAnthem_BS"
+                    ],
+                    "modifierName": "FallingAnthem_ClearVelocityForce",
+                },
+                {
+                    "$type": "AttachToStateIDMixin",
+                    "stateIDs":
+                    [
+                        "FallingAnthem_BS",
+                        "FallingAnthem_Loop",
+                    ],
+                    "modifierName": "FallingAnthem_AttachSelfEffect",
+                },
+            ],
+            "onAdded":
+            [
+            ],
+            "onAbilityStart":
+            [
+                //普通状态第一段
+                {
+                    "$type": "TriggerAttackEvent",
+                    "targetType": "Enemy",
+                    "attackEvent":
+                    {
+                        "attackPattern":
+                        {
+                            "$type": "ConfigAttackCircle",
+                            "triggerType": "TriggerNoRepeat",
+                            "scale": 1.0,
+                            "height": 2.0,
+                            "centerYOffset": 0.0,
+                            "offsetZ": 0.0,
+                            "fanAngle": 360.0,
+                            "radius": 3.0,
+                            "followRootNodeY": false,
+                            "followTransformY": false,
+                            "offsetAngle": 0.0,
+                            "born":
+                            {
+                                "$type": "ConfigBornByTarget",
+                                "offset":
+                                {
+                                    "x": 0.0,
+                                    "y": -0.5,
+                                    "z": 1.0,
+                                },
+                            },
+                        },
+                        "attackInfo":
+                        {
+                            "attackTag": "FallingAttack",
+                            "attackProperty":
+                            {
+                                "damagePercentage": "%FallingAnthem_Normal_Rank_1_Damage",
+                                "strikeType": "Blunt",
+                                "overrideByWeapon": true,
+                                "attackType": "Melee",
+                                "elementType": "None",
+                                "elementDurability": 25,
+                                "enBreak": 150,
+                            },
+                            "hitPattern":
+                            {
+                                "onHitEffectName": "none",
+                                "hitImpulseType":"LV4",
+                                "retreatType": "ByAttacker",
+                                "reboundRatio": 0,
+                                "canBeDefenceHalt": false,
+                                "hitHaltTime": 0,
+                                "hitHaltTimeScale": 0.1,
+                                "muteHitText": false
+                            },
+                            "forceCameraShake": true,
+                            "cameraShake":
+                            {
+                                "shakeType": "CustomVector",
+                                "shakeRange": 0.24,
+                                "shakeTime": 0.12,
+                                "shakeDistance": 30,
+                                "shakeDir":
+                                {
+                                    "x": 0,
+                                    "y": 1,
+                                    "z": 0,
+                                },
+                                "extension":
+                                {
+                                    "baseCycle": 0.24,
+                                    "cycleDamping": 0,
+                                    "rangeAttenuation": 0.3,
+                                },
+                            },
+                        },
+                    },
+                    "predicates":
+                    [
+                        {
+                            "$type": "ByTargetGlobalValue",
+                            "key": "_ABILITY_FallingAnthem_UseCamera",
+                            "forceByCaster": true,
+                            "value": 0,
+                            "compareType": "NoneOrEqual",
+                        },
+                    ],
+                },
+                //普通状态第二段
+                {
+                    "$type": "TriggerAttackEvent",
+                    "targetType": "Enemy",
+                    "attackEvent":
+                    {
+                        "attackPattern":
+                        {
+                            "$type": "ConfigAttackCircle",
+                            "triggerType": "TriggerNoRepeat",
+                            "scale": 1.0,
+                            "height": 2.0,
+                            "centerYOffset": 0.0,
+                            "offsetZ": 0.0,
+                            "fanAngle": 360.0,
+                            "radius": 5.0,
+                            "followRootNodeY": false,
+                            "followTransformY": false,
+                            "offsetAngle": 0.0,
+                            "born":
+                            {
+                                "$type": "ConfigBornByTarget",
+                                "offset":
+                                {
+                                    "x": 0.0,
+                                    "y": -0.5,
+                                    "z": 1.0,
+                                },
+                            },
+                        },
+                        "attackInfo":
+                        {
+                            "attackTag": "FallingAttack",
+                            "attackProperty":
+                            {
+                                "damagePercentage": "%FallingAnthem_Normal_Rank_2_Damage",
+                                "strikeType": "Blunt",
+                                "overrideByWeapon": true,
+                                "attackType": "Melee",
+                                "elementType": "None",
+                                "elementDurability": 25,
+                                "enBreak": 200,
+                            },
+                            "hitPattern":
+                            {
+                                "onHitEffectName": "none",
+                                "hitImpulseType":"LV7",
+                                "retreatType": "ByAttacker",
+                                "reboundRatio": 0,
+                                "canBeDefenceHalt": false,
+                                "hitHaltTime": 0,
+                                "hitHaltTimeScale": 0.1,
+                                "muteHitText": false
+                            },
+                            "forceCameraShake": true,
+                            "cameraShake":
+                            {
+                                "shakeType": "CustomVector",
+                                "shakeRange": 0.5,
+                                "shakeTime": 0.2,
+                                "shakeDistance": 30,
+                                "shakeDir":
+                                {
+                                    "x": 0,
+                                    "y": 1,
+                                    "z": 1,
+                                },
+                                "extension":
+                                {
+                                    "baseCycle": 0.4,
+                                    "cycleDamping": 0,
+                                    "rangeAttenuation": 0.3,
+                                },
+                            },
+                        },
+                    },
+                    "predicates":
+                    [
+                        {
+                            "$type": "ByTargetGlobalValue",
+                            "key": "_ABILITY_FallingAnthem_UseCamera",
+                            "forceByCaster": true,
+                            "value": 1,
+                            "compareType": "Equal",
+                        },
+                    ],
+                },
+                //普通状态第一段
+                {
+                    "$type": "FireEffect",
+                    "effectPattern": "Eff_Avatar_Claymore_FallAnthem_Strike_01",
+                    "predicates":
+                    [
+                        {
+                            "$type": "ByTargetGlobalValue",
+                            "key": "_ABILITY_FallingAnthem_UseCamera",
+                            "forceByCaster": true,
+                            "value": 0,
+                            "compareType": "NoneOrEqual",
+                        },
+                    ],
+                },
+                //普通状态第二段
+                {
+                    "$type": "FireEffect",
+                    "effectPattern": "Eff_Avatar_Claymore_FallAnthem_Strike_02",
+                    "predicates":
+                    [
+                        {
+                            "$type": "ByTargetGlobalValue",
+                            "key": "_ABILITY_FallingAnthem_UseCamera",
+                            "forceByCaster": true,
+                            "value": 1,
+                            "compareType": "Equal",
+                        },
+                    ],
+                },
+            ],
+            "modifiers":
+            {
+                "FallingAnthem_AttachSelfEffect":
+                {
+                    "onAdded":
+                    [
+                        {
+                            "$type":"AttachEffect",
+                            "effectPattern":"Eff_Avatar_Claymore_FallAnthem_Self_02",
+                        },
+                    ],
+                },
+                "FallingAnthem_BS_Material":
+                {
+                    "onAdded":
+                    [
+                        {
+                            "$type":"FireEffect",
+                            "effectPattern":"Eff_Avatar_Claymore_FallAnthem_Self",
+                        },
+                        {
+                            "$type": "FireEffect",
+                            "effectPattern": "Eff_Avatar_Claymore_FallAnthem_BS",
+                        },
+                    ],
+                },
+                "FallingAnthem_BS_VelocityForce_Initialize":
+                {
+                    "properties":
+                    {
+                        "Actor_AddGravityScale": -2,
+                    },
+                    "onAdded":
+                    [
+                        {
+                            "$type": "RemoveVelocityForce",
+                            "forces":
+                            [
+                                "RushMoveType"
+                            ],
+                        },
+                    ],
+                },
+                "FallingAnthem_LoopDamage":
+                {
+                    "thinkInterval": 0.3,
+                    "onThinkInterval":
+                    [
+                        {
+                            "$type": "TriggerAttackEvent",
+                            "targetType": "Enemy",
+                            "attackEvent":
+                            {
+                                "attackPattern":
+                                {
+                                    "$type": "ConfigAttackSphere",
+                                    "triggerType": "TriggerNoRepeat",
+                                    "radius": 1.0,
+                                    "born":
+                                    {
+                                        "$type": "ConfigBornBySelf",
+                                        "offset":
+                                        {
+                                            "x": 0.0,
+                                            "y": 0.0,
+                                            "z": 1
+                                        }
+                                    }
+                                },
+                                "attackInfo":
+                                {
+                                    "attackTag": "FallingAttack",
+                                    "attackProperty":
+                                    {
+                                        "damagePercentage": "%FallingAnthem_Normal_Loop_Damage",
+                                        "strikeType": "Slash",
+                                        "overrideByWeapon": true,
+                                        "attackType": "Melee",
+                                        "elementType": "None",
+                                        "elementDurability": 0,
+                                        "enBreak": 35,
+                                    },
+                                    "hitPattern":
+                                    {
+                                        "onHitEffectName": "default",
+                                        "hitImpulseType":"LV2",
+                                        "reboundRatio": 0,
+                                        "canBeDefenceHalt": false,
+                                        "hitHaltTime": 0,
+                                        "hitHaltTimeScale": 0.02,
+                                        "muteHitText": false
+                                    },
+                                },
+                            },
+                        },
+                    ],
+                },
+                "FallingAnthem_FallingDamageImmune_01":
+                {
+                    "onAdded":[
+                        {
+                          "$type": "ClearGlobalValue",
+                          "key": "_ABILITY_FallingAttack_Altitude",
+                        },
+                        {
+                            "$type": "AddGlobalValue",
+                            "key": "_ABILITY_FallingAttack_Altitude",
+                            "value": "%FallingAnthem_FallingDamageRatio_Lv0",
+                            "useLimitRange": true,
+                            "maxValue": "%FallingAnthem_FallingDamageRatio_Lv0",
+                            "minValue": "%FallingAnthem_FallingDamageRatio_Lv0",
+                            "predicates":
+                            [
+                                {
+                                    "$type": "ByTargetAltitude",
+                                    "value": "%FallingAnthem_Altitude_Lv0",
+                                    "logic": "LesserOrEqual",
+                                },
+                            ],
+                        },//==================================================================================
+                        {
+                            "$type": "AddGlobalValue",
+                            "key": "_ABILITY_FallingAttack_Altitude",
+                            "value": "%FallingAnthem_FallingDamageRatio_Lv1",
+                            "useLimitRange": true,
+                            "maxValue": "%FallingAnthem_FallingDamageRatio_Lv1",
+                            "minValue": "%FallingAnthem_FallingDamageRatio_Lv1",
+                            "predicates":
+                            [
+                                {
+                                    "$type": "ByTargetAltitude",
+                                    "value": "%FallingAnthem_Altitude_Lv1",
+                                    "logic": "LesserOrEqual",
+                                },
+                                {
+                                    "$type": "ByTargetAltitude",
+                                    "value": "%FallingAnthem_Altitude_Lv0",
+                                    "logic": "Greater",
+                                },
+                            ],
+                        },//==================================================================================
+                        {
+                            "$type": "AddGlobalValue",
+                            "key": "_ABILITY_FallingAttack_Altitude",
+                            "value": "%FallingAnthem_FallingDamageRatio_Lv2",
+                            "useLimitRange": true,
+                            "maxValue": "%FallingAnthem_FallingDamageRatio_Lv2",
+                            "minValue": "%FallingAnthem_FallingDamageRatio_Lv2",
+                            "predicates":
+                            [
+                                {
+                                    "$type": "ByTargetAltitude",
+                                    "value": "%FallingAnthem_Altitude_Lv2",
+                                    "logic": "LesserOrEqual",
+                                },
+                                {
+                                    "$type": "ByTargetAltitude",
+                                    "value": "%FallingAnthem_Altitude_Lv1",
+                                    "logic": "Greater",
+                                },
+                            ],
+                        },//==================================================================================
+                        {
+                            "$type": "AddGlobalValue",
+                            "key": "_ABILITY_FallingAttack_Altitude",
+                            "value": "%FallingAnthem_FallingDamageRatio_Lv3",
+                            "useLimitRange": true,
+                            "maxValue": "%FallingAnthem_FallingDamageRatio_Lv3",
+                            "minValue": "%FallingAnthem_FallingDamageRatio_Lv3",
+                            "predicates":
+                            [
+                                {
+                                    "$type": "ByTargetAltitude",
+                                    "value": "%FallingAnthem_Altitude_Lv3",
+                                    "logic": "LesserOrEqual",
+                                },
+                                {
+                                    "$type": "ByTargetAltitude",
+                                    "value": "%FallingAnthem_Altitude_Lv2",
+                                    "logic": "Greater",
+                                },
+                            ],
+                        },//==================================================================================
+                        {
+                            "$type": "AddGlobalValue",
+                            "key": "_ABILITY_FallingAttack_Altitude",
+                            "value": "%FallingAnthem_FallingDamageRatio_Lv4",
+                            "useLimitRange": true,
+                            "maxValue": "%FallingAnthem_FallingDamageRatio_Lv4",
+                            "minValue": "%FallingAnthem_FallingDamageRatio_Lv4",
+                            "predicates":
+                            [
+                                {
+                                    "$type": "ByTargetAltitude",
+                                    "value": "%FallingAnthem_Altitude_Lv3",
+                                    "logic": "Greater",
+                                },
+                            ],
+                        },//==================================================================================
+
+                        {
+                            "$type": "AttachModifier",
+                            "modifierName": "FallingAnthem_FallingDamageImmune_02",
+                        },
+                    ],
+                },
+                "FallingAnthem_FallingDamageImmune_02":
+                {
+                    "onAdded":[
+                        {
+                            "$type": "SetGlobalValueToOverrideMap",
+                            "globalValueKey": "_ABILITY_FallingAttack_Altitude",
+                            "overrideMapKey": "FallingAnthem_FallingDamageRatio",
+                        },
+                        {
+                            "$type": "AttachModifier",
+                            "modifierName": "FallingAnthem_FallingDamageImmune_03",
+                        },
+                    ],
+                },
+                "FallingAnthem_FallingDamageImmune_03":
+                {
+
+                    "properties":
+                    {
+                        "Actor_FallingDamageRatio": "%FallingAnthem_FallingDamageRatio",
+                    },
+                },
+                "FallingAnthem_Loop_Normal":
+                {
+                    "modifierMixins":
+                    [
+                        {
+                            "$type": "AttachModifierToSelfGlobalValueMixin",
+                            "globalValueKey": "_ABILITY_FallingAnthem_UseCamera",
+                            "valueSteps":
+                            [
+                                -1,
+                                0.5,
+                                1.5
+                            ],
+                            "removeAppliedModifier": true,
+                            "modifierNameSteps":
+                            [
+                                "FallingAnthem_Loop_Normal_Rank_1",
+                                "FallingAnthem_Loop_Normal_Rank_2"
+                            ],
+                        },
+                    ],
+                },
+                "FallingAnthem_Loop_Normal_Rank_1":
+                {
+                    "onAdded":
+                    [
+                        {
+                            "$type": "FireEffect",
+                            "effectPattern": "Eff_Avatar_Claymore_FallAnthem_Loop_01",
+                        },
+                    ],
+                },
+                "FallingAnthem_Loop_Normal_Rank_2":
+                {
+                    "onAdded":
+                    [
+                        {
+                            "$type": "AttachEffect",
+                            "effectPattern": "Eff_Avatar_Claymore_FallAnthem_Loop_02",
+                        },
+                    ],
+                },
+                //水平惯性继承
+                "Inertia":
+                {
+                    "modifierMixins":
+                    [
+                        {
+                            "$type": "ApplyInertiaVelocityMixin",
+                            "damping": 0,
+                            "useXZ": false,
+                            "useY": false,
+                        },
+                    ],
+                },
+                "FallingAnthem_Height_Detect":
+                {
+                    "onAdded":
+                    [
+                        {
+                            "$type": "AddGlobalValue",
+                            "key": "_ABILITY_FallingAnthem_UseCamera",
+                            "value": 0,
+                            "useLimitRange": true,
+                            "maxValue": 0,
+                            "minValue": 0,
+                            "predicates":
+                            [
+                                {
+                                    "$type": "ByTargetAltitude",
+                                    "value": 2.4,
+                                    "logic": "LesserOrEqual",
+                                },
+                            ],
+                        },
+                        {
+                            "$type": "AddGlobalValue",
+                            "key": "_ABILITY_FallingAnthem_UseCamera",
+                            "value": 5,
+                            "useLimitRange": true,
+                            "maxValue": 1,
+                            "minValue": 0,
+                            "predicates":
+                            [
+                                {
+                                    "$type": "ByTargetAltitude",
+                                    "value": 2.4,
+                                    "logic": "Greater",
+                                },
+                            ],
+                        },
+                        {
+                            "$type": "SetAnimatorFloat",
+                            "floatID": "FallingAnthem_UseCamera",
+                            "value": 0,
+                            "predicates":
+                            [
+                                {
+                                    "$type": "ByTargetAltitude",
+                                    "value": 2.4,
+                                    "logic": "LesserOrEqual",
+                                },
+                            ],
+                        },
+                        {
+                            "$type": "SetAnimatorFloat",
+                            "floatID": "FallingAnthem_UseCamera",
+                            "value": 1,
+                            "predicates":
+                            [
+                                {
+                                    "$type": "ByTargetAltitude",
+                                    "value": 2.4,
+                                    "logic": "Greater",
+                                },
+                            ],
+                        },
+                    ],
+                    "onRemoved":
+                    [
+                        {
+                            "$type": "SetAnimatorFloat",
+                            "floatID": "FallingAnthem_UseCamera",
+                            "value": 0,
+                        },
+                        {
+                            "$type": "AddGlobalValue",
+                            "key": "_ABILITY_FallingAnthem_UseCamera",
+                            "value": 0,
+                            "useLimitRange": true,
+                            "maxValue": 0,
+                            "minValue": 0,
+                        },
+                    ],
+                },
+                "FallingAnthem_OverHead_Camera":
+                {
+                    "onAdded":
+                    [
+                        {
+                            "$type": "AvatarCameraParam",
+                            "lockParam": false,
+                            "cameraParam":
+                            {
+                                "forceRadius": 4.5,
+                                "forceRadiusDuration": 0.2,
+                                "shouldKeepForceRadius": true,
+                            },
+                            "predicates":
+                            [
+                                {
+                                    "$type": "ByAnimatorFloat",
+                                    "parameter": "FallingAnthem_UseCamera",
+                                    "value": 1,
+                                    "logic": "Equal",
+                                },
+                            ],
+                        },
+                    ],
+                },
+                "FallingAnthem_OverHead_Camera_Remover":
+                {
+                    "onAdded":
+                    [
+                        {
+                            "doOffStage": true,
+                            "$type": "AvatarExitCameraShot",
+                        },
+                    ],
+                },
+                "FallingAnthem_Landed_Camera":
+                {
+                    "onAdded":
+                    [
+                        {
+                            "$type": "AvatarCameraParam",
+                            "lockParam": false,
+                            "cameraParam":
+                            {
+                                "forceRadius": 6.0,
+                                "forceRadiusDuration": 0.1,
+                                "shouldKeepForceRadius": true,
+                            },
+                            "predicates":
+                            [
+                                {
+                                    "$type": "ByAnimatorFloat",
+                                    "parameter": "FallingAnthem_UseCamera",
+                                    "value": 1,
+                                    "logic": "Equal",
+                                },
+                            ],
+                        },
+                    ],
+                },
+                "FallingAnthem_ClearVelocityForce":
+                {
+                    "onAdded":
+                    [
+                        {
+                            "$type": "RemoveVelocityForce",
+                            "forces":
+                            [
+                                "RushMoveType",
+                                "InertiaType"
+                            ],
+                        },
+                    ],
+                },
+            },
+            "abilitySpecials":
+            {
+                "FallingAnthem_Normal_Loop_Damage": 0,
+                "FallingAnthem_Normal_Rank_1_Damage": 0,
+                "FallingAnthem_Normal_Rank_2_Damage": 0,
+
+                "FallingAnthem_Altitude_Lv0": 20,
+                "FallingAnthem_Altitude_Lv1": 40,
+                "FallingAnthem_Altitude_Lv2": 60,
+                "FallingAnthem_Altitude_Lv3": 100,
+                "FallingAnthem_Altitude_Lv4": 200,
+
+                "FallingAnthem_FallingDamageRatio_Lv0": -1,
+                "FallingAnthem_FallingDamageRatio_Lv1": -1,
+                "FallingAnthem_FallingDamageRatio_Lv2": -0.9,
+                "FallingAnthem_FallingDamageRatio_Lv3": -0.8,
+                "FallingAnthem_FallingDamageRatio_Lv4": -0.6,
+
+                "FallingAnthem_FallingDamageRatio": 0,
+            },
+        },
+    },
+
+]

@@ -1,0 +1,1094 @@
+{////////////////////////////////////////////////////////////////
+//
+//  Gorou_NormalAttack
+//
+////////////////////////////////////////////////////////////////
+	"Gorou_Arrow_01" :
+	{
+		"$type" : "ConfigGadget",
+		"common" :
+		{
+			"effectAttachShape" :
+			{
+				"$type" : "ConfigEffectAttachBox",
+				"emitFrom" : "Volume",
+				"scaleX" : 0.5,
+				"scaleY" : 0.5,
+				"scaleZ" : 1.0,
+			},
+			"affectedByWorld": true,
+		},
+		"combat" :
+		{
+			"property":
+			{
+				"useCreatorProperty" : true, // 是否继承创造者的数值
+				"canTriggerBullet" : false,
+			},
+			"combatLock":
+			{
+				"denyLockOn":true,
+				"lockType":"Gadget_Lv1",
+			},
+			"beHit" :
+			{
+				"hitBloodEffect" : "",
+				"muteAllHit" : true,
+				"muteAllHitEffect" : true,
+				"muteAllHitText" : true,
+			},
+			"animEvents" :
+			{
+				"ATK01":
+				{
+					"attackPattern" :
+					{
+						"$type" : "ConfigAttackBox",
+						"triggerType" : "TriggerNoRepeat",
+						"size" :
+						{
+							"x": 0.1,
+							"y": 0.1,
+							"z": 1.0,
+						},
+						"born":
+						{
+							"$type": "ConfigBornByCollisionPoint",
+							"offset" :
+							{
+								"x": 0.0, // + means up, - means down
+								"y": 0.0, // + means left, - means right
+								"z": -0.5, // + means forward, - means backward
+							}
+						},
+						"checkHitLayerType": "Both",
+					},
+					"attackInfo":
+					{
+						"canBeModifiedBy" : "OriginOwner",
+						"attackTag": "NormalAttack_01",
+						"attackProperty":
+						{
+							"damagePercentage": 0,
+							"strikeType": "Pierce",
+							"enBreak" : 12.6,
+						},
+						"hitPattern" :
+						{
+							"onHitEffectName": "default",
+			          		"hitImpulseType":"LV1",
+							"reboundRatio": 0,
+							"hitHaltTime": 0.0,
+							"hitHaltTimeScale": 0.0,
+							"muteHitText":false,
+						},
+						"forceCameraShake": false,
+						"cameraShake":
+						{
+							"shakeRange": 0.02,
+							"shakeTime": 0.1,
+						},
+					},
+				},
+			},
+		},
+		// 子弹线性移动
+		"move" :
+		{
+			"$type" : "ConfigLinerParabolaBulletMove",
+			"speed" : 40.0,
+			"straightRange" : 7.0,
+			"gravityOfAcceleration" : 15.0,
+			"airResistance" : 0.01,
+			"updateAngle" :
+			{
+				"$type": "ConfigBulletMoveAngleByVelocity",
+			},
+		},
+		// 生命周期管理
+		"timer" :
+		{
+			"lifeInfinite" : false,		//如果未触发是否一致存在
+			"lifeTime" : 8.0,			//存在时间
+		},
+		// 子弹参数
+		"gadget" :
+		{
+			"$type" : "ConfigBulletPattern",
+			"collision" :
+			{
+				"targetType" : "Enemy",
+				"triggerType" : "TriggerOnce",
+			},
+			"triggerActions" :
+			[
+				{
+					"$type" : "ConfigGadgetDoAttackEvent",
+				 	"attackEvent" : "ATK01",
+				 },
+				{
+					"$type" : "ConfigGadgetTriggerAbility",
+					"abilityName" : "Avatar_Gorou_ShootArrow_Light_Material",
+				},
+			],
+			"fireAISoundEvent" : true,//发AISound事件让Animals等响应做事情
+		},
+		"abilities":
+		[
+			//
+			{
+				"abilityID": "Arrow_Material",
+
+				"abilityName" : "Avatar_Gorou_ShootArrow_Light_Material"
+			},
+			{
+				"abilityID": "Arrow_Damage",
+
+				"abilityName" : "Avatar_Gorou_ShootArrow_Damage"
+			},
+		],
+	},
+	"Gorou_Arrow_02" :
+	{
+		"$type" : "ConfigGadget",
+		"common" :
+		{
+			"effectAttachShape" :
+			{
+				"$type" : "ConfigEffectAttachBox",
+				"emitFrom" : "Volume",
+				"scaleX" : 0.5,
+				"scaleY" : 0.5,
+				"scaleZ" : 1.0,
+			},
+			"affectedByWorld": true,
+		},
+		"combat" :
+		{
+			"property":
+			{
+				"useCreatorProperty" : true, // 是否继承创造者的数值
+				"canTriggerBullet" : false,
+			},
+			"combatLock":
+			{
+				"denyLockOn":true,
+				"lockType":"Gadget_Lv1",
+			},
+			"beHit" :
+			{
+				"hitBloodEffect" : "",
+				"muteAllHit" : true,
+				"muteAllHitEffect" : true,
+				"muteAllHitText" : true,
+			},
+			"animEvents" :
+			{
+				"ATK02":
+				{
+					"attackPattern" :
+					{
+						"$type" : "ConfigAttackBox",
+						"triggerType" : "TriggerNoRepeat",
+						"size" :
+						{
+							"x": 0.1,
+							"y": 0.1,
+							"z": 1.0,
+						},
+						"born":
+						{
+							"$type": "ConfigBornByCollisionPoint",
+							"offset" :
+							{
+								"x": 0.0, // + means up, - means down
+								"y": 0.0, // + means left, - means right
+								"z": -0.5, // + means forward, - means backward
+							}
+						},
+						"checkHitLayerType": "Both",
+					},
+					"attackInfo":
+					{
+						"canBeModifiedBy" : "OriginOwner",
+						"attackTag": "NormalAttack_02",
+						"attackProperty":
+						{
+							"damagePercentage": 0,
+							"strikeType": "Pierce",
+							"enBreak" : 11.7,
+						},
+						"hitPattern" :
+						{
+							"onHitEffectName": "default",
+			          		"hitImpulseType":"LV1",
+							"reboundRatio": 0,
+							"hitHaltTime": 0.0,
+							"hitHaltTimeScale": 0.0,
+							"muteHitText":false,
+						},
+						"forceCameraShake": false,
+						"cameraShake":
+						{
+							"shakeRange": 0.02,
+							"shakeTime": 0.1,
+						},
+					},
+				},
+			},
+		},
+		// 子弹线性移动
+		"move" :
+		{
+			"$type" : "ConfigLinerParabolaBulletMove",
+			"speed" : 40.0,
+			"straightRange" : 7.0,
+			"gravityOfAcceleration" : 15.0,
+			"airResistance" : 0.01,
+			"updateAngle" :
+			{
+				"$type": "ConfigBulletMoveAngleByVelocity",
+			},
+		},
+		// 生命周期管理
+		"timer" :
+		{
+			"lifeInfinite" : false,		//如果未触发是否一致存在
+			"lifeTime" : 8.0,			//存在时间
+		},
+		// 子弹参数
+		"gadget" :
+		{
+			"$type" : "ConfigBulletPattern",
+			"collision" :
+			{
+				"targetType" : "Enemy",
+				"triggerType" : "TriggerOnce",
+			},
+			"triggerActions" :
+			[
+				{
+					"$type" : "ConfigGadgetDoAttackEvent",
+					"attackEvent" : "ATK02",
+				},
+				{
+					"$type" : "ConfigGadgetTriggerAbility",
+					"abilityName" : "Avatar_Gorou_ShootArrow_Light_Material",
+				},
+			],
+			"fireAISoundEvent" : true,
+		},
+		"abilities":
+		[
+			{
+				"abilityID": "Arrow_Material",
+
+				"abilityName" : "Avatar_Gorou_ShootArrow_Light_Material"
+			},
+			{
+				"abilityID": "Arrow_Damage",
+
+				"abilityName" : "Avatar_Gorou_ShootArrow_Damage"
+			},
+		],
+	},
+	"Gorou_Arrow_03" :
+	{
+		"$type" : "ConfigGadget",
+		"common" :
+		{
+			"effectAttachShape" :
+			{
+				"$type" : "ConfigEffectAttachBox",
+				"emitFrom" : "Volume",
+				"scaleX" : 0.5,
+				"scaleY" : 0.5,
+				"scaleZ" : 1.0,
+			},
+			"affectedByWorld": true,
+		},
+		"combat" :
+		{
+			"property":
+			{
+				"useCreatorProperty" : true, // 是否继承创造者的数值
+				"canTriggerBullet" : false,
+			},
+			"combatLock":
+			{
+				"denyLockOn":true,
+				"lockType":"Gadget_Lv1",
+			},
+			"beHit" :
+			{
+				"hitBloodEffect" : "",
+				"muteAllHit" : true,
+				"muteAllHitEffect" : true,
+				"muteAllHitText" : true,
+			},
+			"animEvents" :
+			{
+				"ATK03":
+				{
+					"attackPattern" :
+					{
+						"$type" : "ConfigAttackBox",
+						"triggerType" : "TriggerNoRepeat",
+						"size" :
+						{
+							"x": 0.1,
+							"y": 0.1,
+							"z": 1.0,
+						},
+						"born":
+						{
+							"$type": "ConfigBornByCollisionPoint",
+							"offset" :
+							{
+								"x": 0.0, // + means up, - means down
+								"y": 0.0, // + means left, - means right
+								"z": -0.5, // + means forward, - means backward
+							}
+						},
+						"checkHitLayerType": "Both",
+					},
+					"attackInfo":
+					{
+						"canBeModifiedBy" : "OriginOwner",
+						"attackTag": "NormalAttack_03",
+						"attackProperty":
+						{
+							"damagePercentage": 0,
+							"strikeType": "Pierce",
+							"enBreak" : 15.9,
+						},
+						"hitPattern" :
+						{
+							"onHitEffectName": "default",
+			          		"hitImpulseType":"LV1",
+							"reboundRatio": 0,
+							"hitHaltTime": 0.0,
+							"hitHaltTimeScale": 0.0,
+							"muteHitText":false,
+						},
+						"forceCameraShake": false,
+						"cameraShake":
+						{
+							"shakeRange": 0.02,
+							"shakeTime": 0.1,
+						},
+					},
+				},
+			},
+		},
+		// 子弹线性移动
+		"move" :
+		{
+			"$type" : "ConfigLinerParabolaBulletMove",
+			"speed" : 40.0,
+			"straightRange" : 7.0,
+			"gravityOfAcceleration" : 15.0,
+			"airResistance" : 0.01,
+			"updateAngle" :
+			{
+				"$type": "ConfigBulletMoveAngleByVelocity",
+			},
+		},
+		// 生命周期管理
+		"timer" :
+		{
+			"lifeInfinite" : false,		//如果未触发是否一致存在
+			"lifeTime" : 8.0,			//存在时间
+		},
+		// 子弹参数
+		"gadget" :
+		{
+			"$type" : "ConfigBulletPattern",
+			"collision" :
+			{
+				"targetType" : "Enemy",
+				"triggerType" : "TriggerOnce",
+			},
+			"triggerActions" :
+			[
+				{
+					"$type" : "ConfigGadgetDoAttackEvent",
+					"attackEvent" : "ATK03",
+				},
+				{
+					"$type" : "ConfigGadgetTriggerAbility",
+					"abilityName" : "Avatar_Gorou_ShootArrow_Light_Material",
+				},
+			],
+			"fireAISoundEvent" : true,
+		},
+		"abilities":
+		[
+			{
+				"abilityID": "Arrow_Material",
+
+				"abilityName" : "Avatar_Gorou_ShootArrow_Light_Material"
+			},
+			{
+				"abilityID": "Arrow_Damage",
+
+				"abilityName" : "Avatar_Gorou_ShootArrow_Damage"
+			},
+		],
+	},
+	"Gorou_Arrow_04" :
+	{
+		"$type" : "ConfigGadget",
+		"common" :
+		{
+			"effectAttachShape" :
+			{
+				"$type" : "ConfigEffectAttachBox",
+				"emitFrom" : "Volume",
+				"scaleX" : 0.5,
+				"scaleY" : 0.5,
+				"scaleZ" : 1.0,
+			},
+			"affectedByWorld": true,
+		},
+		"combat" :
+		{
+			"property":
+			{
+				"useCreatorProperty" : true, // 是否继承创造者的数值
+				"canTriggerBullet" : false,
+			},
+			"combatLock":
+			{
+				"denyLockOn":true,
+				"lockType":"Gadget_Lv1",
+			},
+			"beHit" :
+			{
+				"hitBloodEffect" : "",
+				"muteAllHit" : true,
+				"muteAllHitEffect" : true,
+				"muteAllHitText" : true,
+			},
+			"animEvents" :
+			{
+				"ATK04":
+				{
+					"attackPattern" :
+					{
+						"$type" : "ConfigAttackBox",
+						"triggerType" : "TriggerNoRepeat",
+						"size" :
+						{
+							"x": 0.1,
+							"y": 0.1,
+							"z": 1.0,
+						},
+						"born":
+						{
+							"$type": "ConfigBornByCollisionPoint",
+							"offset" :
+							{
+								"x": 0.0, // + means up, - means down
+								"y": 0.0, // + means left, - means right
+								"z": -0.5, // + means forward, - means backward
+							}
+						},
+						"checkHitLayerType": "Both",
+					},
+					"attackInfo":
+					{
+						"canBeModifiedBy" : "OriginOwner",
+						"attackTag": "NormalAttack_04",
+						"attackProperty":
+						{
+							"damagePercentage": 0,
+							"strikeType": "Pierce",
+							"enBreak" : 15,
+						},
+						"hitPattern" :
+						{
+							"onHitEffectName": "default",
+			          		"hitImpulseType":"LV1",
+							"reboundRatio": 0,
+							"hitHaltTime": 0.0,
+							"hitHaltTimeScale": 0.0,
+							"muteHitText":false,
+						},
+						"forceCameraShake": false,
+						"cameraShake":
+						{
+							"shakeRange": 0.02,
+							"shakeTime": 0.1,
+						},
+					},
+				},
+			},
+		},
+		// 子弹线性移动
+		"move" :
+		{
+			"$type" : "ConfigLinerParabolaBulletMove",
+			"speed" : 40.0,
+			"straightRange" : 7.0,
+			"gravityOfAcceleration" : 15.0,
+			"airResistance" : 0.01,
+			"updateAngle" :
+			{
+				"$type": "ConfigBulletMoveAngleByVelocity",
+			},
+		},
+		// 生命周期管理
+		"timer" :
+		{
+			"lifeInfinite" : false,		//如果未触发是否一致存在
+			"lifeTime" : 8.0,			//存在时间
+		},
+		// 子弹参数
+		"gadget" :
+		{
+			"$type" : "ConfigBulletPattern",
+			"collision" :
+			{
+				"targetType" : "Enemy",
+				"triggerType" : "TriggerOnce",
+			},
+			"triggerActions" :
+			[
+				{
+					"$type" : "ConfigGadgetDoAttackEvent",
+					"attackEvent" : "ATK04",
+				},
+				{
+					"$type" : "ConfigGadgetTriggerAbility",
+					"abilityName" : "Avatar_Gorou_ShootArrow_Light_Material",
+				},
+			],
+			"fireAISoundEvent" : true,
+		},
+		"abilities":
+		[
+			{
+				"abilityID": "Arrow_Material",
+
+				"abilityName" : "Avatar_Gorou_ShootArrow_Light_Material"
+			},
+			{
+				"abilityID": "Arrow_Damage",
+
+				"abilityName" : "Avatar_Gorou_ShootArrow_Damage"
+			},
+		],
+	},
+	"Gorou_Arrow_05" :
+	{
+		"$type" : "ConfigGadget",
+		"common" :
+		{
+			"effectAttachShape" :
+			{
+				"$type" : "ConfigEffectAttachBox",
+				"emitFrom" : "Volume",
+				"scaleX" : 0.5,
+				"scaleY" : 0.5,
+				"scaleZ" : 1.0,
+			},
+			"affectedByWorld": true,
+		},
+		"combat" :
+		{
+			"property":
+			{
+				"useCreatorProperty" : true, // 是否继承创造者的数值
+				"canTriggerBullet" : false,
+			},
+			"combatLock":
+			{
+				"denyLockOn":true,
+				"lockType":"Gadget_Lv1",
+			},
+			"beHit" :
+			{
+				"hitBloodEffect" : "",
+				"muteAllHit" : true,
+				"muteAllHitEffect" : true,
+				"muteAllHitText" : true,
+			},
+			"animEvents" :
+			{
+				"ATK05":
+				{
+					"attackPattern" :
+					{
+						"$type" : "ConfigAttackBox",
+						"triggerType" : "TriggerNoRepeat",
+						"size" :
+						{
+							"x": 0.1,
+							"y": 0.1,
+							"z": 1.0,
+						},
+						"born":
+						{
+							"$type": "ConfigBornByCollisionPoint",
+							"offset" :
+							{
+								"x": 0.0, // + means up, - means down
+								"y": 0.0, // + means left, - means right
+								"z": -0.5, // + means forward, - means backward
+							}
+						},
+						"checkHitLayerType": "Both",
+					},
+					"attackInfo":
+					{
+						"canBeModifiedBy" : "OriginOwner",
+						"attackTag": "NormalAttack_05",
+						"attackProperty":
+						{
+							"damagePercentage": 0,
+							"strikeType": "Pierce",
+							"enBreak" : 18.75,
+						},
+						"hitPattern" :
+						{
+							"onHitEffectName": "default",
+			          		"hitImpulseType":"LV1",
+							"reboundRatio": 0,
+							"hitHaltTime": 0.0,
+							"hitHaltTimeScale": 0.0,
+							"muteHitText":false,
+						},
+						"forceCameraShake": false,
+						"cameraShake":
+						{
+							"shakeRange": 0.02,
+							"shakeTime": 0.1,
+						},
+					},
+				},
+			},
+		},
+		// 子弹线性移动
+		"move" :
+		{
+			"$type" : "ConfigLinerParabolaBulletMove",
+			"speed" : 40.0,
+			"straightRange" : 7.0,
+			"gravityOfAcceleration" : 15.0,
+			"airResistance" : 0.01,
+			"updateAngle" :
+			{
+				"$type": "ConfigBulletMoveAngleByVelocity",
+			},
+		},
+		// 生命周期管理
+		"timer" :
+		{
+			"lifeInfinite" : false,		//如果未触发是否一致存在
+			"lifeTime" : 8.0,			//存在时间
+		},
+		// 子弹参数
+		"gadget" :
+		{
+			"$type" : "ConfigBulletPattern",
+			"collision" :
+			{
+				"targetType" : "Enemy",
+				"triggerType" : "TriggerOnce",
+			},
+			"triggerActions" :
+			[
+				{
+					"$type" : "ConfigGadgetDoAttackEvent",
+					"attackEvent" : "ATK05",
+				},
+				{
+					"$type" : "ConfigGadgetTriggerAbility",
+					"abilityName" : "Avatar_Gorou_ShootArrow_Light_Material",
+				},
+			],
+			"fireAISoundEvent" : true,
+		},
+		"abilities":
+		[
+			{
+				"abilityID": "Arrow_Material",
+
+				"abilityName" : "Avatar_Gorou_ShootArrow_Light_Material"
+			},
+			{
+				"abilityID": "Arrow_Damage",
+
+				"abilityName" : "Avatar_Gorou_ShootArrow_Damage"
+			},
+		],
+	},
+	//小技能领域效果
+	"Gorou_ElementalArt_FieldLand":
+	{
+		"$type": "ConfigGadget",
+		"common":
+		{
+			"effectAttachShape":
+			{
+				"$type": "ConfigEffectAttachBox",
+				"emitFrom": "Volume",
+				"scaleX": 1,
+				"scaleY": 1,
+				"scaleZ": 1,
+			},
+		},
+		"hasConnectTrigger": true,
+		"ignoreChildSceneProp": true,
+		"canRemoveByClient": true,
+		"combat":
+		{
+			"property":
+			{
+				"useCreatorProperty": true,
+				"canTriggerBullet": true,
+				"isGhostToAllied": false,
+				"isGhostToEnemy": false,
+				"endureType": "Monster_Boss_Humanoid",
+			},
+			"combatLock":
+			{
+				"denyLockOn": true,
+			},
+			"beHit":
+			{
+				"hitBloodEffect": "",
+				"muteAllHit": false,
+				"muteAllHitEffect": false,
+				"muteAllHitText": true,
+			},
+		},
+		// 生命周期管理
+		"timer":
+		{
+			// "lifeInfinite": false,		//如果未触发是否一致存在
+			"lifeTime": 31.0,			//存在时间
+		},
+		// 子弹参数
+		"gadget" :
+		{
+			"$type" : "ConfigBulletPattern",
+			"enableCollisionDelay": 0.6,	//给创建平台留一点时间
+			"collision" :
+			{
+				"targetType" : "All",
+				"triggerType" : "TriggerAlways",
+				"triggerCD": 0.3,
+				"ignoreScene" : true,
+				"ignoreWater": true,
+				"bornWithTriggerEnabled":false,
+			},
+			"triggerActions" :
+			[
+				{
+					"$type" : "ConfigGadgetTriggerAbility",
+					"abilityName" : "SkillObj_Gorou_FieldLand",
+				},
+			],
+		},
+
+		"abilities":
+		[
+			{
+				"abilityID": "SkillObj_Gorou_FieldLand",
+				"abilityName":"SkillObj_Gorou_FieldLand"
+			},
+			//给五郎上一个跟gadget生命周期走的mixin，根据Layer层数做对应显示
+			{
+				"abilityID": "SkillObj_Gorou_ShowLayer",
+				"abilityName":"SkillObj_Gorou_ShowLayer"
+			},
+		],
+	},
+	//小技能长按子弹
+	"Gorou_ElementalArt_Bullet" :
+	{
+		"$type" : "ConfigGadget",
+		"common" :
+		{
+			"effectAttachShape" :
+			{
+				"$type" : "ConfigEffectAttachBox",
+				"emitFrom" : "Volume",		//EmitFrom
+				"scaleX" : 2.4,
+				"scaleY" : 2.4,
+				"scaleZ" : 2.4,
+			},
+			"affectedByWorld" : true,
+			"checkInSurface" : false,
+		},
+		"timer" :
+		{
+			"lifeTime": 0.2,
+		},
+		"combat" :
+		{
+			"property":
+			{
+				"useCreatorProperty" : true,
+				"isGhostToAllied": true,
+				"isGhostToEnemy": true,
+			},
+			"combatLock":
+			{
+				"denyLockOn": true,
+			},
+		},
+		// 子弹线性移动
+		"move" :
+		{
+			"$type" : "ConfigLinerBulletMove",
+			"speed" : 50.0,
+			"syncToRemote" : true,
+		},
+		// 子弹参数
+		"gadget" :
+		{
+			"$type" : "ConfigBulletPattern",
+			"collision" :
+			{
+				"targetType" : "Enemy",
+				"triggerType" : "TriggerOnce", //只触发一次
+				"ignoreWater":true,//不能在水里创建
+				"ccd":
+				{
+					"type" : "Always", //一定进行CCD检测
+					//如果对高速物体的碰撞检测比较精准就需要打开
+				}
+			},
+			"triggerActions" :
+			[
+				{
+					"$type" : "ConfigGadgetTriggerAbility",
+					"abilityName" : "Gorou_ElementalArt_Bullet",
+				},
+			],
+			"triggerLifeOverActions": //长按发射，如果创建的位置太远，超过最大时间选的位置
+			[
+				{
+					"$type" : "ConfigGadgetTriggerAbility",
+					"abilityName" : "Gorou_ElementalArt_Bullet_LifeOver",
+				},
+			]
+		},
+		"abilities":
+		[
+			{
+				"abilityID": "Gorou_ElementalArt_Bullet",
+				"abilityName" : "Gorou_ElementalArt_Bullet"
+			},
+			{
+				"abilityID": "Gorou_ElementalArt_Bullet_LifeOver",
+				"abilityName" : "Gorou_ElementalArt_Bullet_LifeOver"
+			},
+		],
+	},	
+
+	//试验大招表现用【狗子物件，目前暂定挂在角色右边，跟随角色】
+	"Gorou_ElementalBurst_Dog":
+	{
+		"$type": "ConfigGadget",		
+		"common":
+		{
+			"effectAttachShape":
+			{
+				"$type": "ConfigEffectAttachBox",
+				"emitFrom": "Volume",
+				"scaleX": 1,
+				"scaleY": 1,
+				"scaleZ": 1.0,
+			},
+		},
+		"timer":
+		{
+			"lifeTime": 15.0,
+		},
+		"combat":
+		{
+			"property":
+			{
+				"useCreatorProperty": true,
+				"isGhostToAllied": true,
+				"isGhostToEnemy": true, 
+				"isInvincible": true,
+			},
+			"combatLock":
+			{
+				"denyLockOn": true,
+			},
+			"beHit":
+			{
+				"hitBloodEffect": "",
+				"muteAllHit": false,
+				"muteAllHitEffect": true,
+				"muteAllHitText": true,
+			},
+		},
+		"move":
+		{
+			"$type": "ConfigFollowMove",
+			"target": "LocalAvatar",
+			"followRotation" : true, //是否跟随目标转向
+			"syncTransToServer":true, //是否定时通知服务器位置信息
+			"offset":
+			{
+				"x": 0.0,
+				"y": 0.0,
+				"z": 0.0,
+			},
+			"forward":
+			{
+				"x": 0.0,
+				"y": 0.0,
+				"z": 1.0,
+			},
+			"followOwnerInvisible" : false, //跟随目标不可见时，自己也不可见
+		},
+		"abilities":
+		[
+			{
+				"abilityID": "SkillObj_Gorou_BurstFieldLand_Dog",
+				"abilityName": "SkillObj_Gorou_BurstFieldLand_Dog"
+			},
+		],
+	},
+	//大招领域效果
+	"Gorou_ElementalBurst_FieldLand":
+	{
+		"$type": "ConfigGadget",
+		"common":
+		{
+			"effectAttachShape":
+			{
+				"$type": "ConfigEffectAttachBox",
+				"emitFrom": "Volume",
+				"scaleX": 1,
+				"scaleY": 1,
+				"scaleZ": 1,
+			},
+		},
+		"hasConnectTrigger": true,
+		"ignoreChildSceneProp": true,
+		"canRemoveByClient": true,
+		"combat":
+		{
+			"property":
+			{
+				"useCreatorProperty": true,
+				"canTriggerBullet": true,
+				"isGhostToAllied": false,
+				"isGhostToEnemy": false,
+				"endureType": "Monster_Boss_Humanoid",
+			},
+			"combatLock":
+			{
+				"denyLockOn": true,
+			},
+			"beHit":
+			{
+				"hitBloodEffect": "",
+				"muteAllHit": false,
+				"muteAllHitEffect": false,
+				"muteAllHitText": true,
+			},
+		},
+		// 生命周期管理
+		"timer":
+		{
+			// "lifeInfinite": false,		//如果未触发是否一致存在
+			"lifeTime": 15.0,			//存在时间
+		},
+		// 子弹参数
+		"gadget" :
+		{
+			"$type" : "ConfigBulletPattern",
+			"enableCollisionDelay": 0.6,	//给创建平台留一点时间
+			"collision" :
+			{
+				"targetType" : "All",
+				"triggerType" : "TriggerAlways",
+				"triggerCD": 0.3,
+				"ignoreScene" : true,
+				"ignoreWater": true,
+				"bornWithTriggerEnabled":false,
+			},
+			"triggerActions" :
+			[
+				{
+					"$type" : "ConfigGadgetTriggerAbility",
+					"abilityName" : "SkillObj_Gorou_BurstFieldLand",
+				},
+			],
+		},
+
+		"move":
+		{
+			"$type": "ConfigFollowMove",
+			"target": "LocalAvatar",
+			"attachPoint": "RootNode",
+			"followRotation": false,
+			"offset":
+			{
+				"x": 0.0,
+				"y": 0.0,
+				"z": 0.0,
+			},
+			"forward":
+			{
+				"x": 0.0,
+				"y": 0.0,
+				"z": 0.0,
+			},
+			// "$type" : "ConfigSurroundBulletMove",//环绕运行，轨道运行
+			// "speed" :6,      //21*3秒/半径3=3圈。     30速度，2秒是平着转的数据。
+			// "clockwise": true,//顺时针
+			// //"clockwise": false,
+			// "radius" : 1.5,             //3.2半径  25速度，2.6秒。
+			// "anglerVelocity": 3600.0,
+			// "traceOnYAxis" : false, //是否追踪高度
+			// "acceleration":3, //加速度
+			// "accelerationTime":1.5, //加速度生效时长
+			// "updateAngle":  //公转同时会自传，保持正面对圆心。
+			// {
+			// 	"$type":"ConfigBulletMoveAngleByVelocity",
+			// 	"traceLerpCoef":60,
+			// },
+			// "stickToGround"://贴地移动配置
+			// {
+			// 	"$type" : "ConfigMoveStickToGround",
+			// 	"heightToGround" : 1,
+			// 	"flexibleRange" : 0.5,
+			// 	"maxStepHeight" : 1.5,
+			// 	"maxSlopeAngle" : 40,
+			// 	"isStickToWater" : true,
+			// 	"unstickWhenDownSlide": "Keep",
+			// 	"unstickWhenUpSlide": "Keep",
+			// },
+			// "canBornInWater": true,
+			// "syncToRemote" : true,
+		},
+
+		"abilities":
+		[
+			//给五郎上一个跟gadget生命周期走的mixin，根据Layer层数做对应显示
+			{
+				"abilityID": "SkillObj_Gorou_ShowLayer1",
+				"abilityName":"SkillObj_Gorou_ShowLayer1"
+			},
+
+			{
+				"abilityID": "SkillObj_Gorou_BurstFieldLand",
+				"abilityName":"SkillObj_Gorou_BurstFieldLand"
+			},
+		],
+	},
+
+
+
+}

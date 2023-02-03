@@ -1,0 +1,2503 @@
+[
+ //2.1切队换人挑战
+
+//跟着ability group挂在team上的ability，用于接收lua层的层数变化和惩罚gv，并发放给avatar和monster
+{
+  "Default": 
+  {
+    "$type": "ConfigAbility",
+    "abilityName": "Activity_Sumo_Fever",
+    "abilityMixins": 
+    [
+      //处理断线重连，重连回来的时候向关卡层请求一次当前的惩罚状态
+      {
+        "$type": "StageReadyMixin",
+        "onStageReady": 
+        [
+          {
+            "$type": "DebugLog",
+            "content": "FS: Reconnect, request for current team state"
+          },
+          {
+            "$type": "ServerLuaCall",
+            "luaCallType": "CurGalleryControlGroup",
+            "funcName": "SLC_Refresh_Team_State"
+          },
+          {
+            "$type": "DebugLog",
+            "content": "FS: Team has changed! Refresh avatar buff"
+          },
+          //断线重连的时候根据当前的fever等级重新刷一下fever值
+          {
+            "$type": "ApplyModifier",
+            "modifierName": "UNIQUE_ChangeTeam_Fever_Avatar_Lv1",
+            "target": "CurTeamAvatars",
+            "predicates": 
+            [
+              {
+                "$type": "ByTargetGlobalValue",
+                "target": "Team",
+                "key": "FEVER_LEVEL",
+                "value": 1
+              }
+            ]
+          },
+          {
+            "$type": "ApplyModifier",
+            "modifierName": "UNIQUE_ChangeTeam_Fever_Avatar_Lv2",
+            "target": "CurTeamAvatars",
+            "predicates": 
+            [
+              {
+                "$type": "ByTargetGlobalValue",
+                "target": "Team",
+                "key": "FEVER_LEVEL",
+                "value": 2
+              }
+            ]
+          },
+          {
+            "$type": "ApplyModifier",
+            "modifierName": "UNIQUE_ChangeTeam_Fever_Avatar_Lv3",
+            "target": "CurTeamAvatars",
+            "predicates": 
+            [
+              {
+                "$type": "ByTargetGlobalValue",
+                "target": "Team",
+                "key": "FEVER_LEVEL",
+                "value": 3
+              }
+            ]
+          },
+          {
+            "$type": "ApplyModifier",
+            "modifierName": "UNIQUE_ChangeTeam_Fever_Avatar_Lv4",
+            "target": "CurTeamAvatars",
+            "predicates": 
+            [
+              {
+                "$type": "ByTargetGlobalValue",
+                "target": "Team",
+                "key": "FEVER_LEVEL",
+                "value": 4
+              }
+            ]
+          },
+          {
+            "$type": "ApplyModifier",
+            "modifierName": "UNIQUE_ChangeTeam_Fever_Avatar_Lv5",
+            "target": "CurTeamAvatars",
+            "predicates": 
+            [
+              {
+                "$type": "ByTargetGlobalValue",
+                "target": "Team",
+                "key": "FEVER_LEVEL",
+                "value": 5
+              }
+            ]
+          },
+        ]         
+      },
+    ],
+    "onAdded": 
+    [
+      //这里先remove一下这个modifier，确保后续能上的上来
+      {
+        "$type": "RemoveModifier",
+        "modifierName": "UNIQUE_Activity_Sumo_Fever_Handler_Team",
+        "target":"Team",         
+      }, 
+
+      //监听fever_level
+      {
+        "$type": "AttachModifier",
+        "modifierName": "UNIQUE_Activity_Sumo_Fever_Handler_Team",
+        "target":"Team",         
+      }, 
+
+      
+      //监听角色死亡，用来处理给角色重新上对应层数的fever效果
+      {
+        "$type": "ApplyModifier",
+        "modifierName": "UNIQUE_Avatar_Die_Callback",
+        "target":"CurTeamAvatars",         
+      }, 
+      //监听角色死亡，用来处理给角色重新上对应层数的fever效果
+      {
+        "$type": "ApplyModifier",
+        "modifierName": "UNIQUE_Avatar_In_Callback",
+        "target":"CurTeamAvatars",         
+      }, 
+    ],
+    "modifiers":
+    {
+      "UNIQUE_Activity_Sumo_Fever_Handler_Team":
+      {
+        //第二个修复方式是，允许这个modifier叠加
+        "isUnique":true,
+        "stacking":"Unique",
+        "modifierMixins":
+        [
+          //监听lua层的fever level，上对应的热情值效果modifier
+          {
+            "$type": "ServerUpdateGlobalValueMixin",
+            "key": "FEVER_LEVEL",
+            "useLimitRange": true,
+            "minValue": 0,
+            "maxValue": 10,
+          },    
+          {
+            "$type": "AttachModifierToSelfGlobalValueMixin",
+            "globalValueKey": "FEVER_LEVEL",
+            "valueSteps" : [-0.5,0.5,1.5,2.5,3.5,10],
+            "removeAppliedModifier":true,
+            "modifierNameSteps" : 
+            [
+              "Blank",
+              "UNIQUE_ChangeTeam_Fever_Team_Lv1",
+              "UNIQUE_ChangeTeam_Fever_Team_Lv2",
+              "UNIQUE_ChangeTeam_Fever_Team_Lv3",
+              "UNIQUE_ChangeTeam_Fever_Team_Lv4",
+            ],              
+          },
+          //监听lua层的NOSWITCH_PUNISHMENT，开启对应的怪物惩罚效果modifier
+          //怪物监听这个值的变化选择自己的词缀是否打开
+          {
+            "$type": "ServerUpdateGlobalValueMixin",
+            "key": "NOSWITCH_PUNISHMENT",
+            "useLimitRange": true,
+            "minValue": 0,
+            "maxValue": 10,
+          },       
+          {
+            "$type": "AttachModifierToSelfGlobalValueMixin",
+            "globalValueKey": "NOSWITCH_PUNISHMENT",
+            "valueSteps" : [-0.5,0.5,1.5],
+            "removeAppliedModifier":true,
+            "modifierNameSteps" : 
+            [
+              "UNIQUE_Noswitch_Punishment_Off",
+              "UNIQUE_Noswitch_Punishment_On"
+            ],              
+          },
+          //监听lua层的HAS_SWITCHED_TEAM，值变为1的时候，说明服务端已经换队
+          //当变为1时，开启一个modifier刷新一下当前avatar上面的值。完成后该gv改回0
+          {
+            "$type": "ServerUpdateGlobalValueMixin",
+            "key": "HAS_SWITCHED_TEAM",
+            "useLimitRange": true,
+            "minValue": 0,
+            "maxValue": 10,
+          },       
+          {
+            "$type": "AttachModifierToSelfGlobalValueMixin",
+            "globalValueKey": "HAS_SWITCHED_TEAM",
+            "valueSteps" : [0.5,1.5],
+            "removeAppliedModifier":true,
+            "modifierNameSteps" : 
+            [
+              "UNIQUE_Switch_Team_Callback"
+            ],              
+          },
+          {
+            "$type": "AttachModifierToSelfGlobalValueMixin",
+            "globalValueKey": "AVATAR_DIE",
+            "valueSteps" : [0.5,1.5],
+            "removeAppliedModifier":true,
+            "modifierNameSteps" : 
+            [
+              "UNIQUE_Avatar_Die_Refresh_Buff"
+            ],              
+          },
+          {
+            "$type": "AttachModifierToSelfGlobalValueMixin",
+            "globalValueKey": "AVATAR_IN",
+            "valueSteps" : [0.5,1.5],
+            "removeAppliedModifier":true,
+            "modifierNameSteps" : 
+            [
+              "UNIQUE_Avatar_In_Refresh_Buff"
+            ],              
+          }
+        ],
+      },
+
+      //换队惩罚关闭，同步修改场上所有怪身上的gv（新创生的怪从team上直接读）
+      "UNIQUE_Noswitch_Punishment_Off":
+      {
+        
+        "isUnique":true,
+        "stacking":"Unique",
+        "onAdded": 
+        [
+          {
+            "$type": "SetGlobalValue",
+            "otherTargets":
+            {
+              "$type": "SelectTargetsByShape",
+              "campBasedOn": "CurLocalAvatar",
+              "shapeName": "CircleR40",
+              "centerBasedOn": "CurLocalAvatar",
+              "campTargetType": "Enemy",
+            },
+            "key": "NOSWITCH_PUNISHMENT",
+            "value": 0,
+          }
+        ]
+      },
+
+      //换队惩罚开启，同步修改场上所有怪身上的gv（新创生的怪从team上直接读）
+      "UNIQUE_Noswitch_Punishment_On":
+      {
+        
+        "isUnique":true,
+        "stacking":"Unique",
+        "onAdded": 
+        [
+          {
+            "$type": "SetGlobalValue",
+            "otherTargets":
+            {
+              "$type": "SelectTargetsByShape",
+              "campBasedOn": "CurLocalAvatar",
+              "shapeName": "CircleR40",
+              "centerBasedOn": "CurLocalAvatar",
+              "campTargetType": "Enemy",
+            },
+            "key": "NOSWITCH_PUNISHMENT",
+            "value": 1,
+          }
+        ]
+      },
+
+      //换人的时候调用一下，重新刷一下当前avatar上面的gv
+      "UNIQUE_Switch_Team_Callback":
+      {
+        
+        "isUnique":true,
+        "stacking":"Unique",
+        "duration": 0.1,
+        "onRemoved": 
+        [
+          {
+            "$type": "DebugLog",
+            "content": "FS: Team has changed! Refresh avatar buff"
+          },
+          {
+            "$type": "ApplyModifier",
+            "modifierName": "UNIQUE_ChangeTeam_Fever_Avatar_Lv1",
+            "target": "CurTeamAvatars",
+            "predicates": 
+            [
+              {
+                "$type": "ByTargetGlobalValue",
+                "target": "Team",
+                "key": "FEVER_LEVEL",
+                "value": 1
+              }
+            ]
+          },
+          {
+            "$type": "ApplyModifier",
+            "modifierName": "UNIQUE_ChangeTeam_Fever_Avatar_Lv2",
+            "target": "CurTeamAvatars",
+            "predicates": 
+            [
+              {
+                "$type": "ByTargetGlobalValue",
+                "target": "Team",
+                "key": "FEVER_LEVEL",
+                "value": 2
+              }
+            ]
+          },
+          {
+            "$type": "ApplyModifier",
+            "modifierName": "UNIQUE_ChangeTeam_Fever_Avatar_Lv3",
+            "target": "CurTeamAvatars",
+            "predicates": 
+            [
+              {
+                "$type": "ByTargetGlobalValue",
+                "target": "Team",
+                "key": "FEVER_LEVEL",
+                "value": 3
+              }
+            ]
+          },
+          {
+            "$type": "ApplyModifier",
+            "modifierName": "UNIQUE_ChangeTeam_Fever_Avatar_Lv4",
+            "target": "CurTeamAvatars",
+            "predicates": 
+            [
+              {
+                "$type": "ByTargetGlobalValue",
+                "target": "Team",
+                "key": "FEVER_LEVEL",
+                "value": 4
+              }
+            ]
+          },
+          {
+            "$type": "ApplyModifier",
+            "modifierName": "UNIQUE_ChangeTeam_Fever_Avatar_Lv5",
+            "target": "CurTeamAvatars",
+            "predicates": 
+            [
+              {
+                "$type": "ByTargetGlobalValue",
+                "target": "Team",
+                "key": "FEVER_LEVEL",
+                "value": 5
+              }
+            ]
+          },
+          {
+            "$type": "SetGlobalValue",
+            "target": "Team",
+            "key": "HAS_SWITCHED_TEAM",
+            "value": 0
+          },
+          {
+            "$type": "DebugLog",
+            "content": "FS: Buff Refresh finished!"
+          },
+        ]
+      },
+
+      //角色死亡时，给team挂gv，team短暂延迟，等角色复活后，重新刷一遍身上的modifier
+      //仅用于处理芭芭拉复活的特殊情况，有问题就干掉
+      "UNIQUE_Avatar_Die_Callback":
+      {
+        
+        "isUnique":true,
+        "stacking":"Unique",
+        "onKill": 
+        [
+          {
+            "$type": "SetGlobalValue",
+            "target": "Team",
+            "key": "AVATAR_DIE",
+            "value": 1,
+          }
+        ]
+      },
+      //角色换入时，给team挂gv，team短暂延迟，等角色复活后，重新刷一遍身上的modifier
+      //目前用于处理七七复活的情况，有问题就干掉
+      "UNIQUE_Avatar_In_Callback":
+      {
+        
+        "isUnique":true,
+        "stacking":"Unique",
+        "onAvatarIn": 
+        [
+          {
+            "$type": "SetGlobalValue",
+            "target": "Team",
+            "key": "AVATAR_IN",
+            "value": 1,
+          }
+        ]
+      },
+
+
+      //角色死亡的时候调用一下，重新刷一下当前avatar上面的gv
+      "UNIQUE_Avatar_Die_Refresh_Buff":
+      {
+        
+        "isUnique":true,
+        "stacking":"Unique",
+        "duration": 4,
+        "onRemoved": 
+        [
+          {
+            "$type": "DebugLog",
+            "content": "FS: Team has changed! Refresh avatar buff"
+          },
+          {
+            "$type": "ApplyModifier",
+            "modifierName": "UNIQUE_ChangeTeam_Fever_Avatar_Lv1",
+            "target": "CurTeamAvatars",
+            "predicates": 
+            [
+              {
+                "$type": "ByTargetGlobalValue",
+                "target": "Team",
+                "key": "FEVER_LEVEL",
+                "value": 1
+              }
+            ]
+          },
+          {
+            "$type": "ApplyModifier",
+            "modifierName": "UNIQUE_ChangeTeam_Fever_Avatar_Lv2",
+            "target": "CurTeamAvatars",
+            "predicates": 
+            [
+              {
+                "$type": "ByTargetGlobalValue",
+                "target": "Team",
+                "key": "FEVER_LEVEL",
+                "value": 2
+              }
+            ]
+          },
+          {
+            "$type": "ApplyModifier",
+            "modifierName": "UNIQUE_ChangeTeam_Fever_Avatar_Lv3",
+            "target": "CurTeamAvatars",
+            "predicates": 
+            [
+              {
+                "$type": "ByTargetGlobalValue",
+                "target": "Team",
+                "key": "FEVER_LEVEL",
+                "value": 3
+              }
+            ]
+          },
+          {
+            "$type": "ApplyModifier",
+            "modifierName": "UNIQUE_ChangeTeam_Fever_Avatar_Lv4",
+            "target": "CurTeamAvatars",
+            "predicates": 
+            [
+              {
+                "$type": "ByTargetGlobalValue",
+                "target": "Team",
+                "key": "FEVER_LEVEL",
+                "value": 4
+              }
+            ]
+          },
+          {
+            "$type": "ApplyModifier",
+            "modifierName": "UNIQUE_ChangeTeam_Fever_Avatar_Lv5",
+            "target": "CurTeamAvatars",
+            "predicates": 
+            [
+              {
+                "$type": "ByTargetGlobalValue",
+                "target": "Team",
+                "key": "FEVER_LEVEL",
+                "value": 5
+              }
+            ]
+          },
+          {
+            "$type": "SetGlobalValue",
+            "target": "Team",
+            "key": "AVATAR_DIE",
+            "value": 0
+          },
+          {
+            "$type": "DebugLog",
+            "content": "FS: Buff Refresh finished!"
+          },
+        ]
+      },
+
+      //换入角色的时候调用一下，重新刷一下当前avatar上面的gv
+      "UNIQUE_Avatar_In_Refresh_Buff":
+      {
+        
+        "isUnique":true,
+        "stacking":"Unique",
+        "duration": 4,
+        "onRemoved": 
+        [
+          {
+            "$type": "DebugLog",
+            "content": "FS: Team has changed! Refresh avatar buff"
+          },
+          {
+            "$type": "ApplyModifier",
+            "modifierName": "UNIQUE_ChangeTeam_Fever_Avatar_Lv1",
+            "target": "CurTeamAvatars",
+            "predicates": 
+            [
+              {
+                "$type": "ByTargetGlobalValue",
+                "target": "Team",
+                "key": "FEVER_LEVEL",
+                "value": 1
+              }
+            ]
+          },
+          {
+            "$type": "ApplyModifier",
+            "modifierName": "UNIQUE_ChangeTeam_Fever_Avatar_Lv2",
+            "target": "CurTeamAvatars",
+            "predicates": 
+            [
+              {
+                "$type": "ByTargetGlobalValue",
+                "target": "Team",
+                "key": "FEVER_LEVEL",
+                "value": 2
+              }
+            ]
+          },
+          {
+            "$type": "ApplyModifier",
+            "modifierName": "UNIQUE_ChangeTeam_Fever_Avatar_Lv3",
+            "target": "CurTeamAvatars",
+            "predicates": 
+            [
+              {
+                "$type": "ByTargetGlobalValue",
+                "target": "Team",
+                "key": "FEVER_LEVEL",
+                "value": 3
+              }
+            ]
+          },
+          {
+            "$type": "ApplyModifier",
+            "modifierName": "UNIQUE_ChangeTeam_Fever_Avatar_Lv4",
+            "target": "CurTeamAvatars",
+            "predicates": 
+            [
+              {
+                "$type": "ByTargetGlobalValue",
+                "target": "Team",
+                "key": "FEVER_LEVEL",
+                "value": 4
+              }
+            ]
+          },
+          {
+            "$type": "ApplyModifier",
+            "modifierName": "UNIQUE_ChangeTeam_Fever_Avatar_Lv5",
+            "target": "CurTeamAvatars",
+            "predicates": 
+            [
+              {
+                "$type": "ByTargetGlobalValue",
+                "target": "Team",
+                "key": "FEVER_LEVEL",
+                "value": 5
+              }
+            ]
+          },
+          {
+            "$type": "SetGlobalValue",
+            "target": "Team",
+            "key": "AVATAR_IN",
+            "value": 0
+          },
+          {
+            "$type": "DebugLog",
+            "content": "FS: Buff Refresh finished!"
+          },
+        ]
+      },
+
+
+      "Blank":{},
+      "UNIQUE_ChangeTeam_Fever_Team_Lv1":
+      {
+        "isUnique":true,
+        "onAdded":
+        [
+          {
+            "$type": "AttachModifier",
+            "modifierName": "UNIQUE_ChangeTeam_Fever_Avatar_Lv1",
+            "target": "CurTeamAvatars",
+          },
+        ]          
+      },
+      "UNIQUE_ChangeTeam_Fever_Team_Lv2":
+      {
+        "isUnique":true,
+        "onAdded":
+        [
+          {
+            "$type": "AttachModifier",
+            "modifierName": "UNIQUE_ChangeTeam_Fever_Avatar_Lv2",
+            "target": "CurTeamAvatars",
+          },
+          {
+            "$type": "RemoveModifier",
+            "modifierName": "UNIQUE_ChangeTeam_Fever_Avatar_Lv1",
+            "target": "CurTeamAvatars"
+          }
+        ]          
+      },
+      "UNIQUE_ChangeTeam_Fever_Team_Lv3":
+      {
+        "isUnique":true,
+        "onAdded":
+        [
+          {
+            "$type": "AttachModifier",
+            "modifierName": "UNIQUE_ChangeTeam_Fever_Avatar_Lv3",
+            "target": "CurTeamAvatars",
+          },
+          {
+            "$type": "RemoveModifier",
+            "modifierName": "UNIQUE_ChangeTeam_Fever_Avatar_Lv2",
+            "target": "CurTeamAvatars"
+          },
+        ]          
+      },
+      "UNIQUE_ChangeTeam_Fever_Team_Lv4":
+      {
+        "isUnique":true,
+        "onAdded":
+        [
+          {
+            "$type": "AttachModifier",
+            "modifierName": "UNIQUE_ChangeTeam_Fever_Avatar_Lv4",
+            "target": "CurTeamAvatars",
+          },
+          {
+            "$type": "RemoveModifier",
+            "modifierName": "UNIQUE_ChangeTeam_Fever_Avatar_Lv3",
+            "target": "CurTeamAvatars"
+          },
+        ]          
+      },        
+      "UNIQUE_ChangeTeam_Fever_Team_Lv5":
+      {
+        "isUnique":true,
+        "onAdded":
+        [
+          {
+            "$type": "AttachModifier",
+            "modifierName": "UNIQUE_ChangeTeam_Fever_Avatar_Lv5",
+            "target": "CurTeamAvatars",
+          },
+          {
+            "$type": "RemoveModifier",
+            "modifierName": "UNIQUE_ChangeTeam_Fever_Avatar_Lv4",
+            "target": "CurTeamAvatars"
+          },
+        ]          
+      },
+      "UNIQUE_ChangeTeam_Fever_Avatar_Lv1":
+      {
+        "isUnique":true,
+        "onAdded":
+        [
+        ],
+        "state": "AttackUp",
+        "properties": 
+        {
+          "Actor_AttackRatio": 0.2,
+          "Actor_ChargeEfficiencyDelta":0.2,
+        },          
+      },
+      "UNIQUE_ChangeTeam_Fever_Avatar_Lv2":
+      {
+        "isUnique":true,
+        "onAdded":
+        [
+        ],
+        "state": "AttackUp",
+        "properties": 
+        {
+          "Actor_AttackRatio": 0.4,
+          "Actor_ChargeEfficiencyDelta":0.4,
+        },          
+      },
+      "UNIQUE_ChangeTeam_Fever_Avatar_Lv3":
+      {
+        "isUnique":true,
+        "onAdded":
+        [
+        ],
+        "state": "AttackUp",
+        "properties": 
+        {
+          "Actor_AttackRatio": 0.6,
+          "Actor_ChargeEfficiencyDelta":0.6,
+        },          
+      },
+      "UNIQUE_ChangeTeam_Fever_Avatar_Lv4":
+      {
+        "isUnique":true,
+        "onAdded":
+        [
+        ],
+        "state": "AttackUp",
+        "properties": 
+        {
+          "Actor_AttackRatio": 1,
+          "Actor_ChargeEfficiencyDelta":1,
+        },          
+      },
+      "UNIQUE_ChangeTeam_Fever_Avatar_Lv5":
+      {
+        "isUnique":true,
+        "onAdded":
+        [
+        ],
+        "state": "AttackUp",
+        "properties": 
+        {
+          "Actor_AttackRatio": 1,
+          "Actor_ChargeEfficiencyDelta":1,
+        },          
+      },
+
+
+    },
+    "abilitySpecials":
+    {
+      "Fever_Atk_Lv1": 0.2,
+      "Fever_Atk_Lv2": 0.4,
+      "Fever_Atk_Lv3": 0.6,
+      "Fever_Atk_Lv4": 1,
+      "Fever_Atk_Lv5": 1,
+      "Fever_ChargeEfficiencyDelta_Lv1":0.2,
+      "Fever_ChargeEfficiencyDelta_Lv2":0.4,
+      "Fever_ChargeEfficiencyDelta_Lv3":0.6,
+      "Fever_ChargeEfficiencyDelta_Lv4":1,
+      "Fever_ChargeEfficiencyDelta_Lv5":1,
+    },
+
+  }
+},
+
+
+
+ //1.fever条效果
+  //1层效果
+  {
+    "Default": 
+    {
+      "$type": "ConfigAbility",
+      "abilityName": "Activity_Sumo_Fever_LV1",
+      "onAdded": 
+      [
+        // //监听fever_level
+        {
+          "$type": "AttachModifier",
+          "modifierName": "UNIQUE_ChangeTeam_Fever_Avatar_Lv1",
+          "target":"Self",         
+        },
+      ],
+      "modifiers":
+      {
+        "UNIQUE_ChangeTeam_Fever_Avatar_Lv1":
+        {
+          "isUnique":true,
+          "state": "AttackUp",
+          "properties": 
+          {
+            "Actor_AttackRatio": "%Fever_Atk_Lv1",
+            "Actor_ChargeEfficiencyDelta":"%Fever_ChargeEfficiencyDelta_Lv1",
+          },          
+        },
+
+      },
+      "abilitySpecials":
+      {
+        "Fever_Atk_Lv1": 0.2,
+        "Fever_ChargeEfficiencyDelta_Lv1":0.2,
+      },
+    }
+  },
+  //2层效果
+  {
+    "Default": 
+    {
+      "$type": "ConfigAbility",
+      "abilityName": "Activity_Sumo_Fever_LV2",
+      "onAdded": 
+      [
+        // //监听fever_level
+        {
+          "$type": "AttachModifier",
+          "modifierName": "UNIQUE_ChangeTeam_Fever_Avatar_Lv2",
+          "target":"Self",         
+        },
+      ],
+      "modifiers":
+      {
+        "UNIQUE_ChangeTeam_Fever_Avatar_Lv2":
+        {
+          "isUnique":true,
+          "onAdded":
+          [
+          ],
+          "state": "AttackUp",
+          "properties": 
+          {
+            "Actor_AttackRatio": "%Fever_Atk_Lv2",
+            "Actor_ChargeEfficiencyDelta":"%Fever_ChargeEfficiencyDelta_Lv2",
+          },          
+        },
+      },
+      "abilitySpecials":
+      {
+        "Fever_Atk_Lv2": 0.4,
+        "Fever_ChargeEfficiencyDelta_Lv2":0.4,
+      },
+    }
+  },
+   //3层效果
+  {
+    "Default": 
+    {
+      "$type": "ConfigAbility",
+      "abilityName": "Activity_Sumo_Fever_LV3",
+      "onAdded": 
+      [
+        // //监听fever_level
+        {
+          "$type": "AttachModifier",
+          "modifierName": "UNIQUE_ChangeTeam_Fever_Avatar_Lv3",
+          "target":"Self",         
+        },
+      ],
+      "modifiers":
+      {
+        "UNIQUE_ChangeTeam_Fever_Avatar_Lv3":
+        {
+          "isUnique":true,
+          "onAdded":
+          [
+          ],
+          "state": "AttackUp",
+          "properties": 
+          {
+            "Actor_AttackRatio": "%Fever_Atk_Lv3",
+            "Actor_ChargeEfficiencyDelta":"%Fever_ChargeEfficiencyDelta_Lv3",
+          },          
+        },
+      },
+      "abilitySpecials":
+      {
+        "Fever_Atk_Lv3": 0.6,
+        "Fever_ChargeEfficiencyDelta_Lv3":0.6,
+      },
+    }
+  },
+   //4层效果
+  {
+    "Default": 
+    {
+      "$type": "ConfigAbility",
+      "abilityName": "Activity_Sumo_Fever_LV4",
+      "onAdded": 
+      [
+        // //监听fever_level
+        {
+          "$type": "AttachModifier",
+          "modifierName": "UNIQUE_ChangeTeam_Fever_Avatar_Lv4",
+          "target":"Self",         
+        },
+      ],
+      "modifiers":
+      {
+        "UNIQUE_ChangeTeam_Fever_Avatar_Lv4":
+        {
+          "isUnique":true,
+          "onAdded":
+          [
+          ],
+          "state": "AttackUp",
+          "properties": 
+          {
+            "Actor_AttackRatio": "%Fever_Atk_Lv4",
+            "Actor_ChargeEfficiencyDelta":"%Fever_ChargeEfficiencyDelta_Lv4",
+          },          
+        },
+      },
+      "abilitySpecials":
+      {
+        "Fever_Atk_Lv4": 0.8,
+        "Fever_ChargeEfficiencyDelta_Lv4":0.8,
+      },
+    }
+  },
+   //5层效果
+  {
+    "Default": 
+    {
+      "$type": "ConfigAbility",
+      "abilityName": "Activity_Sumo_Fever_LV5",
+      "onAdded": 
+      [
+        // //监听fever_level
+        {
+          "$type": "AttachModifier",
+          "modifierName": "UNIQUE_ChangeTeam_Fever_Avatar_Lv5",
+          "target":"Self",         
+        },
+      ],
+      "modifiers":
+      {
+        "UNIQUE_ChangeTeam_Fever_Avatar_Lv5":
+        {
+          "isUnique":true,
+          "onAdded":
+          [
+          ],
+          "state": "AttackUp",
+          "properties": 
+          {
+            "Actor_AttackRatio": "%Fever_Atk_Lv5",
+            "Actor_ChargeEfficiencyDelta":"%Fever_ChargeEfficiencyDelta_Lv5",
+          },          
+        },
+
+      },
+      "abilitySpecials":
+      {
+        "Fever_Atk_Lv5": 1,
+        "Fever_ChargeEfficiencyDelta_Lv5":1,
+      },
+    }
+  },
+
+
+//1.普攻tag
+//入场后的X秒内攻速提升X%并获得霸体，普通攻击命中后回复X%的最大生命值，X秒内只能触发一次
+  {
+    "Default": 
+    {
+      "$type": "ConfigAbility",
+      "abilityName": "Activity_Sumo_NormalAttack",
+      "onAdded": 
+      [
+        {
+          "$type": "AttachModifier",
+          "modifierName": "UNIQUE_Activity_Sumo_NormalAtkUp_Avatar",
+          "target":"Self",         
+        },
+        {
+          "$type": "SetGlobalValue",
+          "key": "_LevelEntity_Sumo_NormalAtkUp_CD",
+          "target":"Team",
+          "value": 0,
+        },
+      ],
+      "modifiers":
+      {
+        "UNIQUE_Activity_Sumo_NormalAtkUp_Avatar":
+        {
+          "isUnique":true,
+          "duration":"%NormalAttack_Bufftime",
+          "isLimitedProperties": true,
+          "properties": 
+          {
+            "Animator_AttackSpeedRatio": "%Sumo_AtkSpeed",
+            "Actor_EndureDelta": 0, //霸体
+          },
+          "onAttackLanded":
+          [
+            {
+              "$type": "Predicated",
+              "target": "Other",
+              "targetPredicates": 
+              [
+                {
+                  "$type": "ByAttackTags",
+                  "attackTags": 
+                  [ "NormalAttack_01", 
+                    "NormalAttack_02", 
+                    "NormalAttack_03", 
+                    "NormalAttack_04", 
+                    "NormalAttack_05", 
+                    "NormalAttack_06" 
+                  ],
+                },
+                {
+                  "$type": "ByTargetGlobalValue",
+                  "key": "_LevelEntity_Sumo_NormalAtkUp_CD",
+                  "target": "Team",
+                  "value": 0,
+                  "compareType": "NoneOrEqual",
+                },
+              ],
+              "successActions":
+              [
+                {
+                  "$type": "ApplyModifier",
+                  "modifierName": "UNIQUE_Activity_Sumo_NormalAtkUp_Avatar_Heal",
+                  "target":"CurLocalAvatar",//暂定前台角色给自己回         
+                },
+                {
+                  "$type": "ApplyModifier",
+                  "modifierName": "UNIQUE_Activity_Sumo_NormalAtkUp_Avatar_Heal_CD",
+                  "target": "Team",
+                },
+              ]             
+            }
+          ]
+        },
+        "UNIQUE_Activity_Sumo_NormalAtkUp_Avatar_Heal_CD":
+        {
+          "stacking": "Unique",
+          "isUnique": true,
+          "duration": "%CDTime",
+          "onAdded": 
+          [
+            {
+              "$type": "SetGlobalValue",
+              "key": "_LevelEntity_Sumo_NormalAtkUp_CD",
+              "value": -1,
+            },
+          ],
+          "onRemoved": 
+          [
+            {
+              "$type": "SetGlobalValue",
+              "key": "_LevelEntity_Sumo_NormalAtkUp_CD",
+              "value": 0,
+            },
+          ],
+        },
+        "UNIQUE_Activity_Sumo_NormalAtkUp_Avatar_Heal":
+        {
+          "isUnique":true,
+          "stacking":"Unique",
+          "duration":0.1,
+          "onAdded":
+          [
+            {
+              "$type":"HealHP",
+              "target":"CurLocalAvatar",//暂时设定为只给自己回
+              "amountByCasterMaxHPRatio":"%HealMaxHpRatio",
+              //amount是额外附加的数值
+            },
+            {
+              "$type": "DebugLog", 
+               "content": "##HealHP",
+            },
+          ]
+        }
+      },
+      "abilitySpecials":
+      {
+        "NormalAttack_Bufftime":25,
+        "Sumo_AtkSpeed":0.5,
+        "HealMaxHpRatio":0.1,
+        "CDTime":5,
+      },
+    }
+  },
+
+//2.重击tag
+//入场后的X秒内使用重击的体力消耗降低X%,重击伤害提升X%并获得霸体，使用双手剑的角色前摇缩短
+  {
+    "Default": 
+    {
+      "$type": "ConfigAbility",
+      "abilityName": "Activity_Sumo_ExtraAttack",
+      "onAdded": 
+      [
+        {
+          "$type": "AttachModifier",
+          "modifierName": "UNIQUE_Activity_Sumo_ExtraAttack_Avatar",
+          "target":"Self",         
+        },
+      ],
+      "modifiers":
+      {
+        "UNIQUE_Activity_Sumo_ExtraAttack_Avatar":
+        {
+          "isUnique":true,
+          "duration":"%ExtraAttack_Bufftime",
+          "properties": 
+          {
+             "Actor_EndureDelta": 0, //霸体
+          },
+          "modifierMixins":
+          [
+            {
+              "$type":"AttachToStateIDMixin",
+              "stateIDs": 
+              [
+                "ExtraAttack",
+                "ExtraAttack1",
+                "ExtraAttack2",
+                "ExtraAttack3",
+                "ExtraAttack_BS",
+                "ExtraAttack_Charge",
+                "Gandalfr_ExtraAttack",
+                "Katana_ExtraAttack"
+              ],
+              "modifierName" : "Stamina_ExtraAttack_Sumo_Sub",
+            },
+            {
+              "$type":"ModifyDamageMixin",
+              "damagePercentageRatio":"%Sumo_ExtraAttack_Damege",
+              "attackTags":["ExtraAttack"],
+            },
+          ],
+          "onAdded":
+          [
+            {
+              "$type": "AttachModifier",
+              "modifierName": "UNIQUE_Activity_Sumo_WeaponAtkSpeed",
+              "predicates":
+              [
+                {
+                  "$type": "ByHasFeatureTag",
+                  "featureTagIDs": 
+                  [
+                    1052
+                  ],
+                },
+              ],
+            }
+          ]
+        },
+
+        "UNIQUE_Activity_Sumo_WeaponAtkSpeed":
+        {
+          "isUnique":true,
+          "isLimitedProperties":true,
+          "properties": 
+          {
+            "Animator_AttackSpeedRatio": "%Sumo_Weapon_AtkSpeed",
+          },
+        },
+        "Stamina_ExtraAttack_Sumo_Sub":
+        {
+          "isLimitedProperties": true,
+          "onAdded":
+          [
+            {
+              "$type": "DebugLog", 
+              "content": "##reduce_CostStamina",
+            },
+          ],
+          "properties":
+          {
+            "Actor_CostStaminaRatio":"%CostStamina_Rate",
+          },         
+        }
+
+      },
+      "abilitySpecials":
+      {
+        "ExtraAttack_Bufftime":25,
+        "CostStamina_Rate":-0.5,
+        "Sumo_Weapon_AtkSpeed":0.5,
+        "Sumo_ExtraAttack_Damege":0.75,
+      },
+    }
+  },
+
+//3.下落攻击tag
+//入场后的X秒内队伍角色的跳跃能力大幅度提升，且下落攻击伤害提升X%
+  {
+    "Default": 
+    {
+      "$type": "ConfigAbility",
+      "abilityName": "Activity_Sumo_FallingDamage",
+      "onAdded": 
+      [
+        {
+          "$type": "AttachModifier",
+          "modifierName": "UNIQUE_Activity_Sumo_FallingDamage_Avatar",
+          "target":"Self",         
+        },
+      ],
+      "modifiers":
+      {
+        "UNIQUE_Activity_Sumo_FallingDamage_Avatar":
+        {
+          "isUnique":true,
+          "duration":"%FallingDamage_Bufftime",
+          "modifierMixins":
+          [
+            {
+              "$type": "ModifyDamageMixin", //伤害调整
+              "attackTags": ["FallingAttack"],  
+              "damagePercentageRatio":"%Sumo_FallingDamageUp",       
+            }
+          ],
+          "onAvatarIn":
+          [
+            //开启超级跳
+            {
+              "$type": "EnableRocketJump",
+              "canBeHandledOnRecover": true,
+              "type": "DungeonJump", 
+              "enable": true,
+              "extention":
+              {
+                "xzMultiplier": 2,//xz平面速度乘子
+                "yMultiplier": 3.0,//y轴跳跃速度乘子
+              }
+            },
+          ],
+          "onAdded":
+          [
+            //开启超级跳
+            {
+              "$type": "EnableRocketJump",
+              "canBeHandledOnRecover": true,
+              "type": "DungeonJump", 
+              "enable": true,
+              "extention":
+              {
+                "xzMultiplier": 2,//xz平面速度乘子
+                "yMultiplier": 3.0,//y轴跳跃速度乘子
+              }
+            },
+          ],
+          "onRemoved":
+          [
+            //关闭超级跳
+            {
+              "$type": "EnableRocketJump",
+              "type": "DungeonJump",
+              "target":"CurTeamAvatars",
+              "doOffStage":true,
+              "enable": false,
+            },
+          ]
+        },
+      },
+      "abilitySpecials":
+      {
+        "FallingDamage_Bufftime":25,
+        "Sumo_FallingDamageUp":1,
+      },
+    }
+  },
+
+//4.入场后的X秒内角色的元素战技命中后，获得大量元素能量,（内置CD X秒？）
+{
+  "Default": 
+  {                
+    "$type": "ConfigAbility",
+    "abilityName": "Activity_Sumo_GenerateBall_AfterElementalArt",
+    "isDynamicAbility":true,
+    "onAdded": 
+    [
+      {
+        "$type": "AttachModifier",
+        "modifierName": "UNIQUE_Sumo_GenerateBall_AfterElementalArt_Handler",
+      },
+      {
+        "$type": "SetGlobalValue",
+        "target": "Team",
+        "key": "Sumo_GenerateBall_CD",
+        "value": 0,
+      },
+    ],
+    "modifiers": 
+    {
+      "UNIQUE_Sumo_GenerateBall_AfterElementalArt_Handler":
+      {     
+        "isUnique":true,
+        "duration":25,
+        "onAttackLanded":
+        [
+            {
+              "$type":"Predicated",
+              "target":"Other", 
+              //"doOffStage": true,
+              "targetPredicates":
+              [
+                {
+                  "$type":"ByAttackTags",
+                  "attackTags":["Elemental_Art","Elemental_Art_Hold","Elemental_Art_Extra"],
+                },
+                {
+                  "$type": "ByTargetGlobalValue",
+                  "key": "Sumo_GenerateBall_CD",
+                  "target": "Team",
+                  "value": 0,
+                  "compareType": "NoneOrEqual",
+                },
+              ],
+              "successActions":
+              [
+                {
+                  "$type": "ApplyModifier",
+                  "modifierName": "UNIQUE_Sumo_GenerateBall_ElementalArt",
+                  "doOffStage":true,
+                },
+                {
+                  "$type": "ApplyModifier",
+                  "modifierName": "UNIQUE_Sumo_GenerateBall_CD",
+                  "target": "Team",
+                },
+              ]
+            }
+        ]
+      },
+
+      "UNIQUE_Sumo_GenerateBall_ElementalArt": //产能量球
+      {
+        "isUnique":true,
+        "stacking": "Unique",
+        "duration":8,
+        "onAdded":
+        [
+          {
+            "$type": "GenerateElemBall",
+            "doOffStage":true,
+            "configID": 2024,
+            "baseEnergy":24,
+            "ratio": 1,
+            "born":
+            {
+              "$type": "ConfigBornByTarget",
+              "offset" :
+              {
+                "x": 0.0,
+                "y": 0.0,
+                "z": -1,
+              },
+              "bornRandom" :
+              {
+                "$type": "BornRandomFromCenter",
+                "minRandomRange":1,
+                "maxRandomRange":2,
+              },
+            },
+          },
+          {
+            "$type":"FireEffect",
+            "effectPattern":"Eff_Weapon_ExtraElementBall",
+            "target":"Self"
+          },
+        ]
+      },
+      "UNIQUE_Sumo_GenerateBall_CD": 
+      {
+        "isUnique": true,
+        "duration": "%Sumo_GenerateBall_CD",
+        "onAdded": [
+          {
+            "$type": "SetGlobalValue",
+            "key": "Sumo_GenerateBall_CD",
+            "value": -1,
+          },
+        ],
+        "onRemoved": 
+        [
+          {
+            "$type": "SetGlobalValue",
+            "key": "Sumo_GenerateBall_CD",
+            "value": 0,
+          },
+        ],
+      },      
+    },
+    "abilitySpecials":
+    {
+      "Sumo_GenerateBall_CD":8,
+    }
+  },  
+},
+
+//5.元素爆发造成的伤害提升X%,冷却缩减提升
+  {
+    "Default": 
+    {
+      "$type": "ConfigAbility",
+      "abilityName": "Activity_Sumo_Elemental_Burst",
+      "onAdded": 
+      [
+        {
+          "$type": "AttachModifier",
+          "modifierName": "UNIQUE_Activity_Sumo_BurstDamageUp_Avatar",
+          "target":"Self",         
+        },
+      ],
+      "modifiers":
+      {
+        "UNIQUE_Activity_Sumo_BurstDamageUp_Avatar":
+        {
+          "isUnique":true,
+          "duration":25,
+          "isLimitedProperties": true,
+          "properties": 
+          {
+            "Actor_SkillCDMinusRatio": "%Actor_SkillCDMinusRatio",
+          },
+          "modifierMixins":
+          [
+            {
+              "$type":"ModifyDamageMixin",
+              "damagePercentageRatio":"%Sumo_ElementalRate",
+              "attackTags":["Elemental_Burst"],
+            },
+          ],
+        },
+
+      },
+      "abilitySpecials":
+      {
+        "Sumo_ElementalRate":1.5,
+        "Actor_SkillCDMinusRatio":0.3,
+      },
+    }
+  },
+//6.敌人攻击处于护盾状态下的角色会被反噬，释放冲击波造成范围伤害，每X秒只能触发一次
+  {
+    "Default": 
+    {
+      "$type": "ConfigAbility",
+      "abilityName": "Activity_Sumo_ShieldBeingHitDoAttack",
+      "isDynamicAbility": true,
+      "onAdded": 
+      [
+        {
+          "$type": "AttachModifier",
+          "modifierName": "UNIQUE_Sumo_ShieldBeingHitDoAttack_HasBuff",
+        },
+        {
+          "$type": "SetSystemValueToOverrideMap",
+          "key": "LevelEntity_SystemValue",
+          "type": "ElementLevelCo",
+        },
+        {
+          "$type": "SetGlobalValue",
+          "key": "Sumo_Shield_Damage_CD",
+          "value": 0,
+        },
+      ],
+      "modifiers": 
+      {
+        "UNIQUE_Sumo_ShieldBeingHitDoAttack_HasBuff":
+        {
+          "isUnique": true,
+          "duration":25,
+          "onBeingHit": 
+          [
+            {
+              "$type": "Predicated",
+              "target": "Other",
+              "targetPredicates":
+              [
+                {
+                  "$type": "ByEntityTypes",
+                  "entityTypes": [ "Monster", "Gadget", "Bullet" ],
+                },
+                {
+                  "$type": "ByTargetGlobalValue",
+                  "key": "Sumo_Shield_Damage_CD",
+                  "target": "Team",
+                  "value": 0,
+                  "compareType": "NoneOrEqual",
+                },
+              ],
+              "successActions": 
+              [
+                {
+                  "$type": "Predicated",
+                  "target": "Self",
+                  "targetPredicates": 
+                  [
+                    {
+                      "$type": "ByHasShield",
+                      "type": "All",
+                    },
+                  ],
+                  "successActions":
+                  [
+                    {
+                    "$type": "FireEffect",
+                    "target": "Caster",
+                    "effectPattern": "Eff_Stages_GainWave_01",
+                    "born": 
+                      {
+                        "$type": "ConfigBornByTarget",
+                      },
+                    },
+                    {
+                      "$type": "TriggerAttackEvent",
+                      "target": "Caster",
+                      "targetType": "Enemy",
+                      "attackEvent": 
+                      {
+                        "attackPattern": 
+                        {          
+                          "$type": "ConfigAttackSphere",
+                          "triggerType": "TriggerNoRepeat",
+                          "radius": 4,
+                          "born": 
+                          {
+                            "$type": "ConfigBornBySelf",
+                          },
+                        },
+                        "attackInfo": 
+                        {
+                          "attackProperty": 
+                          {
+                            "damageExtra": "%Sumo_Shield_Damage*%LevelEntity_SystemValue",
+                            "trueDamage":true,
+                            "ignoreAttackerProperty": true,
+                            "elementDurability": 0,
+                            "strikeType": "Default",
+                            "enBreak": 0,
+                          },
+                          "hitPattern": 
+                          {
+                            "onHitEffectName": "",
+                            "hitImpulseType": "LV2", 
+                            "reboundRatio": 0,
+                            "hitHaltTime": 0.0,
+                            "hitHaltTimeScale": 0.05,
+                            "muteHitText": false,
+                          },
+                          "forceCameraShake": false,
+                          "cameraShake": {
+                          },
+                        },
+                      },
+                    },
+                    {
+                      "$type": "ApplyModifier",
+                      "modifierName": "UNIQUE_Sumo_ShieldBeingHitDoAttack_CD",
+                      "target": "Team",
+                    },
+                  ]
+                },
+
+              ],
+            },
+          ],
+        },
+        "UNIQUE_Sumo_ShieldBeingHitDoAttack_CD": 
+        {
+          "isUnique": true,
+          "duration": "%Sumo_Shield_Damage_CD",
+          "onAdded": [
+            {
+              "$type": "SetGlobalValue",
+              "key": "Sumo_Shield_Damage_CD",
+              "value": -1,
+            },
+          ],
+          "onRemoved": 
+          [
+            {
+              "$type": "SetGlobalValue",
+              "key": "Sumo_Shield_Damage_CD",
+              "value": 0,
+            },
+          ],
+        },
+
+      },
+      "abilitySpecials": {
+        "Sumo_Shield_Damage": 15,
+        "Sumo_Shield_Damage_CD": 2,
+        "LevelEntity_SystemValue": 0,
+      },
+    },
+  }, 
+//7.以每秒损失最大生命值1%为代价，每次受到治疗效果时，在周围X米选择5个目标降下落雷，伤害系数X，CDX秒
+{
+  "Default": 
+  {                
+    "$type": "ConfigAbility",
+    "abilityName": "Activity_Sumo_TriggerAoe_AfterHealUp",
+    "isDynamicAbility":true,
+    "onAdded": 
+    [
+      {
+        "$type": "AttachModifier",
+        "modifierName": "UNIQUE_Sumo_TriggerAoe_AfterHealUp_Handler_Team",
+        "target":"Team",
+      },
+      {
+        "$type": "SetSystemValueToOverrideMap",
+        "key": "DamageSystemValue",
+        "type": "ElementLevelCo",
+      },
+      {
+        "$type": "SetGlobalValue",
+        "key": "_LevelEntity_Sumo_TriggerAoe_AfterHealUp_CD",
+        "target":"Team",
+        "value": 0,
+      },
+    ],
+    "modifiers": 
+    {
+      "UNIQUE_Sumo_TriggerAoe_AfterHealUp_Handler_Team":
+      {
+        "isUnique":true,
+        "stacking":"Unique",
+        "duration":25,
+        "modifierMixins":
+        [
+            {
+              "$type": "CurLocalAvatarMixin",
+              "modifierName": "UNIQUE_Sumo_TriggerAoe_AfterHealUp_Handler",
+            },
+        ]
+      },
+      "UNIQUE_Sumo_TriggerAoe_AfterHealUp_Handler": 
+      {
+        "isUnique":true,
+        //血量上升时候触发
+        "modifierMixins":
+        [
+          {
+            "$type": "DoActionByEventMixin",
+            "onEvent": "HPUp",
+            "actions":
+            [
+              {
+                "$type": "Predicated",
+                "target": "Team",
+                "targetPredicates": 
+                [
+                  {
+                    "$type": "ByTargetGlobalValue",
+                    "key": "_LevelEntity_Sumo_TriggerAoe_AfterHealUp_CD",
+                    "value": 0,
+                    "compareType": "NoneOrEqual",
+                  },
+
+                ],
+                  "successActions": 
+                  [
+                    {
+                      "$type": "ApplyModifier",
+                      "target": "Self",
+                      "modifierName": "UNIQUE_Sumo_TriggerAoe_AfterHealUp_Effect",                
+                    },
+                    //计算CD
+                    {
+                      "$type": "ApplyModifier",
+                      "modifierName": "UNIQUE_Sumo_TriggerAoe_AfterHealUp_CD",
+                      "target":"Team",
+                    },
+                  ],
+                },
+            ],
+          }
+        ],
+        "thinkInterval":1,
+        "onThinkInterval":
+        [
+          {
+            "$type": "LoseHP",
+            "target": "Self",
+            "amountByTargetMaxHPRatio": 0.01,
+            "lethal": false,
+          },
+        ]
+      },
+
+      "UNIQUE_Sumo_TriggerAoe_AfterHealUp_CD":
+      {
+        "stacking": "Unique",
+        "isUnique": true,
+        "duration": "%Sumo_HealUp_CD",
+        "onAdded": 
+        [
+          {
+            "$type": "SetGlobalValue",
+            "key": "_LevelEntity_Sumo_TriggerAoe_AfterHealUp_CD",
+            "value": -1,
+          },
+        ],
+        "onRemoved": 
+        [
+          {
+            "$type": "SetGlobalValue",
+            "key": "_LevelEntity_Sumo_TriggerAoe_AfterHealUp_CD",
+            "value": 0,
+          },
+        ],
+      },
+      "UNIQUE_Sumo_TriggerAoe_AfterHealUp_Effect":
+      {
+        "isUnique":true,
+        "duration":0.1,
+        //在角色周围选取怪物造成AOE伤害
+        "onAdded":
+        [
+          //随机在周围找怪
+          {
+            "$type": "ApplyModifier",
+            "modifierName": "UNIQUE_Sumo_TriggerAoe_AfterHealUp_Effect_Monster",
+            "doOffStage":true,
+            "otherTargets": 
+              {
+                "$type": "SelectTargetsByShape",
+                "shapeName": "CircleR12",
+                "centerBasedOn": "Self",
+                "campTargetType": "Enemy",
+                "campBasedOn": "Self",
+                "sortType": "Random",
+                "topLimit": 5,
+                "predicates":
+                [
+                  {
+                    "$type":"ByEntityTypes",
+                    "entityTypes":["Monster"],
+                  },
+                ],
+              },
+          },
+        ]
+      },
+        "UNIQUE_Sumo_TriggerAoe_AfterHealUp_Effect_Monster":
+        {
+          "isUnique":true,
+          "duration":0.1,
+          "onAdded":
+          [
+              {
+                "$type": "FireEffect",
+                "target": "Self",
+                "born":
+                {
+                  "$type": "ConfigBornByTarget",
+                },
+                "effectPattern": "Eff_SceneObj_RaioTrunk_01_ThunderFall",
+              },
+              {
+                "$type": "DamageByAttackValue",
+                "target": "Self",
+                "attackInfo":
+                {
+                  "attackProperty":
+                  {
+                    "damageExtra":"%Sumo_HealUp_Damage*%DamageSystemValue",
+                    "ignoreAttackerProperty": true,
+                    "ignoreModifyDamage":true,
+                    "trueDamage":true,
+                    "elementType": "Electric",
+                    "elementDurability": 15,
+                    "enBreak": 0,
+                  },
+                  "hitPattern":
+                  {
+                    "onHitEffectName": "default",
+                    "hitImpulseType":"Default",
+                    "reboundRatio": 0,
+                    "hitHaltTime": 0.0,
+                    "hitHaltTimeScale": 0.01,
+                    "muteHitText": false,
+                  },
+                },
+              },         
+          ]
+        },
+    },
+    "abilitySpecials":
+    {
+      "Sumo_HealUp_Damage":15,
+      "Sumo_HealUp_CD":2,
+    }
+  },  
+},
+//8.15秒内热情值的获取效率提升X%
+  {
+    "Default": 
+    {
+      "$type": "ConfigAbility",
+      "abilityName": "Activity_Sumo_Fever_Faster",
+      "onAdded": 
+      [
+        {
+          "$type": "AttachModifier",
+          "modifierName": "UNIQUE_Activity_Sumo_Fever_Faster",
+          "target":"Self",         
+        },
+      ],
+      "modifiers":
+      {
+        "UNIQUE_Activity_Sumo_Fever_Faster":
+        {
+          "isUnique":true,
+          "duration":25,
+          "onAdded":
+          [
+            {
+              "$type": "ServerLuaCall",
+              "luaCallType": "CurGalleryControlGroup",
+              "funcName": "SLC_Update_Fever_Ratio",
+              "paramNum": 1,
+              //"CallParamList":1,
+              //这个参数是LuaCallType里面是SpecificGroup的时候，用来定位特定groupid 用的
+              //其他时候不用
+              "param1":2,
+            },
+          ],
+          "onRemoved":
+          [
+            {
+              "$type": "ServerLuaCall",
+              "luaCallType": "CurGalleryControlGroup",
+              "funcName": "SLC_Update_Fever_Ratio",
+              "paramNum": 1,
+              //"CallParamList":1,
+              "param1":1,
+            },
+          ]
+        },
+
+      },
+      "abilitySpecials":
+      {
+      },
+    }
+  },
+
+//9.入场后的X秒内队内角色的元素精通提升X%
+  {
+    "Default": 
+    {
+      "$type": "ConfigAbility",
+      "abilityName": "Activity_Sumo_ElemMasteryDelta",
+      "isDynamicAbility": true,
+      "onAdded": 
+      [
+        {
+          "$type": "AttachModifier",
+          "modifierName": "UNIQUE_Sumo_ElemMasteryDelta",
+          "target": "Self",
+        },
+      ],
+      "modifiers": 
+      {
+        "UNIQUE_Sumo_ElemMasteryDelta": 
+        {
+          "isLimitedProperties": true,
+          "stacking": "Unique",
+          "isUnique": true,
+          "duration":"%Time",
+          "properties": 
+          {
+            "Actor_ElemMasteryDelta": "%Sumo_ElemMasteryDelta",
+          },
+        },
+      },
+      "abilitySpecials": 
+      {
+        "Sumo_ElemMasteryDelta": 250,
+        "Time":25,
+      },
+    },
+  },
+
+//10.入场后的X秒内队内角色的火元素伤害提升X%
+  {
+    "Default": 
+    {
+      "$type": "ConfigAbility",
+      "abilityName": "Activity_Sumo_ElementAddHurt_Fire",
+      "isDynamicAbility": true,
+      "onAdded": 
+      [
+        {
+          "$type": "AttachModifier",
+          "modifierName": "UNIQUE_Sumo_ElementAddHurt_Fire",
+          "target": "Self",
+        },
+      ],
+      "modifiers": 
+      {
+        "UNIQUE_Sumo_ElementAddHurt_Fire": 
+        {
+          "isLimitedProperties": true,
+          "stacking": "Unique",
+          "isUnique": true,
+          "duration":"%Time",
+          "properties": 
+          {
+            "Actor_FireAddHurtDelta": "%Sumo_ElementAddHurt_Fire",
+          },
+        },
+      },
+      "abilitySpecials": 
+      {
+        "Sumo_ElementAddHurt_Fire": 1,
+        "Time":25,
+      },
+    },
+  }, 
+//11.入场后的X秒内队内角色的冰元素伤害提升X%
+  {
+    "Default": 
+    {
+      "$type": "ConfigAbility",
+      "abilityName": "Activity_Sumo_ElementAddHurt_Ice",
+      "isDynamicAbility": true,
+      "onAdded": 
+      [
+        {
+          "$type": "AttachModifier",
+          "modifierName": "UNIQUE_Sumo_ElementAddHurt_Ice",
+          "target": "Self",
+        },
+      ],
+      "modifiers": 
+      {
+        "UNIQUE_Sumo_ElementAddHurt_Ice": 
+        {
+          "isLimitedProperties": true,
+          "stacking": "Unique",
+          "isUnique": true,
+          "duration":"%Time",
+          "properties": 
+          {
+            "Actor_IceAddHurtDelta": "%Sumo_ElementAddHurt_Ice",
+          },
+        },
+      },
+      "abilitySpecials": 
+      {
+        "Sumo_ElementAddHurt_Ice": 1,
+        "Time":25,
+      },
+    },
+  },
+//12.入场后的X秒内队内角色的雷元素伤害提升X%
+  {
+    "Default": 
+    {
+      "$type": "ConfigAbility",
+      "abilityName": "Activity_Sumo_ElementAddHurt_Elec",
+      "isDynamicAbility": true,
+      "onAdded": 
+      [
+        {
+          "$type": "AttachModifier",
+          "modifierName": "UNIQUE_Sumo_ElementAddHurt_Elec",
+          "target": "Self",
+        },
+      ],
+      "modifiers": 
+      {
+        "UNIQUE_Sumo_ElementAddHurt_Elec": 
+        {
+          "isLimitedProperties": true,
+          "stacking": "Unique",
+          "isUnique": true,
+          "duration":"%Time",
+          "properties": 
+          {
+            "Actor_ElecAddHurtDelta": "%Sumo_ElementAddHurt_Elec",
+          },
+        },
+      },
+      "abilitySpecials": 
+      {
+        "Sumo_ElementAddHurt_Elec": 1,
+        "Time":25,
+      },
+    },
+  },
+//13.入场后的X秒内队内角色的岩元素伤害提升X%
+  {
+    "Default": 
+    {
+      "$type": "ConfigAbility",
+      "abilityName": "Activity_Sumo_ElementAddHurt_Rock",
+      "isDynamicAbility": true,
+      "onAdded": 
+      [
+        {
+          "$type": "AttachModifier",
+          "modifierName": "UNIQUE_Sumo_ElementAddHurt_Rock",
+          "target": "Self",
+        },
+      ],
+      "modifiers": 
+      {
+        "UNIQUE_Sumo_ElementAddHurt_Rock": 
+        {
+          "isLimitedProperties": true,
+          "stacking": "Unique",
+          "isUnique": true,
+          "duration":"%Time",
+          "properties": 
+          {
+            "Actor_RockAddHurtDelta": "%Sumo_ElementAddHurt_Rock",
+          },
+        },
+      },
+      "abilitySpecials": 
+      {
+        "Sumo_ElementAddHurt_Rock": 1,
+        "Time":25,
+      },
+    },
+  },
+//14.入场后的X秒内队内角色的水元素伤害提升X%
+  {
+    "Default": 
+    {
+      "$type": "ConfigAbility",
+      "abilityName": "Activity_Sumo_ElementAddHurt_Water",
+      "isDynamicAbility": true,
+      "onAdded": 
+      [
+        {
+          "$type": "AttachModifier",
+          "modifierName": "UNIQUE_Sumo_ElementAddHurt_Water",
+          "target": "Self",
+        },
+      ],
+      "modifiers": 
+      {
+        "UNIQUE_Sumo_ElementAddHurt_Water": 
+        {
+          "isLimitedProperties": true,
+          "stacking": "Unique",
+          "isUnique": true,
+          "duration":"%Time",
+          "properties": 
+          {
+            "Actor_WaterAddHurtDelta": "%Sumo_ElementAddHurt_Water",
+          },
+        },
+      },
+      "abilitySpecials": 
+      {
+        "Sumo_ElementAddHurt_Water": 1,
+        "Time":25,
+      },
+    },
+  },
+//15.入场后的X秒内队内角色的风元素伤害提升X%
+  {
+    "Default": 
+    {
+      "$type": "ConfigAbility",
+      "abilityName": "Activity_Sumo_ElementAddHurt_Wind",
+      "isDynamicAbility": true,
+      "onAdded": 
+      [
+        {
+          "$type": "AttachModifier",
+          "modifierName": "UNIQUE_Sumo_ElementAddHurt_Wind",
+          "target": "Self",
+        },
+      ],
+      "modifiers": 
+      {
+        "UNIQUE_Sumo_ElementAddHurt_Wind": 
+        {
+          "isLimitedProperties": true,
+          "stacking": "Unique",
+          "isUnique": true,
+          "duration":"%Time",
+          "properties": 
+          {
+            "Actor_WindAddHurtDelta": "%Sumo_ElementAddHurt_Wind",
+          },
+        },
+      },
+      "abilitySpecials": 
+      {
+        "Sumo_ElementAddHurt_Wind": 1,
+        "Time":25,
+      },
+    },
+  },
+//16.入场后的X秒内队内角色的物理伤害提升X%
+  {
+    "Default": 
+    {
+      "$type": "ConfigAbility",
+      "abilityName": "Activity_Sumo_PhysicalAddHurt",
+      "isDynamicAbility": true,
+      "onAdded": 
+      [
+        {
+          "$type": "AttachModifier",
+          "modifierName": "UNIQUE_Sumo_PhysicalAddHurt",
+          "target": "Self",
+        },
+      ],
+      "modifiers": 
+      {
+        "UNIQUE_Sumo_PhysicalAddHurt": 
+        {
+          "isLimitedProperties": true,
+          "stacking": "Unique",
+          "isUnique": true,
+          "duration":"%Time",
+          "properties": 
+          {
+            "Actor_PhysicalAddHurtDelta": "%Sumo_PhysicalAddHurtDelta",
+          },
+        },
+      },
+      "abilitySpecials": 
+      {
+        "Sumo_PhysicalAddHurtDelta": 1,
+        "Time":25,
+      },
+    },
+  },
+//17.入场后的X秒内队内角色的暴击伤害提升X%
+  {
+    "Default": 
+    {
+      "$type": "ConfigAbility",
+      "abilityName": "Activity_Sumo_CriticalHurtDelta",
+      "isDynamicAbility": true,
+      "onAdded": 
+      [
+        {
+          "$type": "AttachModifier",
+          "modifierName": "UNIQUE_Sumo_CriticalHurtDelta",
+          "target": "Self",
+        },
+      ],
+      "modifiers": 
+      {
+        "UNIQUE_Sumo_CriticalHurtDelta": 
+        {
+          "isLimitedProperties": true,
+          "stacking": "Unique",
+          "isUnique": true,
+          "duration":"%Time",
+          "properties": 
+          {
+            "Actor_CriticalHurtDelta": "%Sumo_CriticalHurtDelta",
+          },
+        },
+      },
+      "abilitySpecials": 
+      {
+        "Sumo_CriticalHurtDelta": 1,
+        "Time":25,
+      },
+    },
+  },
+//18.入场后的X秒内队内角色的攻击力提升X%
+  {
+    "Default": 
+    {
+      "$type": "ConfigAbility",
+      "abilityName": "Activity_Sumo_AtkUp",
+      "isDynamicAbility": true,
+      "onAdded": 
+      [
+        {
+          "$type": "AttachModifier",
+          "modifierName": "UNIQUE_Sumo_AtkUp",
+          "target": "Self",
+        },
+      ],
+      "modifiers": 
+      {
+        "UNIQUE_Sumo_AtkUp": 
+        {
+          "isLimitedProperties": true,
+          "stacking": "Unique",
+          "isUnique": true,
+          "duration":"%Time",
+          "properties": 
+          {
+            "Actor_AttackRatio": "%Sumo_AtkUp",
+          },
+        },
+      },
+      "abilitySpecials": 
+      {
+        "Sumo_AtkUp": 1,
+        "Time":25,
+      },
+    },
+  },
+
+
+
+
+//长时间不切队惩罚：入场20秒后造成的伤害降低50%
+
+{
+  "Default": 
+  {                
+    "$type": "ConfigAbility",
+    "abilityName": "Activity_Sumo_DamageDown",
+    "isDynamicAbility":true,
+    "onAdded": 
+    [
+      // {
+      //   "$type": "AttachModifier",
+      //   "modifierName": "UNIQUE_Activity_Sumo_DamageDown_Handler",
+      //   "target":"Team",
+      // },
+      // {
+      //   "$type": "SetGlobalValue",
+      //   "key": "NOSWITCH_PUNISHMENT", 
+      //   "value": 0,
+      //   "target": "Team",        
+      // }
+    ],
+
+    "modifiers": 
+    {
+      "UNIQUE_Activity_Sumo_DamageDown_Handler":
+      {
+        "isUnique":true,
+        "modifierMixins":
+        [
+          {
+            "$type": "ServerUpdateGlobalValueMixin",
+            "key": "NOSWITCH_PUNISHMENT",
+            "useLimitRange": true,
+            "minValue": 0,
+            "maxValue": 1,
+          },            
+          {
+            "$type": "AttachModifierToSelfGlobalValueMixin",
+            "globalValueKey": "NOSWITCH_PUNISHMENT",
+            "valueSteps" : [-0.5,0.5,1.5],
+            "removeAppliedModifier":true,
+            "modifierNameSteps" : 
+            [
+              "Blank_DamageDown",
+              "UNIQUE_Activity_Sumo_DamageDown_Effect_Team",
+            ],              
+          }
+        ]
+
+      },
+      "Blank_DamageDown":{},
+      "UNIQUE_Activity_Sumo_DamageDown_Effect_Team":
+      {
+        "isUnique":true,
+        "onAdded":
+        [
+          {
+            "$type": "AttachModifier",
+            "modifierName": "UNIQUE_Activity_Sumo_DamageDown_Effect_Avatar",
+            "target": "CurTeamAvatars",
+          },
+        ] 
+      },
+      "UNIQUE_Activity_Sumo_DamageDown_Effect_Avatar": 
+      {
+          "isLimitedProperties": true,
+          "stacking": "Unique",
+          "isUnique": true,
+          "properties": 
+          {
+            "Actor_AddHurtDelta": "%Sumo_DamageDown",
+          },
+      }
+    },
+    "abilitySpecials":
+    {
+      "Sumo_DamageDown":-0.9,
+    },
+  },  
+},
+
+//不用的方案
+ //{
+ //  "Default": 
+ //  {
+ //    "$type": "ConfigAbility",
+ //    "abilityName": "Activity_Sumo_Fever",
+ //    "onAdded": 
+ //    [
+ //      //监听fever_level
+ //      {
+ //        "$type": "ApplyModifier",
+ //        "modifierName": "UNIQUE_Activity_Sumo_Fever_Handler_Team",
+ //        "target":"Team",         
+ //      }, 
+ //    ],
+ //    "modifiers":
+ //    {
+ //      "UNIQUE_Activity_Sumo_Fever_Handler_Team":
+ //      {
+ //        "isUnique":true,
+ //        "stacking":"Unique",
+ //        "modifierMixins":
+ //        [
+ //          {
+ //            "$type": "ServerUpdateGlobalValueMixin",
+ //            "key": "FEVER_LEVEL",
+ //            "useLimitRange": true,
+ //            "minValue": 0,
+ //            "maxValue": 10,
+ //          },            
+
+ //          {
+ //            "$type": "AttachModifierToSelfGlobalValueMixin",
+ //            "globalValueKey": "FEVER_LEVEL",
+ //            "valueSteps" : [-0.5,0.5,1.5,2.5,3.5,4.5,5.5],
+ //            "removeAppliedModifier":true,
+ //            "modifierNameSteps" : 
+ //            [
+ //              "Blank",
+ //              "UNIQUE_ChangeTeam_Fever_Team_Lv1",
+ //              "UNIQUE_ChangeTeam_Fever_Team_Lv2",
+ //              "UNIQUE_ChangeTeam_Fever_Team_Lv3",
+ //              "UNIQUE_ChangeTeam_Fever_Team_Lv4",
+ //              "UNIQUE_ChangeTeam_Fever_Team_Lv5",
+ //            ],              
+ //          }
+ //        ]
+ //      },
+
+ //      "Blank":{},
+ //      "UNIQUE_ChangeTeam_Fever_Team_Lv1":
+ //      {
+ //        "isUnique":true,
+ //        "onAdded":
+ //        [
+ //          {
+ //            "$type": "AttachModifier",
+ //            "modifierName": "UNIQUE_ChangeTeam_Fever_Avatar_Lv1",
+ //            "target": "CurTeamAvatars",
+ //          },
+ //        ]          
+ //      },
+ //      "UNIQUE_ChangeTeam_Fever_Team_Lv2":
+ //      {
+ //        "isUnique":true,
+ //        "onAdded":
+ //        [
+ //          {
+ //            "$type": "AttachModifier",
+ //            "modifierName": "UNIQUE_ChangeTeam_Fever_Avatar_Lv2",
+ //            "target": "CurTeamAvatars",
+ //          },
+ //        ]          
+ //      },
+ //      "UNIQUE_ChangeTeam_Fever_Team_Lv3":
+ //      {
+ //        "isUnique":true,
+ //        "onAdded":
+ //        [
+ //          {
+ //            "$type": "AttachModifier",
+ //            "modifierName": "UNIQUE_ChangeTeam_Fever_Avatar_Lv3",
+ //            "target": "CurTeamAvatars",
+ //          },
+ //        ]          
+ //      },
+ //      "UNIQUE_ChangeTeam_Fever_Team_Lv4":
+ //      {
+ //        "isUnique":true,
+ //        "onAdded":
+ //        [
+ //          {
+ //            "$type": "AttachModifier",
+ //            "modifierName": "UNIQUE_ChangeTeam_Fever_Avatar_Lv4",
+ //            "target": "CurTeamAvatars",
+ //          },
+ //        ]          
+ //      },        
+ //      "UNIQUE_ChangeTeam_Fever_Team_Lv5":
+ //      {
+ //        "isUnique":true,
+ //        "onAdded":
+ //        [
+ //          {
+ //            "$type": "AttachModifier",
+ //            "modifierName": "UNIQUE_ChangeTeam_Fever_Avatar_Lv5",
+ //            "target": "CurTeamAvatars",
+ //          },
+ //        ]          
+ //      },
+ //      "UNIQUE_ChangeTeam_Fever_Avatar_Lv1":
+ //      {
+ //        "isUnique":true,
+ //        "onAdded":
+ //        [
+ //        ],
+ //        "state": "AttackUp",
+ //        "properties": 
+ //        {
+ //          "Actor_AttackRatio": "%Fever_Atk_Lv1",
+ //          "Actor_ChargeEfficiencyDelta":"%Fever_ChargeEfficiencyDelta_Lv1",
+ //        },          
+ //      },
+ //      "UNIQUE_ChangeTeam_Fever_Avatar_Lv2":
+ //      {
+ //        "isUnique":true,
+ //        "onAdded":
+ //        [
+ //        ],
+ //        "state": "AttackUp",
+ //        "properties": 
+ //        {
+ //          "Actor_AttackRatio": "%Fever_Atk_Lv2",
+ //          "Actor_ChargeEfficiencyDelta":"%Fever_ChargeEfficiencyDelta_Lv2",
+ //        },          
+ //      },
+ //      "UNIQUE_ChangeTeam_Fever_Avatar_Lv3":
+ //      {
+ //        "isUnique":true,
+ //        "onAdded":
+ //        [
+ //        ],
+ //        "state": "AttackUp",
+ //        "properties": 
+ //        {
+ //          "Actor_AttackRatio": "%Fever_Atk_Lv3",
+ //          "Actor_ChargeEfficiencyDelta":"%Fever_ChargeEfficiencyDelta_Lv3",
+ //        },          
+ //      },
+ //      "UNIQUE_ChangeTeam_Fever_Avatar_Lv4":
+ //      {
+ //        "isUnique":true,
+ //        "onAdded":
+ //        [
+ //        ],
+ //        "state": "AttackUp",
+ //        "properties": 
+ //        {
+ //          "Actor_AttackRatio": "%Fever_Atk_Lv4",
+ //          "Actor_ChargeEfficiencyDelta":"%Fever_ChargeEfficiencyDelta_Lv4",
+ //        },          
+ //      },
+ //      "UNIQUE_ChangeTeam_Fever_Avatar_Lv5":
+ //      {
+ //        "isUnique":true,
+ //        "onAdded":
+ //        [
+ //        ],
+ //        "state": "AttackUp",
+ //        "properties": 
+ //        {
+ //          "Actor_AttackRatio": "%Fever_Atk_Lv5",
+ //          "Actor_ChargeEfficiencyDelta":"%Fever_ChargeEfficiencyDelta_Lv5",
+ //        },          
+ //      },
+
+ //    },
+ //    "abilitySpecials":
+ //    {
+ //      "Fever_Atk_Lv1": 0.2,
+ //      "Fever_Atk_Lv2": 0.4,
+ //      "Fever_Atk_Lv3": 0.6,
+ //      "Fever_Atk_Lv4": 0.8,
+ //      "Fever_Atk_Lv5": 1,
+ //      "Fever_ChargeEfficiencyDelta_Lv1":0.2,
+ //      "Fever_ChargeEfficiencyDelta_Lv2":0.4,
+ //      "Fever_ChargeEfficiencyDelta_Lv3":0.6,
+ //      "Fever_ChargeEfficiencyDelta_Lv4":0.8,
+ //      "Fever_ChargeEfficiencyDelta_Lv5":1,
+ //    },
+
+ //    //测试代码，自己同步消息
+ //    "onAbilityStart":
+ //    [
+ //      {
+ //        "$type": "AddGlobalValue",
+ //        "key": "FEVER_LEVEL",
+ //        "value": 1,
+ //        "target": "Team",
+ //        "useLimitRange": true,
+ //        "maxValue": 5,
+ //        "minValue": 0,
+ //      },
+ //    ]
+ //  }
+ //},
+
+]
